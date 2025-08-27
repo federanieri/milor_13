@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+    
+    <!--  Ajax for Add To cart Product List Page -->
+    
+    <template id="sh_products_add_to_cart_inherit" inherit_id="website_sale.products_add_to_cart"  name="Add to Cart">
+      <xpath expr="//a[hasclass('a-submit')]" position="replace">
+      		<t t-if="len(product.product_variant_ids) == 1">
+        	   <button type="button" role="button" 
+                class="btn btn-secondary sh_add_cart"
+                 title="Shopping cart" t-att-data-product-product-id="product.product_variant_ids[0].id if product.product_variant_ids else '0'">
+                 <span class="fa fa-shopping-cart" role="img" aria-label="Shopping cart"></span></button>
+            </t>
+            <t t-if="len(product.product_variant_ids) &gt; 1">
+                <a href="#" role="button" class="btn btn-secondary a-submit" aria-label="Shopping cart" title="Shopping cart">
+                    <span class="fa fa-shopping-cart"/>
+                </a>
+            </t>
+      </xpath>
+    </template>
+    
+    <!--  Ajax for Add To cart Product Detail Page -->
+    <template id="sh_website_sale_product_inherit" inherit_id="website_sale.product"  name="Product">
+    	<xpath expr="//a[@id='add_to_cart']" position="replace">
+        	   <button type="button" role="button"
+                class="btn btn-primary btn-lg mt8 js_check_product sh_add_cart"
+                 title="Add to Cart" 
+                 >Add to Cart</button>
+              <a role="button" id="add_to_cart" class="d-none btn btn-primary btn-lg mt8 js_check_product a-submit" href="#">Add to Cart</a>    
+             
+      </xpath>
+    </template>
+    
+    <!--  Added Animate class in Cart -->
+    <template id="sh_website_sale_header_inherit" inherit_id="website_sale.header"  name="Header Shop My Cart Link">
+    	<xpath expr="//li[contains(@t-attf-class, 'o_wsale_my_cart')]" position="replace">
+    		<li t-attf-class="nav-item o_wsale_my_cart #{'' if website_sale_order and website_sale_order.cart_quantity else 'd-none'}">
+                <a href="/shop/cart" class="nav-link">
+                    <i class="fa fa-shopping-cart"></i>
+                    My Cart <sup t-attf-class="my_cart_quantity o_animate_blink badge badge-primary" t-esc="website_sale_order and website_sale_order.cart_quantity or ''" />
+                </a>
+            </li>
+      </xpath>
+    </template> 
+    
+    
+    
+	</data>
+</odoo>

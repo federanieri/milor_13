@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- <record id="main_brand" model="website.menu">
+            <field name="name">Brand</field>
+            <field name="url">/shop/brand</field>
+            <field name="group_ids" eval="[(4,ref('syd_b2b_retailers.group_retailers'))]"/>
+        </record> -->
+        
+        <record id="model_generate_groups" model="ir.actions.server">
+            <field name="name">Generate Brand Groups</field>
+            <field name="model_id" ref="common_connector_library.model_common_product_brand_ept"/>
+            <field name="binding_model_id" ref="common_connector_library.model_common_product_brand_ept"/>
+            <field name="state">code</field>
+            
+            <field name="code">action = record.generate_groups()</field>
+        </record>
+    </data>
+</odoo>

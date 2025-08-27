@@ -1,0 +1,44 @@
+<odoo>
+    <template id="report_simple_qvc_code_zpl_small_new">
+        ^XA
+        ^LH0,0
+
+        ^AA,20
+        ^FO<t t-esc="30+int((20-len(product.barcode))/2*10.0)"/>,40
+        ^BY1^BC,40,N
+        ^FD<t t-esc="product.barcode"/>^FS
+
+        ^AA,24
+        ^FO0,90
+        ^FB320,30,,C
+        ^FD<t t-esc="product.qvc_complete_code"/>^FS
+
+        ^XZ
+    </template>
+
+    <template id="report_product_picking_qvc_code_zpl_small_new">
+        <t t-foreach="docs" t-as="picking">
+            <t t-foreach="picking.move_lines" t-as="line">
+                <t t-if="not line.product_id.no_print_label">
+                    <t t-foreach="range(int(line.product_uom_qty))" t-as="l">
+                        <t t-call="eg_custom.report_simple_qvc_code_zpl_small_new">
+                            <t t-set="product" t-value="line.product_id"/>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <report
+            id="label_product_picking_qvc_code_zpl_small_new"
+            model="stock.picking"
+            string="Products QVC Code (ZPL, small)"
+            report_type="qweb-text"
+            name="eg_custom.report_product_picking_qvc_code_zpl_small_new"
+            file="eg_custom.report_product_picking_qvc_code_zpl_small_new"
+            print_report_name="'Products QVC Code - %s' % (object.name)"
+    />
+
+
+</odoo>

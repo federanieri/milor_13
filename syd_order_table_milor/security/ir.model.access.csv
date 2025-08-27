@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_order_table.template_forecast,order_table_template_forecast,model_order_table_template_forecast,base.group_user,1,1,1,1
+access_order_table_forecast_order,order_table_forecast_order,model_order_table_forecast_order,base.group_user,1,1,1,1
+access_order_table_forecast_order_line,order_table_forecast_order_line,model_order_table_forecast_order_line,base.group_user,1,1,1,1

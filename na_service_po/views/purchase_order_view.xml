@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright 2022 Nexapp S.r.l.
+  License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+ -->
+<odoo>
+    <record id="na_purchase_order_form_inherit" model="ir.ui.view">
+        <field name="name">na.purchase.order.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']/button[@name='action_view_invoice']" position="after">
+                <button class="oe_stat_button" name="action_view_child_po_ids"
+                            type="object" icon="fa-list" attrs="{'invisible': [('child_po_count', '=', 0)]}">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="child_po_count" widget="statinfo" nolabel="1" class="mr4"/>
+                        </span>
+                        <span class="o_stat_text">Child PO</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="na_view_rfq_order_milor_form_inherit" model="ir.ui.view">
+        <field name="name">na.view.rfq.order.milor.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="syd_custom.view_rfq_order_milor_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_po_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='service_po']" position="attributes">
+                <attribute name="attrs">{'invisible': [('name', '!=', 'New'), ('parent_po_id', '=',False)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='service_po']" position="after">
+                <label for="parent_po_id" attrs="{'invisible':[('service_po','=',False)]}"/>
+                <div class="o_row" attrs="{'invisible':[('service_po','=',False)]}">
+                    <field name="parent_po_id" attrs="{'readonly': [('name', '!=', 'New')]}"/>
+                    <button string="Reload" type="object"
+                            name="create_purchase_order_line_from_parent" class="oe_edit_only"
+                            attrs="{'invisible': ['|', '|', ('parent_po_id', '=', False), ('state', '!=', 'draft'), ('name', '=', 'New' )]}"/>
+                </div>
+            </xpath>
+            <xpath expr="//page[@name='child_po']" position="replace"/>
+        </field>
+    </record>
+</odoo>

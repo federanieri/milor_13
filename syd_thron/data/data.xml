@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+    	<record id="model_thron_get_image" model="ir.actions.server">
+            <field name="name">Ottieni immagini Thron</field>
+            <field name="model_id" ref="product.model_product_product"/>
+            <field name="binding_model_id" ref="product.model_product_product"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.get_thron_image()</field>
+        </record>
+        <record id="model_thron_clean_image" model="ir.actions.server">
+            <field name="name">Cancella e riottieni immagini Thron</field>
+            <field name="model_id" ref="product.model_product_product"/>
+            <field name="binding_model_id" ref="product.model_product_product"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.clean_get_thron_image()</field>
+        </record>
+    	<record id="model_thron_get_metadata" model="ir.actions.server">
+            <field name="name">Ottieni Metadata da Thron</field>
+            <field name="model_id" ref="product.model_product_product"/>
+            <field name="binding_model_id" ref="product.model_product_product"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.get_thron_content()</field>
+        </record>
+        <record id="thron_account" model="thron.account">
+            <field name="name">Thron Account </field>
+            <field name="thron_client_id">milorgroupdev</field>
+            <field name="thron_app_id">CS-C20V9V</field>
+            <field name="thron_secret_key">uVjz9TvERgsHSNgmD2Sh2T1hhPKHnLV3OPUH8y6bYqUpsI8TFB4U15T322JHuFQX</field>
+            <field name="thron_api_login">lucio.valent</field>
+            <field name="thron_api_password">SayDigital2</field>
+            <field name="thron_product_api_url">https://milorgroupdev-product.thron.com/api</field>
+            <field name="thron_xapi_url">https://milorgroupdev-view.thron.com</field>
+            <field name="thron_public_api_url">https://milorgroupdev-cdn.thron.com</field>
+            <field name="thron_public_api_key">ptjoao</field>
+            <field name="thron_api_version">v1</field>
+        </record>
+
+        <record id="ir_cron_sync_post_thron_product" model="ir.cron">
+            <field name="name">Thron: Create Product On Thron</field>
+            <field name="model_id" ref="product.model_product_product" />
+            <field name="state">code</field>
+            <field name="code">model._cron_sync_post_products(True)</field>
+            <field name="active" eval="True" />
+            <field name="user_id" ref="base.user_admin" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+        </record>
+
+        <record id="ir_cron_sync_get_thron_content" model="ir.cron">
+            <field name="name">Thron: Get Content</field>
+            <field name="model_id" ref="product.model_product_product" />
+            <field name="state">code</field>
+            <field name="code">model._cron_sync_get_content(True)</field>
+            <field name="active" eval="True" />
+            <field name="user_id" ref="base.user_admin" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+        </record>
+
+        <record id="ir_cron_generate_thron_token" model="ir.cron">
+            <field name="name">Thron: Generate Token</field>
+            <field name="model_id" ref="syd_thron.model_thron_account" />
+            <field name="state">code</field>
+            <field name="code">
+thron = env['thron.account'].search([], limit=1)
+thron.action_generate_token()
+            </field>
+            <field name="active" eval="True" />
+            <field name="user_id" ref="base.user_admin" />
+            <field name="interval_number">5</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+        </record>
+
+        <record id="ir_cron_sync_get_thron_product" model="ir.cron">
+            <field name="name">Thron: Update Product on Odoo</field>
+            <field name="model_id" ref="product.model_product_product" />
+            <field name="state">code</field>
+            <field name="code">model._cron_sync_get_products(True)</field>
+            <field name="active" eval="True" />
+            <field name="user_id" ref="base.user_admin" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+        </record>
+    </data>
+</odoo>

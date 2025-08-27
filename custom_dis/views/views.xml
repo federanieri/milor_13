@@ -1,0 +1,106 @@
+<odoo>
+  <data>
+      <record model="ir.ui.view" id="product_dis_meta_tree">
+      <field name="name">product.dis.meta.tree</field>
+      <field name="model">product.dis.meta</field>
+      <field name="arch" type="xml">
+        <tree >
+            <field name="milorcode"></field>
+            <field name="code"></field>
+            <field name="product_tmpl_id" ></field>
+            <field name="image_path"></field>
+            <field name="dis_type"></field>
+            <field name="dis_creation_date"></field>
+            <field name="dis_user"></field>
+            <field name="dis_material"></field>
+            <field name="imported"></field>
+            <field name="message"></field>
+        </tree>
+      </field>
+    </record>
+
+    <record id="model_import_dis" model="ir.actions.server">
+        <field name="name">Importa DIS</field>
+        <field name="model_id" ref="custom_dis.model_product_dis_meta"/>
+        <field name="binding_model_id" ref="custom_dis.model_product_dis_meta"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">records.dis_validate()</field>
+    </record>
+
+    <record id="model_import_dis_reset" model="ir.actions.server">
+        <field name="name">Resetta DIS</field>
+        <field name="model_id" ref="custom_dis.model_product_dis_meta"/>
+        <field name="binding_model_id" ref="custom_dis.model_product_dis_meta"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">records.dis_reset()</field>
+    </record>
+
+        <record id="view_dis_meta_search" model="ir.ui.view">
+            <field name="name">product.dis.meta.search</field>
+            <field name="model">product.dis.meta</field>
+            <field name="arch" type="xml">
+                <search string="DIS META">
+                    <field name="product_tmpl_id"/>
+                    <field name="code"/>
+                    <field name="milorcode"/>
+                  <separator/>
+                    <filter string="To import" name="to_import" domain="[('imported', '!=', 'True')]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="imported" name="groupby_imported" domain="[]" context="{'group_by':'imported'}"/>
+                        <filter string="Dis code" name="groupby_code" domain="[]" context="{'group_by':'code'}"/>
+                        <filter string="Milor code" name="groupby_milorcode" domain="[]" context="{'group_by':'milorcode'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+<!--         <record id="view_dis_search" model="ir.ui.view">
+            <field name="name">product.dis.search</field>
+            <field name="model">product.dis</field>
+            <field name="arch" type="xml">
+                <search string="DIS">
+                    <field name="product_tmpl_id"/>
+                    <field name="code"/>
+                </search>
+            </field>
+        </record> -->
+
+    <record model="ir.actions.act_window" id="product_dis_meta_act">
+      <field name="name">Dis Meta import</field>
+      <field name="res_model">product.dis.meta</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_dis_meta_search"/>
+    </record>        
+
+    <menuitem name="Dis Meta" id="product_dis_menu_meta" parent="sale.prod_config_main"
+              action="product_dis_meta_act"/>
+                  
+    </data>
+
+<!--        <record model="ir.ui.view" id="view_product_template_dis_form_custom">
+         <field name="name">product.template.custom_dis</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        
+        <field name="arch" type="xml">
+            <xpath expr="//template_dis_ids/tree/field[@name='product_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+         </field>
+     </record> -->
+
+    <record id="ir_cron_child_to_process_dis_meta" model="ir.cron">
+        <field name="name">Custom DIS Import: Import from dis meta not imported yet</field>
+        <field name="model_id" ref="model_product_dis_meta" />
+        <field name="state">code</field>
+        <field name="code">model.validate_all_dis_meta()</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">15</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">1</field>
+    </record>
+
+</odoo>

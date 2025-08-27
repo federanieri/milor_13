@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="website_custom_sorder_portal_template" name="My Sales Orders" inherit_id="sale.portal_my_orders">
+        <xpath expr="//t[@t-if='orders']/thead[1]/tr[1]/th[1]" position="after">
+        	<th>Delivery Status</th>
+        </xpath>
+    	<xpath expr="//t[@t-foreach='orders']/tr[1]/td[1]" position="after">
+			<td>
+				<t t-if="order.delivery_status == 'to_deliver'" t-set="color" t-value="'#2787ea'"/>
+				<t t-if="order.delivery_status == 'partial'" t-set="color" t-value="'#ff920b'"/>
+				<t t-if="order.delivery_status == 'delivered'" t-set="color" t-value="'#33b533'"/>
+				<span t-field="order.delivery_status" class="badge badge-pill" t-attf-style="font-weight: bold;color:white;background-color: #{color if color else ''};"/>
+			</td>
+        </xpath>
+    </template>
+</odoo>

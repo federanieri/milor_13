@@ -1,0 +1,25 @@
+.arial-text{
+    font-family: Arial;
+    font-size: 1rem;
+    color: gray;
+}
+.arial-black{
+    font-family: Arial;
+    color: black;
+}
+.align-center{
+    text-align:center;
+}
+.pt-0{
+    padding-top:0;
+    padding-bottom:0;
+}
+.cells{
+border:0;
+border-bottom: 2px solid #dddada;
+border-right:2rem solid white;
+}
+.tabla {
+   cellpadding: 10;
+   border: 1px solid black;
+}

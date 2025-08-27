@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright 2022 Nexapp S.r.l.
+  License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+ -->
+<odoo>
+    <data>
+        <record id="na_api_sync_config_form_view" model="ir.ui.view">
+            <field name="name">na.api.sync.config.form.view</field>
+            <field name="model">na.api.sync.config</field>
+            <field name="arch" type="xml">
+                <form string="Sync Form">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name" class="oe_inline"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="env_id"/>
+                            <field name="type"/>
+                            <field name="model_id"/>
+                            <field name="model_name" invisible="1"/>
+                            <field name="record_domain" widget="domain" options="{'model': 'model_name'}"/>
+                        </group>
+                        <group attrs="{'invisible': [('type', 'in', ('fc','import_feed', 'export_feed'))]}">
+                            <group string="Connect to external API" name="con_api" attrs="{'invisible': [('type', '=', 'exp')]}">
+                                <button name="%(na_api_sync_json_preview_wizard_view_action)d"
+                                        context="{'default_config_id': active_id,
+                                                  'api_model': model_id}"
+                                        type="action"
+                                        class="btn-primary"
+                                        string="JSON POST Preview"
+                                        colspan="2"
+                                />
+                                <field name="return_json"/>
+                                <field name="get_endpoint"/>
+                                <field name="post_endpoint"/>
+                            </group>
+                            <group string="Expose API from Odoo" name="exp_api" attrs="{'invisible': [('type', '=', 'con')]}">
+                                <button name="%(na_api_sync_manual_import_json_view_action)d"
+                                        context="{'default_config_id': active_id}"
+                                        type="action"
+                                        class="btn-primary"
+                                        string="Manual Import JSON"
+                                        colspan="2"
+                                />
+                                <field name="api_tag"/>
+                                <field name="api_actions_ids">
+                                    <tree string="API Actions Tree" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="action_id" options="{'no_create': True}"/>
+                                        <field name="model_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                        <group attrs="{'invisible': [('type', 'not in', ('import_feed', 'export_feed', 'fc'))]}">
+                            <group string="Data Feed" name="data_feed" attrs="{'invisible': [('type', 'not in', ('import_feed', 'export_feed'))]}">
+                                <field name="feed_data_exchange_mode"
+                                       attrs="{'required':[('type', '=', 'export_feed')]}"/>
+                                <field name="feed_url"
+                                       attrs="{'required':[('type', '=', 'import_feed'), ('feed_data_exchange_mode', '!=', 'ftp')],
+                                       'invisible':[('feed_data_exchange_mode', '=', 'ftp')]}"/>
+                                <field name="feed_format"
+                                       attrs="{'required':[('type', 'in', ('import_feed', 'export_feed'))]}"/>
+                                <field name="feed_file_path"
+                                       attrs="{'required':[('type', 'in', ('import_feed', 'export_feed'))]}"/>
+                                <field name="feed_file_async_get"/>
+                                <field name="feed_file_keep"/>
+                                <field name="feed_latest_dl_file" readonly="1"/>
+                            </group>
+                            <group string="FTP" name="ftp" attrs="{'invisible': [('feed_data_exchange_mode', '!=', 'ftp')]}">
+                                <field name="ftp_hostname"
+                                       attrs="{'required':[('feed_data_exchange_mode', '=', 'ftp')]}"/>
+                                <field name="ftp_username"
+                                       attrs="{'required':[('feed_data_exchange_mode', '=', 'ftp')]}"/>
+                                <field name="ftp_password"
+                                       attrs="{'required':[('feed_data_exchange_mode', '=', 'ftp')]}"/>
+                                <field name="ftp_folder"
+                                       attrs="{'required':[('feed_data_exchange_mode', '=', 'ftp')]}"/>
+                                <field name="feed_suffix"/>
+                            </group>
+                            <group name="file_name_xml_info"
+                                   attrs="{'invisible': ['|', ('type', 'not in', ('export_feed')), ('feed_data_exchange_mode', '!=', 'ftp')]}">
+                                <separator string="File Name" name="file_name"/>
+                                <field name="feed_file_name"/>
+                                <field name="feed_file_name_add_date"/>
+                                <field name="feed_file_name_date" placeholder="%Y-%m-%d"
+                                       attrs="{'invisible': [('feed_file_name_add_date', '=', False)]}"/>
+                            </group>
+                            <group string="XML Tags" name="xml_tags_title" attrs="{'invisible': [('feed_data_exchange_mode', '!=', 'xml'), ('type', 'not in', ('export_feed', 'import_feed', 'fc'))]}">
+                                <field name="feed_xml_root_tag"/>
+                                <field name="feed_xml_element_tag"/>
+                            </group>
+                            <group string="History" name="autoremove" attrs="{'invisible': [('feed_data_exchange_mode', '!=', 'xml'), ('type', '!=', 'import_feed')]}">
+                                <field name="autoremove"/>
+                                <field name="days_to_keep" attrs="{'invisible': [('autoremove','=',False)]}"/>
+                                <field name="remove_feed_file_name" attrs="{'invisible': [('autoremove','=',False)], 'required': [('autoremove','=',True)]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="advanced_field_management"/>
+                        </group>
+                        <notebook>
+                            <page string="Fields" name="api_fields">
+                                <field name="api_fields_ids">
+                                    <tree string="Sync Fields Tree" editable="bottom">
+                                        <field name="odoo_field_ttype" invisible="1"/>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="ext_system_field" required="1"/>
+                                        <!-- todo: at the moment only 'simple' fields are managed as subfields -->
+                                        <!-- todo used just for creating record in odoo not viceversa -->
+                                        <field name="ext_system_subfield" attrs="{'readonly': [('odoo_field_ttype', 'not in', ('char', 'integer', 'float'))]}"/>
+                                        <field name="model_id" invisible="1"/>
+                                        <field name="odoo_field_id"
+                                               domain="[('model_id', '=', parent.model_id)]"
+                                               options="{'no_create': True}"
+                                               attrs="{'required': [('parent.advanced_field_management', '=', False)]}"/>
+                                        <field name="odoo_subfield"
+                                               attrs="{'readonly': [('odoo_field_ttype', '!=', 'many2one')],
+                                               'required': [('odoo_field_ttype', '=', 'many2one'),('field_config_id', '=', False)]}"/>
+                                        <field name="field_config_id"
+                                               attrs="{'readonly': [('odoo_field_ttype', 'not in', ('many2one','one2many','many2many')), ('parent.advanced_field_management', '=', False)],
+                                               'required': [('odoo_field_ttype', '=', 'many2one'),('odoo_subfield', '=', False)]}"/>
+                                        <field name="exclusive_use" optional="hide"/>
+                                        <field name="check_field" optional="hide"/>
+                                        <field name="fixed_value"
+                                               attrs="{'column_invisible': [('parent.advanced_field_management', '=', False)]}"/>
+                                        <field name="length"
+                                               attrs="{'column_invisible': [('parent.advanced_field_management', '=', False)]}"/>
+                                        <field name="value_align"
+                                               attrs="{'column_invisible': [('parent.advanced_field_management', '=', False)]}"/>
+                                        <field name="filler_align"
+                                               attrs="{'column_invisible': [('parent.advanced_field_management', '=', False)]}"/>
+                                        <field name="filler"
+                                               attrs="{'column_invisible': [('parent.advanced_field_management', '=', False)]}"/>
+                                        <field name="decimal"
+                                               attrs="{'column_invisible': [('parent.advanced_field_management', '=', False)]}"/>
+                                        <field name="vir"
+                                               attrs="{'column_invisible': [('parent.advanced_field_management', '=', False)]}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="na_api_sync_config_tree_view" model="ir.ui.view">
+            <field name="name">na.api.sync.config.tree.view</field>
+            <field name="model">na.api.sync.config</field>
+            <field name="arch" type="xml">
+                <tree string="API Sync Tree">
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="model_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="na_api_sync_config_search_view" model="ir.ui.view">
+            <field name="name">na.api.sync.config.search.view</field>
+            <field name="model">na.api.sync.config</field>
+            <field name="arch" type="xml">
+                <search string="API Sync Search">
+                    <field name="name"/>
+                    <field name="env_id"/>
+                    <field name="type"/>
+                    <field name="model_id"/>
+                    <field name="return_json"/>
+                    <field name="get_endpoint"/>
+                    <field name="post_endpoint"/>
+                    <field name="api_tag"/>
+                    <searchpanel>
+                        <field name="env_id" icon="fa-folder"/>
+                        <field name="type" icon="fa-filter"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record id="na_action_api_sync_config" model="ir.actions.act_window">
+            <field name="name">Synchronizations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">na.api.sync.config</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem id="menu_api_sync_root"
+                  name="API Sync"
+                  web_icon="na_api_sync,static/description/icon.png"
+                  active="True"
+                  sequence="499"/>
+
+        <menuitem
+                name="Synchronizations"
+                action="na_action_api_sync_config"
+                id="menu_api_sync_config"
+                parent="menu_api_sync_root"
+                sequence="2"/>
+    </data>
+</odoo>

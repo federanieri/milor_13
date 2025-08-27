@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright 2022 Nexapp S.r.l.
+  License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+ -->
+<odoo>
+    <record id="na_view_order_product_search_inherit" model="ir.ui.view">
+        <field name="name">na.view.order.product.search.inherit</field>
+        <field name="model">sale.report</field>
+        <field name="inherit_id" ref="sale.view_order_product_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='Sales']" position="after">
+                <separator/>
+                <filter name="standard" string="Standard Order" domain="[('custom_type','=', 'standard')]"/>
+                <separator/>
+                <filter string="Last 90 Days" invisible="1" name="last_90_days" domain="[('date','&gt;=', (context_today() - datetime.timedelta(days=90)).strftime('%%Y-%%m-%%d'))]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

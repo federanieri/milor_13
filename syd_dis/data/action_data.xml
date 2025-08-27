@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="model_project_task_download_all_txt" model="ir.actions.server">
+        <field name="name">Download TXT</field>
+        <field name="model_id" ref="model_project_task"/>
+        <field name="binding_model_id" ref="model_project_task"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_download_txt(only_orphans=False)</field>
+    </record>
+
+    <record id="model_project_task_upload_txt" model="ir.actions.server">
+        <field name="name">Upload TXT to FTP Server</field>
+        <field name="model_id" ref="model_project_task"/>
+        <field name="binding_model_id" ref="model_project_task"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_upload_txt()</field>
+    </record>
+
+    <record id="model_project_task_reset_txt_uploaded" model="ir.actions.server">
+        <field name="name">Reset TXT Uploaded Flag</field>
+        <field name="model_id" ref="model_project_task"/>
+        <field name="binding_model_id" ref="model_project_task"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">records.write({'txt_uploaded': False})</field>
+    </record>
+
+    <record id="model_project_task_reset_stl_downloaded" model="ir.actions.server">
+        <field name="name">Reset STL Downloaded Flag</field>
+        <field name="model_id" ref="model_project_task"/>
+        <field name="binding_model_id" ref="model_project_task"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">records.write({'stl_file_downloaded': False})</field>
+    </record>
+
+</odoo>

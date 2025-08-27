@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright 2022 - Nexapp S.r.l.
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+ -->
+<odoo>
+    <data noupdate="1">
+        <record id="na_ir_cron_export_products" model="ir.cron">
+            <field name="name">API Sync Logistics: Export Products</field>
+            <field name="model_id" ref="na_api_sync.model_na_api_sync_config"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_export_products()</field>
+            <field name="active" eval="True"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record id="na_ir_cron_import_products_update" model="ir.cron">
+            <field name="name">API Sync Logistics: Import Products QTY Update</field>
+            <field name="model_id" ref="na_api_sync.model_na_api_sync_config"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_products_update()</field>
+            <field name="active" eval="True"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record id="na_ir_cron_import_ftp_feed" model="ir.cron">
+            <field name="name">API Sync Logistics: Import FTP Feed</field>
+            <field name="model_id" ref="na_api_sync.model_na_api_sync_config"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_import_ftp_feed()</field>
+            <field name="active" eval="True"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+    </data>
+</odoo>

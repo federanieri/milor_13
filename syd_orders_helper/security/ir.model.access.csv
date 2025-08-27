@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_syd_orders_helper_forecast_order,syd_orders_helper_forecast_order,model_syd_orders_helper_forecast_order,purchase.group_purchase_manager,1,1,1,1
+access_syd_orders_helper_forecast_order_line,syd_orders_helper_forecast_order_line,model_syd_orders_helper_forecast_order_line,purchase.group_purchase_manager,1,1,1,1

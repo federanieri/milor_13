@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <template id="shop_cart_product_search_assets" inherit_id="website.assets_frontend">
+            <xpath expr="script[last()]" position="after">
+                <script type="text/javascript" src="/syd_website_b2b_addon/static/src/js/shop_cart.js"/>
+            </xpath> 
+        </template>
+
+        <template id="reorder_button_portal_sale_order" inherit_id="sale.sale_order_portal_content">
+            <xpath expr="//h2[hasclass('my-0')]/em" position="after">
+                <form class="pull-right" id="reorder" method="POST" t-attf-action="/my/reorder?sale_id=#{sale_order.id}&amp;access_token=#{sale_order.access_token}">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                    <input type="hidden" class="sale_id" t-att-value="sale_order.id" />
+                    <button type="submit" class="btn btn-primary" id="reorder_custom"><span class="fa fa-shopping-cart mr4"/>ReOrder</button>
+                </form>
+            </xpath>
+        </template>
+
+        <template id="cart_products_search_box" inherit_id="website_sale.website_sale_products_search_box" primary="True">
+            <xpath expr="//form" position="attributes">
+                <attribute name="t-attf-class">o_cart_products_searchbar_form mt16 mb16 w-50 pull-right o_wait_lazy_js #{_classes}</attribute>
+            </xpath>
+        </template>
+
+        <template id="search_button_cart_lines" inherit_id="website_sale.cart">
+            <xpath expr="//div[hasclass('oe_cart')]//t[@t-call='website_sale.cart_lines']" position="before">
+                <t t-call="syd_website_b2b_addon.cart_products_search_box"/>
+            </xpath>
+        </template>
+
+</odoo>

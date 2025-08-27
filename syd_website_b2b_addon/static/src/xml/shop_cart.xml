@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <!-- Products Search Bar autocomplete item -->
+    <div t-name="cartProductSearchBar" t-extend="website_sale.productsSearchBar.autocomplete">
+        <t t-jquery="a" t-operation="attributes">
+            <attribute name="t-att-href">'/shop/cart/update?product_id=' + product['id']</attribute>
+        </t>
+        <t t-jquery="h6" t-operation="replace">
+           <h6 t-attf-class="font-weight-bold #{description ? '' : 'mb-0'}">
+                <span t-if="product['default_code']">[<t t-esc="product['default_code']"/>] </span>
+                <span t-esc="product['name']"/>
+            </h6>
+        </t>
+        <t t-jquery="img" t-operation="replace">
+            <img t-attf-src="/web/image/product.product/#{product['id']}/image_128"
+                class="flex-shrink-0 o_image_64_contain"/>
+        </t>
+    </div>
+
+</templates>

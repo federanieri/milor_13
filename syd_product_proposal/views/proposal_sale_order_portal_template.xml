@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <template id="assets_frontend" inherit_id="website.assets_frontend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/syd_product_proposal/static/src/js/portal_proposal_sale.js"></script>
+            <script type="text/javascript" src="/syd_product_proposal/static/src/js/proposal.js"></script>
+        </xpath>
+        <xpath expr="//link[last()]" position="after">
+        	                       <link rel="stylesheet" type="text/scss" href="/syd_product_proposal/static/src/scss/style.scss"/>
+        	
+        </xpath>
+    </template>
+    
+	<template id="assets_backend" name="proposal assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+                    <script type="text/javascript" src="/syd_product_proposal/static/src/js/qty_at_date_widget_proposal.js"></script>
+        </xpath>
+    </template>
+    
+	<template id="syd_product_proposal.shop_product_carousel" name="Shop Product Carousel">
+        <t t-set="product_images" t-value="product_variant._get_images() if product_variant else product._get_images()"/>
+        <div t-attf-id="o-carousel-product_#{product_variant.id}" class="carousel slide" data-ride="carousel" data-interval="0">
+            <div class="carousel-outer position-relative">
+                <div class="carousel-inner h-100">
+                    <t t-foreach="product_images" t-as="product_image">
+                        <div t-attf-class="carousel-item h-100#{' active' if product_image_first else ''}">
+                            <div t-if="product_image._name == 'product.image' and product_image.embed_code" class="d-flex align-items-center justify-content-center h-100 embed-responsive embed-responsive-16by9">
+                                <t t-raw="product_image.embed_code"/>
+                            </div>
+                            <div  t-else="" t-field="product_image.image_1920" class="d-flex align-items-center justify-content-center h-100 " t-options='{"widget": "image", "preview_image": "image_1024", "class": "product_detail_img mh-100", "alt-field": "name", "zoom": product_image.can_image_1024_be_zoomed and "image_1920", "itemprop": "image"}'/>
+                        </div>
+                    </t>
+                    <div class="carousel-item h-100">
+                            
+                            <div t-field="product_variant.image_1920" class="d-flex align-items-center justify-content-center h-100 embed-responsive embed-responsive-16by9" t-options='{"widget": "image", "preview_image": "image_1024", "class": "product_detail_img mh-100", "alt-field": "name", "itemprop": "image"}'/>
+                        </div>
+                </div>
+                <t t-if="len(product_images) > 0">
+                    <a class="carousel-control-prev" t-attf-href="#o-carousel-product_#{product_variant.id}" role="button" data-slide="prev">
+                        <span class="fa fa-chevron-left p-2" role="img" aria-label="Previous" title="Previous"/>
+                    </a>
+                    <a class="carousel-control-next" t-attf-href="#o-carousel-product_#{product_variant.id}" role="button" data-slide="next">
+                        <span class="fa fa-chevron-right p-2" role="img" aria-label="Next" title="Next"/>
+                    </a>
+                </t>
+            </div>
+            <div t-ignore="True" class="d-none d-md-block text-center">
+                <ol t-if="len(product_images) > 1" class="carousel-indicators d-inline-block position-static mx-auto my-0 p-1 text-left">
+                    <t t-foreach="product_images" t-as="product_image"><li t-attf-class="d-inline-block m-1 align-top {{'active' if product_image_first else ''}}" data-target="#o-carousel-product" t-att-data-slide-to="str(product_image_index)">
+                        <div t-field="product_image.image_128" t-options='{"widget": "image", "qweb_img_responsive": False, "class": "o_image_64_contain", "alt-field": "name"}'/>
+                        <i t-if="product_image._name == 'product.image' and product_image.embed_code" class="fa fa-2x fa-play-circle-o o_product_video_thumb"/>
+                    </li></t>
+                </ol>
+            </div>
+        </div>
+    </template>
+	
+	<template id="carousel_for_proposal" name="Product" >
+
+    		<div role="dialog" class="modal fade" tabindex="-1" t-attf-id="modal_carousel_{{product_variant.id}}">
+			                 <div class="modal-dialog modal-lg" role="document">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h5 class="modal-title">Showroom</h5>
+							         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span >&amp;times;</span>
+        </button>
+							      </div>
+							      <div class="modal-body" >
+							        
+							        
+							        	 <t t-call="syd_product_proposal.shop_product_carousel" />
+							        
+							      </div>
+							    </div>
+			  				</div>
+							               
+						</div>  
+        
+    </template>
+	
+	
+    <!-- Complete page of the proposal_sale_order -->
+    <template id="proposal_sale_order_portal_template" name="Proposal Order Portal" inherit_id="portal.portal_sidebar" primary="True">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <t t-set="o_portal_fullwidth_alert" groups="sales_team.group_sale_salesman">
+                <t t-call="portal.portal_back_in_edit_mode">
+                    <t t-set="backend_url" t-value="'/web#model=%s&amp;id=%s&amp;action=%s&amp;view_type=form' % (proposal_sale_order._name, proposal_sale_order.id, action.id)"/>
+                </t>
+            </t>
+
+            <div class="row mt16 o_portal_sale_sidebar">
+                <!-- Sidebar -->
+<!--                 <t t-call="portal.portal_record_sidebar">
+                    <t t-set="classes" t-value="'col-lg-auto d-print-none'"/>
+
+                    <t t-set="title">
+                        <h2 class="mb-0"><b t-field="proposal_sale_order.amount_total" data-id="total_amount"/> </h2>
+                    </t>
+                    <t t-set="entries">
+                        <ul class="list-group list-group-flush flex-wrap flex-row flex-lg-column">
+                            <li class="list-group-item flex-grow-1">
+                                <div class="o_download_pdf btn-toolbar flex-sm-nowrap">
+                                    <div class="btn-group flex-grow-1 mr-1 mb-1">
+                                        <a class="btn btn-secondary btn-block o_download_btn" t-att-href="proposal_sale_order.get_portal_url(report_type='pdf', download=True)" title="Download"><i class="fa fa-download"/> Download</a>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="navspy list-group-item pl-0 flex-grow-1" t-ignore="true" role="complementary">
+                                <ul class="nav flex-column bs-sidenav"></ul>
+                            </li>
+
+                            <t t-if="proposal_sale_order.state in ['draft', 'sent']">
+                                <li class="list-group-item flex-grow-1">
+                                    <small><b class="text-muted">Your advantage</b></small>
+                                    <t t-if="proposal_sale_order.amount_total">
+                                        <h4 t-field="proposal_sale_order.amount_total" class="text-success" data-id="total_amount"/>
+                                    </t>
+                                </li>
+                            </t>
+
+                            <li t-if="proposal_sale_order.user_id" class="list-group-item flex-grow-1">
+                                <div class="small mb-1"><strong class="text-muted">Salesperson</strong></div>
+                                <div class="row flex-nowrap">
+                                    <div class="col flex-grow-0 pr-2">
+                                        <img class="rounded-circle mr4 float-left o_portal_contact_img" t-if="proposal_sale_order.user_id.image_1024" t-att-src="image_data_uri(proposal_sale_order.user_id.image_1024)" alt="Contact"/>
+                                        <img class="rounded-circle mr4 float-left o_portal_contact_img" t-if="not proposal_sale_order.user_id.image_1024" src="/web/static/src/img/placeholder.png" alt="Contact"/>
+                                    </div>
+                                    <div class="col pl-0" style="min-width: 150px">
+                                        <span t-field="proposal_sale_order.user_id" t-options='{"widget": "contact", "fields": ["name", "phone"], "no_marker": True}'/>
+                                        <a href="#discussion" class="small"><i class="fa fa-comment"></i> Send message</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </t>
+                </t> -->
+
+                <!-- Page content -->
+                <div id="proposal_sale_order_content" class="col-12 col-lg justify-content-end">
+
+                    <!-- status messages -->
+                    <div t-if="proposal_sale_order.state == 'confirmed'" class="alert alert-success alert-dismissable d-print-none" role="status">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">&amp;times;</button>
+                        <strong>Thank You!</strong><br/>
+                        Your order has been confirmed.
+                    </div>
+
+                    <div t-if="proposal_sale_order.state == 'cancel'" class="alert alert-danger alert-dismissable d-print-none" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="close">&amp;times;</button>
+                        <strong>This Proposal Quote has been canceled.</strong> <a role="button" href="#discussion"><i class="fa fa-comment"/> Contact us to get a new proposal.</a>
+                    </div>
+
+                    <div t-if="proposal_sale_order.state == 'sent' and proposal_sale_order.accepted" class="alert alert-success alert-dismissable d-print-none" role="status">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="close">&amp;times;</button>
+                        <strong>Thank You!</strong><br/>
+                        Your proposed qty and price has been accepted successfully !<br/>
+                        We will get back to you!
+                    </div>
+
+
+					<form role="form" class="proposal_order_form" id="form_proposal_order" t-attf-action="/my/proposal_orders/#{proposal_sale_order.id}/accept" method="POST">
+					
+	                    <!-- main content -->
+	                    <div t-attf-class="card #{'pb-5' if report_type == 'html' else ''}">
+	                        <div t-call="syd_product_proposal.proposal_sale_order_portal_content"/>
+	                    </div>
+
+	                    <!-- bottom actions -->
+	                    <div class="row justify-content-center text-center d-print-none pt-1 pb-4">
+	                        <t>
+	                            <div class="col-sm-auto mt8">
+	                                <a class="btn btn-secondary btn-block o_download_btn" t-att-href="proposal_sale_order.get_portal_url(report_type='pdf', download=True)" title="Download"><i class="fa fa-download"/> Download PDF</a>                            
+	                            </div>
+	                            <div class="col-sm-auto mt8" >
+	                                <a class="btn btn-secondary btn-block o_download_btn" t-att-href="proposal_sale_order.get_portal_url(report_type='xls', download=True)" title="Download"><i class="fa fa-download"/> Download xls</a>                            
+	                            </div>
+	                            <div class="col-sm-auto mt8" t-if="proposal_sale_order.state == 'sent' and not proposal_sale_order.accepted"> 
+	                                <button type="submit" class="btn btn-primary"><i class="fa fa-check"/><t>Accept</t></button>
+	                            </div>
+	                            <div class="col-sm-auto mt8">
+	                                <a role="button" class="btn btn-secondary" href="#discussion"><i class="fa fa-comment"/> Feedback</a>
+	                            </div>
+	                            <div class="col-sm-auto mt8" t-if="proposal_sale_order.state not in ['cancel', 'confirmed'] and not proposal_sale_order.accepted">
+	                                <a role="button" class="btn btn-danger" t-attf-href="/my/proposal_orders/#{proposal_sale_order.id}/refuse?access_token=#{token}"> <i class="fa fa-times"/> Refuse</a>
+	                            </div>
+	                        </t>
+	                    </div>
+					</form>
+                    <!-- chatter -->
+                    <div id="proposal_sale_order_communication" class="mt-4">
+                        <h2>History</h2>
+                        <t t-call="portal.message_thread">
+                            <t t-set="object" t-value="proposal_sale_order"/>
+                        </t>
+                    </div>
+                </div><!-- // # content -->
+            </div>
+        </xpath>
+    </template>
+    <template id="proposal_sale_order_portal_content" name="Proposal Order Portal Content">
+        <!-- Intro -->
+        <div class="oe_structure" id="oe_structure_section_1"/>
+        <div id="introduction" t-attf-class="pb-2 pt-3 #{'card-header bg-white' if report_type == 'html' else ''}">
+            <h2 class="my-0">
+                <em> Sale Proposal <t t-esc="proposal_sale_order.name"/> </em>
+            </h2>
+        </div> 
+
+		<div class="oe_structure" id="oe_structure_section_2"/>
+        <div t-attf-class="#{'card-body' if report_type == 'html' else ''}">
+            <!-- Informations -->       
+           
+<!--             <form role="form" class="proposal_order_form" id="form_proposal_order" t-attf-action="/my/proposal_orders/#{proposal_sale_order.id}/accept" method="POST">
+ -->
+               <input type="hidden" name="proposal_sale_order" class="form-control proposal_order" t-att-value="proposal_sale_order.id"/>
+               <input type="hidden" name="access_token" class="form-control access_token" t-att-value="token"/>
+			   <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+            
+	            <div id="informations">
+	                <div class="row" id="so_date">
+	                    <div class="col-lg-6">
+	                        <strong>Sale Proposal:</strong> 
+	                        <span t-field="proposal_sale_order.date_order" t-options='{"widget": "date"}'/>
+	                    </div>
+	                    <div class="col-lg-6">
+	                        <strong>Customer:</strong> 
+	                        <span t-field="proposal_sale_order.partner_id" t-options='{"fields": ["name"], "no_marker": True}'/>
+	                    </div>
+	                </div>
+	                <br/><br/>
+	                <!-- Add from and to dates -->
+	                <div class="row">
+		                <div class="col-lg-3"> 
+		                    <t t-if="proposal_sale_order.accepted or proposal_sale_order.state in ['cancel', 'confirmed']">
+		                    	<strong t-if="bool(proposal_sale_order.date_deadline_from)">Data Deadline From:</strong> 
+		                    	<span t-field="proposal_sale_order.date_deadline_from"></span> 
+		                    </t>
+		                    <t t-else="">
+			                    <strong>Data Deadline From:</strong> 
+			                    <input type="date" id="from" name="date_form" class="form-control" t-att-required="true if proposal_sale_order.type=='mto' else false"
+							       t-att-value="proposal_sale_order.date_deadline_from"  t-options='{"widget": "date"}'
+							       t-att-min="datetime.date.today()" t-att-max="datetime.date.today() + relativedelta(years=1)"/>
+		                    </t>
+		                </div>
+            		</div>
+		            <div class="row">
+		                <div class="col-lg-3" t-if="proposal_sale_order.state in ['draft', 'sent'] or (proposal_sale_order.state in ['confirmed','cancel'] and bool(proposal_sale_order.date_deadline_to))">
+		                    <t t-if="proposal_sale_order.accepted or proposal_sale_order.state in ['cancel', 'confirmed']">
+		                    	<strong t-if="bool(proposal_sale_order.date_deadline_from)">Data Deadline To:</strong>
+		                    	<span t-field="proposal_sale_order.date_deadline_to"></span>
+		                    </t>
+		                    <t t-else="">
+			                <strong>Data Deadline To:</strong> 
+		                    <input type="date" id="to" name="date_to" class="form-control" t-att-required="true if proposal_sale_order.type=='mto' else false"
+						       t-att-value="proposal_sale_order.date_deadline_to"  t-options='{"widget": "date"}'
+						       t-att-min="datetime.date.today()" t-att-max="datetime.date.today() + relativedelta(years=1)"/>
+						    </t>
+		                </div>
+		            </div>
+	            </div>
+				<div class="oe_structure" id="oe_structure_section_3"/>
+	            <section id="details" style="page-break-inside: auto;" class="mt32">
+	                    <table class="table table-sm" id="sales_order_table">
+	                        <thead class="bg-100">
+	                            <tr>
+	                                
+	                                
+	                                <th></th>
+	                                <th class="text-left" id="th_product">Products</th>
+	                                <th class="text-right" style="width: 8%;" >Customer Product Code</th>
+	                                <th class="text-right" t-if="proposal_sale_order.type=='mts'" style="width: 7%;">Quantity</th>
+	                                <th class="text-right">Price</th>
+	                                <th class="d-none" t-if="proposal_sale_order.type=='mts'">Total Price</th>
+	                                <th t-if="proposal_sale_order.type=='mto'" style="width: 12%;">Comments or changes</th> 
+	                                <th t-if="proposal_sale_order.type=='mts'" style="width: 12%;">Notes</th> 
+	                                <th t-if="proposal_sale_order.type=='mto'"  class="text-right" >Quantity Requested</th>
+	                                <th t-if="proposal_sale_order.type=='mts'"  class="text-right" >Quantity Confirmed</th>
+	                                
+	                               <!--  <th style="width: 11%;" class="text-right" t-if="proposal_sale_order.type=='mts'">Price Accepted</th>
+	                                <th class="d-none">Price Total Accepted</th> -->
+									<th style="width: 5%;"></th>
+	                            </tr>
+	                        </thead>
+	                        <tbody class="sale_tbody">
+	
+	                            <t t-foreach="proposal_sale_order.porder_line" t-as="line">
+	
+	                                <tr t-if="(proposal_sale_order.accepted and line.qty_accepted != 0) or not proposal_sale_order.accepted" class="bg-200 font-weight-bold proposal_line" style="opacity: 0.8;background-color: #f6f3f382 !important;" t-attf-id="tr_id_{{proposal_sale_order.id}}_{{line.id}}" >
+	                                	
+	                                    <td id="image">
+	                                    
+	                                    <span t-if="line.product_id.image_128">
+	                                    <button t-attf-name="button_carousel_name_{{id}}"  class="btn btn-link" type="button"  data-toggle="modal" t-attf-data-target="#modal_carousel_{{line.product_id.id}}"> 
+	                                        <img  t-att-src="image_data_uri(line.product_id.image_128)" class="img rounded" id="image1"/>
+	                                   </button>  	
+	                                    </span>	
+	                                    	<t t-call="syd_website_stl_viewer.stl_viewer" t-if="line.stl_id">
+					                            <t t-set="stl_url" t-value="line.stl_url" />
+					                            <t t-set="id" t-value="2" />
+					                        </t>
+	                                    </td>
+	                                    <td id="product_name"><span t-field="line.name"/></td>
+	                                    
+	                                    <!-- Text field for adding code TODO-->
+	                                    <td class="text-right">
+	                                    
+	                                    	<span t-if="proposal_sale_order.state in ['cancel', 'confirmed'] or proposal_sale_order.accepted" t-field="line.customer_product_code" t-attf-id="customerpcode_{{proposal_sale_order.id}}_{{line.id}}" disabled="True"/>	                                    	
+	                                        <input t-else="" type="text" t-attf-name="customerpcode_{{proposal_sale_order.id}}_{{line.id}}" class="form-control form-control-ext" t-attf-id="customerpcode_{{proposal_sale_order.id}}_{{line.id}}" t-att-value="line.customer_product_code" disabled="True" />	                                    	
+	                                    	
+	                                    </td>
+	                                    
+	                                    <td class="text-right" t-if="proposal_sale_order.type=='mts'">
+	                                        <div t-attf-id="qty_proposed_{{proposal_sale_order.id}}_{{line.id}}">
+	                                            <span name="qty_proposed" t-field="line.qty_proposed" t-attf-id="qtyproposed_{{proposal_sale_order.id}}_{{line.id}}"/>
+	                                            <input type="hidden" name="qty_proposed" class="form-control" t-att-value="line.qty_proposed"/>
+	                                        </div>
+	                                    </td>
+	                                    <td class="text-right">
+	                                        <div class="text-right">
+	                                            <span t-field="line.price_proposed" t-options='{"widget": "monetary", "display_currency": line.currency_id}' t-attf-id="price_proposed_{{proposal_sale_order.id}}_{{line.id}}"/>
+	                                            <input type="hidden" name="price_proposed" class="form-control price_proposed" t-att-value="line.price_proposed"/>
+	                                        </div>
+	                                    </td>
+	                                    <td class="d-none">
+	                                        <span class="oe_order_line_price_total" t-field="line.price_total" t-options='{"widget": "monetary", "display_currency": line.currency_id}'/>
+	                                        <input type="hidden" name="price_proposed" class="form-control " t-att-value="line.price_total"/>
+	                                    </td>
+	                                    
+	                                   	<td>
+	                                        <span t-if="proposal_sale_order.state in ['cancel', 'confirmed'] or proposal_sale_order.accepted" t-field="line.description" t-attf-id="description_{{proposal_sale_order.id}}_{{line.id}}" disabled="True"/>
+	                                        <textarea t-else=""  t-attf-name="description_{{proposal_sale_order.id}}_{{line.id}}" class="form-control form-control-ext description" placeholder="Description" t-attf-id="description_{{proposal_sale_order.id}}_{{line.id}}" disabled="True" >
+	                                        <t t-if="line.description" t-esc="line.description"  t-attf-id="description_{{proposal_sale_order.id}}_{{line.id}}" disabled="True"/></textarea>
+	                                    </td>
+	                                    <td class="text-center td-qty" style="width: 8%;" >
+	                                        <span t-if="proposal_sale_order.state in ['cancel', 'confirmed'] or proposal_sale_order.accepted" t-field="line.qty_accepted"/>
+	                                        <div class="css_quantity input-group" t-else="">
+	                                            <!-- <div class="input-group-prepend">
+	                                                <button t-attf-href="#" t-attf-name="button_minus_{{proposal_sale_order.id}}_{{line.id}}" t-attf-id="button_minus_{{proposal_sale_order.id}}_{{line.id}}" style="padding: 2px 10px;" class="btn btn-sm btn-primary float_left js_add_cart_json d-md-inline-block" aria-label="Remove one" title="Remove one" disabled="True">
+	                                                    <i class="fa fa-minus"></i>
+	                                                </button>
+	                                            </div> -->
+	                                            
+	                                            <input t-if="proposal_sale_order.state in ['cancel', 'confirmed'] or proposal_sale_order.accepted" type="number" t-attf-name="qtyaccepted_{{proposal_sale_order.id}}_{{line.id}}" t-attf-id="qtyaccepted_{{proposal_sale_order.id}}_{{line.id}}" class="js_quantity form-control form-control-ext qty_accepted" t-att-value="line.qty_accepted" disabled="True" />
+	                                            <input t-elif="proposal_sale_order.type=='mts'" type="number" t-attf-name="qtyaccepted_{{proposal_sale_order.id}}_{{line.id}}" t-att-max="line.qty_proposed or '0'" min="0" t-attf-id="qtyaccepted_{{proposal_sale_order.id}}_{{line.id}}" class="js_quantity form-control form-control-ext qty_accepted" value="0" disabled="True"/>
+	                                            <input t-elif="proposal_sale_order.type=='mto'" type="number" t-attf-name="qtyaccepted_{{proposal_sale_order.id}}_{{line.id}}" min="1" t-attf-id="qtyaccepted_{{proposal_sale_order.id}}_{{line.id}}" class="js_quantity form-control form-control-ext qty_accepted" value="0" disabled="True"/>
+	                                           <!--  <div class="input-group-append">
+	                                                <button t-attf-href="#"  t-attf-name="button_plus_{{proposal_sale_order.id}}_{{line.id}}" t-attf-id="button_plus_{{proposal_sale_order.id}}_{{line.id}}" style="padding: 2px 10px;" class="btn btn-sm btn-primary float_left js_add_cart_json d-md-inline-block" aria-label="Add one" title="Add one" disabled="True">
+	                                                    <i class="fa fa-plus"></i>
+	                                                </button>
+	                                            </div> -->
+	                                        </div>
+	                                    </td>
+	                                     
+	                                     <td id="button" style="vertical-align:middle">
+				                            <div t-if="proposal_sale_order.state not in ['cancel', 'confirmed'] and not proposal_sale_order.accepted">
+				                            	<button t-attf-name="button_name_{{proposal_sale_order.id}}_{{line.id}}" t-attf-id="button_id_{{proposal_sale_order.id}}_{{line.id}}" class="btn" onClick="disableItem(this);" type="button"><i t-attf-id="i_tag_id_{{proposal_sale_order.id}}_{{line.id}}" class="fa fa-square-o fa-2x"></i></button>       
+				                            </div>
+										</td>
+	                                    <!-- <td class="text-right" t-if="proposal_sale_order.type=='mts'">
+	                                        <span t-if="proposal_sale_order.state in ['cancel', 'confirmed'] or proposal_sale_order.accepted" t-field="line.price_accepted" />
+	                                        <input t-else="" type="text" name="priceaccepted" t-attf-name="priceaccepted_{{proposal_sale_order.id}}_{{line.id}}" t-attf-id="priceaccepted_{{proposal_sale_order.id}}_{{line.id}}" class="form-control price_accepted" placeholder="0.0" t-att-value="0.0" disabled="True"/>
+	                                    </td>
+	                                    <td class="d-none">
+	                                        <span class="oe_order_line_price_total price_total_accepted" t-field="line.price_total_accepted" />
+	                                    </td> -->
+	                                </tr>
+	                            </t>
+	                        </tbody>
+	                    </table>
+	                <div id="total" class="row" name="total" style="page-break-inside: avoid;" t-if="proposal_sale_order.type=='mts'">
+	                    <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+	                        <table class="table table-sm">
+	                            <tr class="border-black">
+	                                <td><strong>Total Proposed</strong></td>
+	                                <td class="text-right">
+	                                    <span data-id="total_amount" t-field="proposal_sale_order.amount_total" t-options='{"widget": "monetary", "display_currency": proposal_sale_order.pricelist_id.currency_id}'/>
+	                                </td>
+	                            </tr>
+	                        </table>
+	                    </div>
+	                </div>
+	                <div id="total_accepted" class="row" name="total_accepted" style="page-break-inside: avoid;" t-if="proposal_sale_order.type=='mts'">
+	                    <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+	                        <table class="table table-sm">
+	                            <tr class="border-black">
+	                                <td><strong>Total Accepted</strong></td>
+	                                <td class="text-right">
+	                                    <span data-id="total_accepted" t-field="proposal_sale_order.amount_total_accepted" t-options='{"widget": "monetary", "display_currency": proposal_sale_order.pricelist_id.currency_id}'/>
+	                                </td>
+	                            </tr>
+	                        </table>
+	                    </div>
+	                </div>
+	                <t t-call="syd_website_stl_viewer.stl_viewer_modal"></t>
+	                <t t-foreach="proposal_sale_order.porder_line" t-as="line">
+	                	<t t-call="syd_product_proposal.carousel_for_proposal">
+	                		<t t-set="product_variant" t-value="line.product_id" />
+	                		<t t-set="product" t-value="line.product_id.product_tmpl_id" />
+	                	</t>
+	                </t>
+	            </section>
+           <!--  </form> -->
+			
+            <section id="terms" class="mt-5" t-if="proposal_sale_order.note">
+                <h3 class="">Terms &amp; Conditions</h3>
+                <hr class="mt-0 mb-1"/>
+                <em t-field="proposal_sale_order.note"/>
+            </section>
+            <div class="oe_structure" id="oe_structure_section_4"/>
+        </div>
+        
+    </template>
+    
+    
+     
+</odoo>

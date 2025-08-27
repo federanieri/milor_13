@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.actions.server" id="action_product_report_wizard">
+        <field name="name">Wizard Report</field>
+        <field name="model_id" ref="product.model_product_product"/>
+        <field name="binding_model_id" ref="product.model_product_product" />
+        <field name="binding_view_types">list</field>
+        
+        <field name="state">code</field>
+        <field name="code">
+    	action = {
+            'context': {'default_model':'product.product','default_res_ids':','.join(str(v) for v in records.ids)},
+            'name': 'Wizard Report',
+            'view_mode': 'form',
+            'res_model': 'syd_report_wizard.wizard_report',
+            'type': 'ir.actions.act_window',
+            'target':'new'
+}
+        
+        </field>
+    </record>
+    
+    
+    
+</odoo>

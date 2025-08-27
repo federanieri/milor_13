@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <report
+            string="Commercial Return Report"
+            id="action_return_sheet_report_picking"
+            model="return.order.sheet"
+            report_type="qweb-pdf"
+            name="syd_commercial_return.report_return_sheet"
+            file="syd_commercial_return.report_return_sheet"
+            print_report_name="'Commercial Return Report - %s - %s' % (object.partner_id.name or '', object.number)"
+        />
+        
+          <template id="report_return_sheet_page">
+        
+                <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)" />
+                <t t-set="partner" t-value="o.partner_id or False"/>
+                <t t-if="partner" name="partner_header">
+                    <t t-set="address">
+                        <div t-esc="partner"
+                        t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True}'>
+                        
+                        	
+                        </div>
+                         
+                   </t>
+                   
+                </t>
+
+                <div class="page">
+                    <h2>
+                    	
+                        <span t-field="o.number"/>
+                        <img t-if="o.number" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.number, 600, 100)" alt="Barcode"
+                                  style="width:300px;height:50px"/>
+                    </h2>
+                    <span t-field="o.partner_id"/>
+                    <table class="table table-sm" name="product_table">
+                        <thead>
+                            <tr>
+                                <th name="th_sm_product"><strong>Product</strong></th>
+                                <th name="th_sm_quantity"><strong>Quantity</strong></th>
+                                <th name="th_sm_quantity"><strong>Reason</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="lines" t-value="o.return_order_line_ids"/>
+                            <tr t-foreach="lines" t-as="line">
+                                <td>
+                                    <span t-field="line.product_id"/>
+                                   
+                                </td>
+                                <td>
+                                    <span t-field="line.quantity"/>
+                                    <span t-field="line.uom_id"/>
+                                </td>
+                                <td>
+                                	<span t-field="line.reason.name"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                   
+                    
+                </div>
+          
+   		</template>
+
+	    <template id="report_return_sheet">
+	    <t t-call="web.html_container">
+	           <t t-call="web.external_layout">
+	        <t t-foreach="docs" t-as="o">
+	        	
+	            <t t-call="syd_commercial_return.report_return_sheet_page" t-lang="o.partner_id.lang"/>
+	        </t>
+	        </t>
+	        
+	       </t>
+	    </template>
+        
+    </data>
+</odoo>

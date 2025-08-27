@@ -1,0 +1,54 @@
+<odoo>
+  <data>
+ 	
+ 
+ 	
+     
+      <record model="ir.ui.view" id="product_pricelist_item_form_milor_view">
+        <field name="name">product.pricelist.item.form_milor</field>
+        <field name="model">product.pricelist.item</field>
+        <field name="inherit_id" ref="product.product_pricelist_item_form_view"/>
+        
+        <field name="arch" type="xml">
+	        <xpath  expr="//group[@name='pricelist_rule_advanced']"  position="after">
+	        			<group name="pricelist_rule_factor" col="7" attrs="{'invisible':[('compute_price', '!=', 'factor')]}" groups="product.group_sale_pricelist">
+	                          <label for="" string="New Price ="/>
+	                          <div>
+	                              <span attrs="{'invisible':[('base', '!=', 'list_price')]}">Sales Price  &#47;  </span>
+	                              <span attrs="{'invisible':[('base', '!=', 'standard_price')]}">Cost  &#47;  </span>
+	                              <span attrs="{'invisible':[('base', '!=', 'pricelist')]}">Other Pricelist  &#47;  </span>
+	                          </div>
+	                          <label for="factor"/>
+	                          <div class="o_row">
+	                              <field name="factor"/>  
+	                          </div>
+	                          <span>&#45;</span>
+	                          <label for="price_discount"/>
+	                          <div class="o_row">
+	                              <field name="price_discount"/>
+	                              <span>%%</span>
+	                          </div>
+	                          
+	                      </group>
+	        </xpath>
+	        <xpath  expr="//field[@name='base']"  position="attributes">
+	        <attribute name="attrs">
+	        			{'invisible':[('compute_price', 'not in', ('formula','factor'))]}
+	        </attribute>
+	        </xpath>
+	        
+	        <xpath  expr="//field[@name='base_pricelist_id']"  position="attributes">
+	        	<attribute name="attrs">
+	        					{
+                                'invisible': ['|', ('compute_price', 'not in', ('formula','factor')), ('base', '!=', 'pricelist')],
+                                'required': [('compute_price', 'in', ('formula','factor')), ('base', '=', 'pricelist')],
+                                'readonly': [('base', '!=', 'pricelist')]}
+	        	</attribute>
+	        
+	     	</xpath>
+     </field>
+     </record>
+    
+     
+    </data>
+</odoo>

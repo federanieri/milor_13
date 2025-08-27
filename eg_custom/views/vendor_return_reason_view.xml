@@ -1,0 +1,45 @@
+<odoo>
+    <record id="vendor_return_reason_tree_view" model="ir.ui.view">
+        <field name="name">vendor.return.reason.tree</field>
+        <field name="model">vendor.return.reason</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="vendor_return_reason_form_view">
+        <field name="name">vendor.return.reason.form</field>
+        <field name="model">vendor.return.reason</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                    <field name="reason_description"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="vendor_return_reason_search_view">
+        <field name="name">vendor.return.reason.search</field>
+        <field name="model">vendor.return.reason</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="reason_description"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_vendor_return_reason">
+        <field name="name">Vendor Return Reasons</field>
+        <field name="res_model">vendor.return.reason</field>
+        <field name="view_mode">tree,form,search</field>
+    </record>
+
+    <menuitem id="sub_menu_vendor_return_reason" name="Vendor Return Reasons" parent="purchase.menu_purchase_config"
+              action="action_vendor_return_reason"/>
+</odoo>

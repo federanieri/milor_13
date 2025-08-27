@@ -1,0 +1,38 @@
+<odoo>
+  <data>
+ 	
+ 
+ 	
+   <record model="ir.ui.view" id="view_product_category_descriptions_form">
+         <field name="name">product.category.descriptions</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//group[@name='first']"  position="after">
+        		<group string="Fields" groups="base.group_system">
+        			<field name="fields_to_purchase" widget="many2many_tags"/>
+        			<field name="fields_to_sale" widget="many2many_tags"/>
+        			<field name="fields_to_website" widget="many2many_tags"/>
+        			<field name="fields_to_name" widget="many2many_tags"/>
+        		</group>
+        		<button name="update_descriptions" type="object" string="Update Products" />
+        </xpath>
+     	</field>
+    </record>
+     
+     <record id="view_product_template_form_description" model="ir.ui.view">
+        <field name="name">view.product.template.form.description</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='product_template_images']" position="before">
+            	<group name="product_descript" string="Product Description">
+	        		<field name="product_description" nolabel="1"/>
+	        	</group>
+	        </xpath>
+        </field>
+    </record> 
+    
+    </data>
+</odoo>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="effective_date_change">
+            <field name="name">effective.date.change</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="groups_id" eval="[(4, ref('effective_date_change_group'))]"/>
+                <field name="arch" type="xml">
+
+                    <field name="date_done">
+                        <field name="date_done" string="Effective Date" store="True"/>
+                    </field>
+
+                    <button name="button_validate" />
+
+                    <field name="origin" position="after">
+                        <div class="o_row">
+                            <button name="wiz_open" type="object" string="Change Effective Date" class="oe_link oe_read_only" attrs="{'invisible':['|',('state','!=','done')]}"/>
+                        </div>
+                    </field>
+
+                </field>
+        </record>
+    </data>
+</odoo>

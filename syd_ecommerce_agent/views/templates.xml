@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- In general for all theme -->
+    <template id="customize_header_style" inherit_id="portal.frontend_layout" name="Client menu">
+        <xpath expr="//div[@id='top_menu_collapse']" position="before">
+            <div class="client_list" groups="syd_ecommerce_agent.group_portal_agent">
+                <a class="btn" href="/my/retailers" role="button">Client</a>
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('client_list')]" position="after">
+            <div t-if="user_id.partner_id.selected_client_id">
+                <div groups="syd_ecommerce_agent.group_portal_agent" class="font-weight-bold">
+                    <t t-if="user_id.partner_id.selected_client_id">
+                        <t t-esc="user_id.partner_id.selected_client_id.name"/>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="portal_retailers_list" name="Retailers">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Retailers</t>
+            </t>
+            <t t-if="not partners">
+                <p>There are currently no retailers available for your account.</p>
+            </t>
+             <div class="alert alert-primary" role="alert">
+                	If you change retailer you will lose your actual shopping cart
+                </div>
+            <t t-if="partners" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th class='d-none d-md-table-cell'>Phone</th>
+                        <th/>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="partners" t-as="partner">
+                        <tr t-attf-class="#{selected_partner == partner.id and 'bg-light'}">
+                            <t t-set="url" t-value="partner.id != selected_partner and '/set/partner/'+ str(partner.id) or '/reset/partner'"/>
+                            <td><a t-att-href="url" class="nav-link p-0"><t t-esc="partner.name"/></a></td>
+                            <td><span t-field="partner.email"/></td>
+                            <td><span t-field="partner.phone"/></td>
+                            <td><a title="Select This Customer" t-att-href="url" t-attf-class="fa fa-2x #{selected_partner == partner.id and 'fa-check-square' or 'fa-square'}"></a></td>
+                        </tr>
+                    </t>
+                </tbody>
+            </t>
+        </t>
+    </template>
+
+</odoo>

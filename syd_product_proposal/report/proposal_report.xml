@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_proposal_saleorder_document">
+            <t t-call="web.external_layout">
+                <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
+                <t t-set="address">
+                    <div t-field="doc.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+                    <p t-if="doc.partner_id.vat">
+                        <t t-esc="doc.company_id.country_id.vat_label or 'Tax ID'" />: <span t-field="doc.partner_id.vat" /></p>
+                </t>
+                <div class="page">
+                    <div class="oe_structure" />
+                    <h2 class="mt16">
+                        <span>Sale Proposal # </span>
+                        <span t-field="doc.name" />
+                    </h2>
+                    <div class="row mt32 mb32" id="informations">
+                        <div t-if="doc.date_order" class="col-auto mw-100 mb-2">
+                            <strong>Proposal Order Date:</strong>
+                            <p class="m-0" t-field="doc.date_order" />
+                        </div>
+                        <div t-if="doc.user_id.name" class="col-auto mw-100 mb-2">
+                            <strong>Salesperson:</strong>
+                            <p class="m-0" t-field="doc.user_id" />
+                        </div>
+                    </div>
+                    <table class="table table-sm o_main_table">
+                        <thead>
+                            <tr>
+                            	<th></th>
+                                <th name="th_description" class="text-left">Description</th>
+                                <th class="text-right" t-if="doc.type=='mts'">Quantity</th>
+                                <th class="text-right" t-if="doc.type=='mts'">Price</th>
+                                <th class="text-right" groups="syd_product_proposal.group_proposal_product_code_visibility">Customer Product Code</th>
+                                <th class="text-right" t-if="doc.type=='mts' and doc.accepted==True">Quantity Confirmed</th>
+                                <th class="text-right" t-if="doc.type=='mto' and doc.accepted==True">Quantity Requested</th>
+                                <th class="text-right" >Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody class="sale_tbody" style="font-size:14px;">
+                            <t t-foreach="doc.porder_line.filtered(lambda self: (self.porder_id.accepted and self.qty_accepted>0 ) or (not self.porder_id.accepted))" t-as="line">
+                                <tr t-att-class="'bg-200 font-weight-bold o_line_section'">
+                                	<td>
+                                		<span t-field="line.product_id.image_128" t-options-widget="&quot;image&quot;"/><br/>
+                                	</td>
+                                    <td name="td_name">
+                                        <span t-field="line.name" />
+                                    </td>
+                                    <td name="td_quantity" class="text-right" t-if="doc.type=='mts'">
+                                        <span t-field="line.qty_proposed" />
+                                    </td>
+                                    <td name="td_priceunit" class="text-right" t-if="doc.type=='mts'">
+                                        <span t-field="line.price_proposed" />
+                                    </td>
+                                    
+                                    <td name="td_customercode" class="text-right" groups="syd_product_proposal.group_proposal_product_code_visibility">
+                                    	<span t-field="line.customer_product_code"/>
+                                    </td>
+                                    
+                                    <td class="text-right" t-if="doc.accepted==True">
+                                        <span t-field="line.qty_accepted" />
+                                    </td>
+                                    
+                                    <td name="td_subtotal_a" class="text-right " >
+                                        <span t-field="line.description" />
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <div class="clearfix" name="total_summary_proposal" t-if="doc.type=='mts'">
+                        <div id="total" class="row" name="total" >
+                            <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                                <table class="table table-sm">
+                                    <tr class="border-black o_total">
+                                        <td name="td_amount_total_label">
+                                            <strong>Total Proposed</strong>
+                                        </td>
+                                        <td name="td_amount_total" class="text-right">
+                                            <span t-field="doc.amount_total" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix" name="total_summary_accepted" t-if="doc.type=='mts' and doc.accepted==True">
+                        <div id="total_accepted" class="row" name="total_accepted">
+                            <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                                <table class="table table-sm">
+                                    <tr class="border-black o_total">
+                                        <td name="td_amount_total_label">
+                                            <strong>Total Accepted</strong>
+                                        </td>
+                                        <td name="td_amount_total" class="text-right">
+                                            <span t-field="doc.amount_total_accepted" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="oe_structure" />
+                    <p t-field="doc.note" />
+                </div>
+            </t>
+        </template>
+        <template id="report_proposal_saleorder">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="syd_product_proposal.report_proposal_saleorder_document" t-lang="doc.partner_id.lang" />
+                </t>
+            </t>
+        </template>
+        
+        <record id="paperformat_euro_landscape" model="report.paperformat">
+            <field name="name">A4</field>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">28</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+        
+        <report id="action_report_proposal_saleorder" 
+        string="Proposal Order" 
+        model="proposal.sale.order" 
+        report_type="qweb-pdf" 
+        paperformat="syd_product_proposal.paperformat_euro_landscape"
+        file="syd_product_proposal.report_proposal_saleorder" 
+        name="syd_product_proposal.report_proposal_saleorder" 
+        print_report_name="'Proposal Order - %s' % (object.name)" />
+    </data>
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="na_api_sync_json_preview_wizard_view_form" model="ir.ui.view">
+            <field name="name">na.api.sync.json.preview.wizard.view.form</field>
+            <field name="model">na.api.sync.json.preview.wiz</field>
+            <field name="arch" type="xml">
+                <form string="na_json_preview_form">
+                    <sheet>
+                        <group>
+                            <field name="config_id" readonly="1"/>
+                            <field name="rec_id" options="{'no_create':True}"/>
+                            <field name="api_preview" readonly="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="na_api_sync_json_preview_wizard_view_action" model="ir.actions.act_window">
+            <field name="name">JSON Preview</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">na.api.sync.json.preview.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Leave specific activities -->
+       
+        
+        <record id="mail_to_approve" model="mail.activity.type">
+            <field name="name">Approve</field>
+            <field name="icon">fa-euro-sign</field>
+            
+        </record>
+        
+          <template id="message_object_unlocked">
+			<div style="margin: 0px; padding: 0px; font-size: 13px;">
+			    <span t-field="user_id.name"/> unlocked the  <t t-esc="model_description"/> : <span t-field="object.display_name"/> 
+			    <p style="margin: 16px 0px 16px 0px;">
+			        <a t-att-href="'/mail/view?model=%s&amp;res_id=%s' % (res_model, object.id)"
+			            style="background-color:#875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px;">
+			            View <t t-esc="model_description or 'document'"/>
+			        </a>
+			    </p>
+			    
+			</div>
+        </template>
+      	
+      	
+      	<record id="model_unlock_purchase_action_create" model="ir.actions.server">
+            <field name="name">Sblocca ordine</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_approval_unlock()</field>
+        </record>
+        
+        
+        <record id="model_unlock_sale_action_create" model="ir.actions.server">
+            <field name="name">Sblocca ordine</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_approval_unlock()</field>
+        </record>
+    </data>
+</odoo>

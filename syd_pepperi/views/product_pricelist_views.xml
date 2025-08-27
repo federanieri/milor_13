@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="product_pricelist_view_inherit_pepperi" model="ir.ui.view">
+        <field name="name">product.pricelist.form.inherit.pepperi</field>
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="product.product_pricelist_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook//page[last()]" position="after">
+                <page name="pepperi" string="Pepperi">
+                    <group>
+                        <group>
+                        	<field name="pepperi_name" />
+                            <field name="to_pepperi"/>
+                            <field name="last_update_to_pepperi" readonly="1"/>
+                            <field name="need_synch_to_pepperi" readonly="1"/>
+                            <p attrs="{'invisible': [('to_pepperi', '=', False)]}" class="text-warning oe_edit_only">
+                                For Pepperi: Minumum quantity on the
+                                Pricelist will not be considered. If a product is
+                                covered by different rule the last will be used
+                            </p>
+                        </group>
+                        <group>
+                            <field name="pepperi_internal_id" readonly="1"/>
+                            <field name="from_pepperi" readonly="1"/>
+                            <field name="last_update_from_pepperi" readonly="1"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath> 
+        </field>
+    </record>
+    <record id="product_pricelist_item_form_view_inherit_pepperi" model="ir.ui.view">
+        <field name="name">product.pricelist.item.form.inherit.pepperi</field>
+        <field name="model">product.pricelist.item</field>
+        <field name="inherit_id" ref="product.product_pricelist_item_form_view"/>
+        <field name="arch" type="xml">
+            <field name="date_end" position="after">
+                <field name="to_pepperi"/>
+                <field name="need_synch_to_pepperi" readonly="1"/>
+                <p attrs="{'invisible': [('to_pepperi', '=', False)]}" class="text-warning oe_edit_only">
+                    For Pepperi: Minumum quantity on the
+                    Pricelist will not be considered. If a product is
+                    covered by different rule the last will be used
+                </p>
+            </field> 
+        </field>
+    </record>
+
+    <record id="pepperi_product_pricelist_action" model="ir.actions.act_window">
+        <field name="name">Pricelists</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.pricelist</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="product.product_pricelist_view_search" />
+        <field name="context">{"default_base":'list_price'}</field>
+        <field name="domain">['|', ('to_pepperi', '=', True), ('from_pepperi', '=', True)]</field>
+    </record>
+
+    <menuitem
+        id="product_pricelist_menu"
+        name="PriceList"
+        parent="pepperi_menu_root"
+        action="pepperi_product_pricelist_action"
+        sequence="40"/>
+
+</odoo>
+

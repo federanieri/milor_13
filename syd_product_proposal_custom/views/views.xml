@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_order_form_extend_to_replenish" model="ir.ui.view">
+		<field name="name">view.order.form.extend.replenish</field>
+		<field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//header" position="inside">
+	             <button string="Replenish" type="object"
+	                 name="from_sale_replenishment"
+	                 groups="stock.group_stock_user"
+	                 context="{'sale_order': id}"
+	                 attrs="{'invisible': [('state', '!=', 'sale')]}"/>
+			</xpath>
+		</field>
+	</record>
+	
+	<record id="purchase_order_form_extend_to_replenish" model="ir.ui.view">
+		<field name="name">purchase.order.form.extend.replenish</field>
+		<field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//button[@id='draft_confirm']" position="attributes">
+ 				<attribute name="context">{'date_deadline_from':date_deadline_from,'date_deadline_to':date_deadline_to}</attribute>	 
+			</xpath>
+			<xpath expr="//group[@name='planning']" position="inside">	
+				<label for="date_deadline_from"/>
+	            <div>
+	                <field name="date_deadline_from" attrs="{'readonly': [('state', 'in', ['done','cancel','purchase'])]}"/>	
+	            </div>
+	            <label for="date_deadline_to"/>
+	            <div>
+	                <field name="date_deadline_to" attrs="{'readonly': [('state', 'in', ['done','cancel','purchase'])]}"/>	                
+	            </div>
+			</xpath>
+		</field>
+	</record>
+
+</odoo>

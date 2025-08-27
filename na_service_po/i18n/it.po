@@ -1,0 +1,111 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* na_service_po
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-06-16 12:15+0000\n"
+"PO-Revision-Date: 2023-06-16 12:15+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: na_service_po
+#: model_terms:ir.ui.view,arch_db:na_service_po.na_purchase_order_form_inherit
+msgid "<span class=\"o_stat_text\">Child PO</span>"
+msgstr ""
+
+#. module: na_service_po
+#: model_terms:ir.ui.view,arch_db:na_service_po.view_confirm_purchase_order_check
+msgid "Cancel"
+msgstr "Cancella"
+
+#. module: na_service_po
+#: model:ir.model.fields,field_description:na_service_po.field_purchase_order__sequence_child
+msgid "Child Sequence"
+msgstr "Sequenza ordini figli"
+
+#. module: na_service_po
+#: code:addons/na_service_po/models/purchase_order.py:0
+#: model_terms:ir.ui.view,arch_db:na_service_po.view_confirm_purchase_order_check
+#, python-format
+msgid "Confirm Order"
+msgstr "Conferma Ordine"
+
+#. module: na_service_po
+#: model:ir.model.fields,field_description:na_service_po.field_confirm_purchase_order__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: na_service_po
+#: model:ir.model.fields,field_description:na_service_po.field_confirm_purchase_order__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: na_service_po
+#: model:ir.model.fields,field_description:na_service_po.field_confirm_purchase_order__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: na_service_po
+#: model:ir.model.fields,field_description:na_service_po.field_confirm_purchase_order__id
+msgid "ID"
+msgstr ""
+
+#. module: na_service_po
+#: model:ir.model.fields,field_description:na_service_po.field_confirm_purchase_order____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: na_service_po
+#: model:ir.model.fields,field_description:na_service_po.field_confirm_purchase_order__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: na_service_po
+#: model:ir.model.fields,field_description:na_service_po.field_confirm_purchase_order__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: na_service_po
+#: model:ir.model,name:na_service_po.model_purchase_order
+msgid "Purchase Order"
+msgstr "Ordine di acquisto"
+
+#. module: na_service_po
+#: model_terms:ir.ui.view,arch_db:na_service_po.na_view_rfq_order_milor_form_inherit
+msgid "Reload"
+msgstr "Ricarica"
+
+#. module: na_service_po
+#: code:addons/na_service_po/models/purchase_order.py:0
+#, python-format
+msgid "The parent order doesn't exist"
+msgstr "L'ordine parente non esiste"
+
+#. module: na_service_po
+#: model_terms:ir.ui.view,arch_db:na_service_po.view_confirm_purchase_order_check
+msgid "This order has lines with price 0, are you sure you want to continue?"
+msgstr "Questo ordine ha delle line con prezzo 0, sei sicuro di voler continuare?"
+
+#. module: na_service_po
+#: code:addons/na_service_po/models/purchase_order.py:0
+#, python-format
+msgid "You can not cancel an order if it has children orders not cancelled"
+msgstr "Non puoi annullare un ordine se ha dei figli ordini non annullati"
+
+#. module: na_service_po
+#: code:addons/na_service_po/models/purchase_order.py:0
+#, python-format
+msgid "You can not delete an order if it has children orders"
+msgstr "Non puoi eliminare un ordine se ha dei figli ordine"
+
+#. module: na_service_po
+#: model:ir.model,name:na_service_po.model_confirm_purchase_order
+msgid "confirm.purchase.order"
+msgstr ""

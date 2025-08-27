@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+    <t t-name="syd_zpl_out_ext.systray_menu">
+        <li class="o_zpl_out_ext_manager" role="menuitem">
+            <a role="button" href="#" class="o_zpl_out_ext" t-attf-title="ZPL output ext" aria-label="ZPL output ext"
+               data-toggle="dropdown" aria-expanded="false" tabindex="-1" data-display="static">
+                ZPL[<span class="o_zpl_out_ext_selected"></span>]
+            </a>
+        </li>
+    </t>
+
+    <t t-name="syd_zpl_out_ext.systray_dropdown">
+        <div class="dropdown-menu dropdown-menu-right o_zpl_out_ext_dropdown" role="menu">
+            <span role="menuitem" class="dropdown-header">Select ZPL file extension</span>
+            <div role="separator" class="dropdown-divider"/>
+            <t t-foreach="exts" t-as="e">
+                <a role="menuitem" href="#" t-att-data-ext="e.ext" t-attf-class="dropdown-item{{ e.ext === selected_ext ? ' selected' : '' }}"><t t-esc="e.ext + ' (' + e.name + ')'"/></a>
+            </t>
+        </div>
+    </t>
+</templates>

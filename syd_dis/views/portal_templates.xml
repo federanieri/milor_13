@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="portal_my_purchase_order" inherit_id="syd_custom.portal_my_purchase_order">
+        <xpath expr="//div[hasclass('card-header')]/div[hasclass('row')][1]/div[hasclass('col')]/div[hasclass('row')]" position="inside">
+            <div class="col-lg-4 mb-1">
+                <a class="btn btn-secondary btn-block o_download_btn" style="font-size: small;background: #a69d93;border-color: #a69d93;" t-att-href="'/syd_dis/download_all_txt/%s' % order.id" title="Download All TXT"><i class="fa fa-work"/> Download All TXT</a>
+            </div>
+        </xpath>
+        <xpath expr="//td[@id='product_name']" position="inside">
+            <span t-if="ol.product_id.txt_type == 'txt1' and ol.dis_task_id.txt" class="badge badge-pill badge-info">
+                <a t-att-href="'/syd_dis/download_txt/%s' % ol.dis_task_id.id"><span class="fa fa-file-text"/></a>
+            </span>
+            <span t-if="ol.product_id.txt_type == 'txt2' and ol.dis_task_id.stl_file" class="badge badge-pill badge-info">
+                <t t-call="syd_website_stl_viewer.stl_viewer">
+                    <t t-set="stl_url" t-value="'/web/content?model=purchase.order.line&amp;id=%d&amp;field=dis_task_stl_file' % ol.id"/>
+                    <t t-set="id" t-value="ol.id"/>
+                    <t t-set="icon" t-value="'fa-cube 1x'"/>
+                </t>
+            </span>
+            <span t-if="ol.product_id.txt_type == 'txt2' and ol.dis_task_id.stl_file" class="badge badge-pill badge-info">
+                <a t-attf-href="/web/content?model=purchase.order.line&amp;id={{ol.id}}&amp;field=dis_task_stl_file&amp;filename={{'%s_%s' % (ol.order_id.name, ol.id)}}.stl&amp;download=true"><span class="fa fa-download"/></a>
+            </span>
+        </xpath>
+        <xpath expr="//div[hasclass('container')]" position="inside">
+            <t t-call="syd_website_stl_viewer.stl_viewer_modal"></t>
+        </xpath>
+    </template>
+
+</odoo>

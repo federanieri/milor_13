@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+		<record model="ir.ui.view" id="view_form_account_move_line_max_crma_qty">
+            <field name="name">view_form_account_move_line_max_crma_qty</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <data>
+                	<xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='quantity']" position="after">
+                		<field name='qty_max_crma' attrs="{'column_invisible': [('parent.state', '!=', 'posted')]}"/>
+                	</xpath>
+                </data>
+            </field>
+        </record>
+     </data>
+</odoo> 

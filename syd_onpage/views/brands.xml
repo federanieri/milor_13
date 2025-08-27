@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="brand_view_inherit_onpage" model="ir.ui.view">
+        <field name="name">common.product.brand.ept.form.inherit.onpage</field>
+        <field name="model">common.product.brand.ept</field>
+        <field name="inherit_id" ref="common_connector_library.view_common_product_brand_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <notebook>
+                    <page name="OnPage" string="OnPage">
+                        <group>
+                            <group>
+                                <field name="is_onpage_brand"/>
+                                <field name="onpage_id"/>
+                                <field name="collection_ids"/>
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_onpage_brands" model="ir.actions.act_window">
+        <field name="name">OnPage Brands</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">common.product.brand.ept</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_onpage_brand', '=', True)]</field>
+    </record>
+
+    <menuitem id="menu_onpage_brand"
+            name="OnPage Brands"
+            parent="menu_onpage_account_root"
+            action="action_onpage_brands"/>
+</odoo>

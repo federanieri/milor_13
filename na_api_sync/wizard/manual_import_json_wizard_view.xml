@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="na_api_sync_manual_import_json_view_form" model="ir.ui.view">
+            <field name="name">na.api.sync.manual.import.json.view.form</field>
+            <field name="model">na.api.sync.manual.import.json.wiz</field>
+            <field name="arch" type="xml">
+                <form string="na_manual_import_json_form">
+                    <sheet>
+                        <group>
+                            <field name="config_id" readonly="1"/>
+                            <field name="json_to_imp"/>
+                            <field name="action_tag"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="import_json" string="Import" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="na_api_sync_manual_import_json_view_action" model="ir.actions.act_window">
+            <field name="name">Manual Import JSON</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">na.api.sync.manual.import.json.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

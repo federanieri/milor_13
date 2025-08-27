@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright 2022 Nexapp S.r.l.
+  License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+ -->
+<odoo>
+    <data>
+        <record id="na_api_sync_env_form_view" model="ir.ui.view">
+            <field name="name">na.api.sync.env.form.view</field>
+            <field name="model">na.api.sync.env</field>
+            <field name="arch" type="xml">
+                <form string="API Sync env Form">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name" class="oe_inline"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="api_type"/>
+                            <field name="log_days"/>
+                        </group>
+                        <group name="auth_group" attrs="{'invisible': [('api_type', 'in', ('exp', 'import_feed', 'export_feed'))]}">
+                            <group string="Authentication">
+                                <field name="auth_type" attrs="{'required': [('api_type', 'not in', ('exp','import_feed', 'export_feed'))]}"/>
+                                <field name="api_key" attrs="{'invisible': [('auth_type', '!=', 'api_key')], 'required': [('auth_type', '=', 'api_key')]}"/>
+                                <field name="username" attrs="{'invisible': [('auth_type', 'not in', ('up','oauth2'))], 'required': [('auth_type', 'in', ('up','oauth2'))]}"/>
+                                <field name="password" password="True" attrs="{'invisible': [('auth_type', 'not in', ('up','oauth2'))], 'required': [('auth_type', 'in', ('up','oauth2'))]}"/>
+                                <field name="token_url" attrs="{'invisible': [('auth_type', '!=', 'oauth2')], 'required': [('auth_type', '=', 'oauth2')]}"/>
+                                <field name="access_token" readonly="1" attrs="{'invisible': [('auth_type', '!=', 'oauth2')]}"/>
+                            </group>
+                            <group string="Header Parameters">
+                                <field name="accept"/>
+                                <field name="content_type"/>
+                                <field name="authorization_scope"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Synchronizations" name="sync_list">
+                                <field name="config_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="na_api_sync_env_tree_view" model="ir.ui.view">
+            <field name="name">na.api.sync.env.tree.view</field>
+            <field name="model">na.api.sync.env</field>
+            <field name="arch" type="xml">
+                <tree string="Sync env Tree">
+                    <field name="name"/>
+                    <field name="auth_type"/>
+                    <field name="log_days"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="na_api_sync_env_search_view" model="ir.ui.view">
+            <field name="name">na.api.sync.env.search.view</field>
+            <field name="model">na.api.sync.env</field>
+            <field name="arch" type="xml">
+                <search string="Sync Env Search">
+                    <field name="name"/>
+                    <field name="auth_type"/>
+                    <field name="api_key"/>
+                    <field name="username"/>
+                    <field name="log_days"/>
+                </search>
+            </field>
+        </record>
+        
+        <record id="na_action_api_sync_env" model="ir.actions.act_window">
+            <field name="name">Environments</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">na.api.sync.env</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                name="Environments"
+                action="na_action_api_sync_env"
+                id="menu_api_sync_env"
+                parent="menu_api_sync_root"
+                sequence="1"/>
+    </data>
+</odoo>

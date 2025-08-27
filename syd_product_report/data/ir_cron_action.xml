@@ -1,0 +1,37 @@
+<odoo>
+    <data noupdate="1">
+		
+		<record id="model_send_daily_report_sale" model="ir.cron">
+            <field name="name">CommerceHub: Send daily sale report</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="active">False</field>
+            <field name="interval_number">7</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="state">code</field>
+            <field name="code">model.daily_sale_report()</field>
+        </record>
+        
+   		<record id="model_send_daily_sale_missing_report" model="ir.cron">
+            <field name="name">CommerceHub: Send daily report with missing error</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="active">False</field>
+            <field name="interval_number">7</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="state">code</field>
+            <field name="code">model.daily_sale_report('missing')</field>
+        </record>
+        
+   		<record id="model_send_daily_sale_duplicate_report" model="ir.cron">
+            <field name="name">CommerceHub: Send daily report with duplicate error</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="interval_number">7</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active">False</field>
+            <field name="state">code</field>
+            <field name="code">model.daily_sale_report('duplicate')</field>
+        </record>        
+	</data>
+</odoo>

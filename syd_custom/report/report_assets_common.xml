@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_assets_common" inherit_id="web.report_assets_common">
+        <xpath expr="//link[last()]" position="after">
+            <style type="text/css">
+                body table.o_main_table {
+                    font-size: 12px !important;
+                }
+            </style>
+        </xpath>
+    </template>
+
+</odoo>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/syd_website_stl_viewer/static/src/js/three.min.js"></script>
+            <script type="text/javascript" src="/syd_website_stl_viewer/static/src/js/STLLoader.js"></script>
+            <script type="text/javascript" src="/syd_website_stl_viewer/static/src/js/OrbitControls.js"></script>
+            <script type="text/javascript" src="/syd_website_stl_viewer/static/src/js/stl_viewer.js"></script>
+        </xpath>
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/scss" href="/syd_website_stl_viewer/static/src/scss/style.scss"/>
+        </xpath>
+    </template>
+
+    <template id="stl_viewer">
+        <span  class="oe_stl_viewer" t-attf-data-id="{{id}}" t-attf-data-url="{{stl_url}}">
+            <t t-set="_icon" t-value="icon or 'fa-eye fa-1x'"/>
+            <a t-attf-name="button_sts_name_{{id}}" t-attf-id="{{id}}" t-attf-data-url="{{stl_url}}"><i t-attf-class="fa {{_icon}}"></i></a>
+        </span>
+    </template>
+
+    <template id="stl_viewer_modal">
+        <div role="dialog" class="modal fade" tabindex="-1" t-attf-id="modal_stl_viewer">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">3d Viewer</h5>
+                    </div>
+                    <div class="modal-body" >
+                        <div t-attf-id="modal_container" ><div t-attf-id="content_canvas"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </template>
+</odoo>

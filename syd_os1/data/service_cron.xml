@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="ir_cron_auto_get_unique_code" model="ir.cron">
+        <field name="name">OS1; Get unique code</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="model_syd_os1_os1_account"/>
+        <field name="code">model.getUniqueCode()</field>
+        <field name="state">code</field>
+    </record>
+    
+    <record id="ir_cron_auto_get_all_invoices" model="ir.cron">
+        <field name="name">OS1; Get all invoices from OS1</field>
+        <field name="interval_number">7</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="model_syd_os1_os1_account"/>
+        <field name="code">model.create_invoice_from_os1()</field>
+        <field name="state">code</field>
+    </record>
+    
+    <record id="ir_cron_auto_get_invoice_code" model="ir.cron">
+        <field name="name">OS1; Get invoice from OS1</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="model_syd_os1_os1_account"/>
+        <field name="code">model.getInvoiceCode()</field>
+        <field name="state">code</field>
+    </record>
+    
+    <record id="ir_cron_auto_get_invoice_status" model="ir.cron">
+        <field name="name">OS1; Get status invoice from OS1</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="model_syd_os1_os1_account"/>
+        <field name="code">model.getInvoiceState()</field>
+        <field name="state">code</field>
+    </record>
+    
+    <record id="ir_cron_auto_get_ddt_status" model="ir.cron">
+        <field name="name">OS1; Get status DDT from OS1</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="model_syd_os1_os1_account"/>
+        <field name="code">model.getDDTState()</field>
+        <field name="state">code</field>
+    </record>
+    
+    <record id="ir_cron_auto_get_payment_code" model="ir.cron">
+        <field name="name">OS1; Get payment from OS1</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="model_syd_os1_os1_account"/>
+        <field name="code">model.getPaymentCode()</field>
+        <field name="state">code</field>
+    </record>
+    
+    <record id="ir_cron_create_temporary_customers_code" model="ir.cron">
+        <field name="name">OS1; Create Temporary Customers from OS1</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="model_res_partner"/>
+        <field name="code">model.cronCreateTemporaryCustomers()</field>
+        <field name="state">code</field>
+    </record>
+    
+    <record id="ir_cron_create_daily_fees" model="ir.cron">
+        <field name="name">OS1; Create daily fees OS1</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="model_syd_os1_os1_account"/>
+        <field name="code">model.create_daily_fees()</field>
+        <field name="state">code</field>
+    </record>
+    
+</odoo>

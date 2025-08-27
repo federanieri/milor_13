@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+       <template id="assets_backend" name="stock_barcode assets" inherit_id="stock_barcode.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/syd_custom/static/src/js/settings_widget.js"></script>
+                <script type="text/javascript" src="/syd_custom/static/src/js/picking_client_action.js"></script>
+            </xpath>
+        </template>
+
+		<template id="assets_frontend" inherit_id="website.assets_frontend">
+			<xpath expr="script[last()]" position="after">
+				<script type="text/javascript" src="/syd_custom/static/src/js/compute_todo.js"></script>
+			</xpath>
+		</template>
+    </data>
+</odoo>

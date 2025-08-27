@@ -1,0 +1,12 @@
+<odoo>
+    <record model="ir.ui.view" id="stock_picking_type_form_view_for_eg_custom">
+        <field name="name">stock.picking.type.form.for.eg.custom</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='show_operations']" position="after">
+                <field name="bulk_validate"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

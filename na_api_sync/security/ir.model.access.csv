@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_na_api_sync_env,na.api.sync.env.security,model_na_api_sync_env,base.group_user,1,1,1,1
+access_na_api_sync_log,na.api.sync.log.security,model_na_api_sync_log,base.group_user,1,1,1,1
+access_na_api_sync_config,na.api.sync.config.security,model_na_api_sync_config,base.group_user,1,1,1,1
+access_na_api_sync_config_fields,na.api.sync.config.fields.security,model_na_api_sync_config_fields,base.group_user,1,1,1,1
+access_na_api_sync_config_actions,na.api.sync.config.actions.security,model_na_api_sync_config_actions,base.group_user,1,1,1,1
+access_na_api_sync_json_preview_wiz,na.api.sync.config.json.preview.wiz,model_na_api_sync_json_preview_wiz,base.group_user,1,1,1,1
+access_na_api_sync_manual_import_json_wiz,na.api.sync.manual.import.json.wiz,model_na_api_sync_manual_import_json_wiz,base.group_user,1,1,1,1

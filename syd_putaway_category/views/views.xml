@@ -1,0 +1,64 @@
+<odoo>
+  <data>
+ 	
+ <record id="view_stock_putaway_filter_rule_tree" model="ir.ui.view">
+            <field name="name">stock.putaway.filter_rule.tree</field>
+            <field name="model">stock.putaway.filter_rule</field>
+            <field name="arch" type="xml">
+            	<tree>
+            	<field name="name"/>
+            	<field name="location_in_id"/>
+            	<field name="location_out_id"/>
+            	<field name="putaway_count" />
+            	</tree>
+            
+            </field>
+            </record>
+ 	
+  <record id="view_stock_putaway_filter_rule_form" model="ir.ui.view">
+            <field name="name">stock.putaway.filter_rule.form</field>
+            <field name="model">stock.putaway.filter_rule</field>
+            <field name="arch" type="xml">
+                <form string="Putaway Filter Rules">
+                    <header>
+                    	<button type="object" string="Generate Rules" name="generate" />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                        	<field name="model_name" invisible="1" />
+                        	<field name="filter_domain" widget="domain" options="{'model': 'model_name', 'in_dialog': True}"/>
+                        	<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                        	
+                        </group>
+                        <group>
+                            <group>
+                            	
+                                <field name="location_in_id"/>
+                                <field name="location_out_id" />
+                            </group>
+                           
+                        </group>
+                    </sheet>
+                    
+                </form>
+            </field>
+        </record>
+         <record id="action_cat_stock_putaway_filter_rule_form" model="ir.actions.act_window">
+            <field name="name">Reordering Rules For Category</field>
+            <field name="res_model">stock.putaway.filter_rule</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            
+        </record>
+        
+         <menuitem
+            id="menu_putaway_rules_wizard_config"
+            action="action_cat_stock_putaway_filter_rule_form"
+            name="Putaway Rules With Filter" parent="stock.menu_stock_inventory_control" sequence="12"/>
+    </data>
+</odoo>

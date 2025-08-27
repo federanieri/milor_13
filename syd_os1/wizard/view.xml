@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record model="ir.ui.view" id="wizard_import_invoice_form_view">
+			<field name="name">wizard.form</field>
+			<field name="model">syd_os1.wizard_import_invoice</field>
+			<field name="arch" type="xml">
+				<form string="Ricerca">
+					<group>
+						<field name="doc_os1_ids" readonly="1" widget="many2many_tags"/>
+						<field name="KTestaDoc" />
+						<field name="NumDocumento" />
+						<field name="DataDocumento" />
+					</group>
+					<footer>
+						<button string="Force Invoice" type="object"
+							name="startImportInvoice" class="oe_inline oe_stat_button" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+
+		<record model="ir.actions.act_window"
+			id="action_wizard_import_invoice">
+			<field name="name">Wizard of force Invoice</field>
+			<field name="res_model">syd_os1.wizard_import_invoice</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+	</data>
+</odoo>

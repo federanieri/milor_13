@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!--OnPage Tree Views-->
+        <record id="view_onpage_account_tree" model="ir.ui.view">
+            <field name="name">view.onpage.account.tree</field>
+            <field name="model">onpage.account</field>
+            <field name="arch" type="xml">
+                <tree string="OnPage Account">
+                    <field name="name"/>
+                    <field name="onpage_api_token"/>
+                    <field name="onpage_api_url"/>
+                    <field name="onpage_images_api"/>
+                    <field name="last_synch_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--OnPage Form Views-->
+        <record id="view_onpage_account_form" model="ir.ui.view">
+            <field name="name">view.onpage.account.form</field>
+            <field name="model">onpage.account</field>
+            <field name="arch" type="xml">
+                <form string="OnPage Account">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="onpage_api_token"/>
+                            </group>
+                            <group string="OnPage Credential">
+                                <field name="name"/>
+                                <field name="onpage_api_token"/>
+                                <field name="onpage_api_url"/>
+                                <field name="onpage_images_api"/>
+                                <field name="last_synch_date"/>
+                            </group>
+
+                            <group string="Others">
+                                <field name="last_synch_date"/>
+                                <field name="last_product_update_date"/>
+                                <field name="into_domain"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!---OnPage Kanban-->
+        <record id="onpage_account_view_kanban" model="ir.ui.view">
+            <field name="name">onpage.account.views.kanban</field>
+            <field name="model">onpage.account</field>
+            <field name="arch" type="xml">
+                <kanban create="false">
+                    <field name="name"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_card">
+                                <div class="o_dropdown_kanban dropdown" groups="base.group_user">
+                                    <a class="dropdown-toggle o-no-caret btn" role="button" data-toggle="dropdown" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                        <span class="fa fa-bars fa-lg"/>
+                                    </a>
+                                    <div class="dropdown-menu" role="menu">
+                                        <a type="edit" class="dropdown-item" role="menuitem">Edit</a>
+                                    </div>
+                                </div>
+                                <div class="oe_kanban_content">
+                                    <h3 class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </h3>
+                                    <div class="row">
+                                        <div class="col-sm-5 o_kanban_primary_left mt-4">
+                                            <div class="row">
+                                                <div class="col overflow-hidden text-left">
+                                                	Sync:
+                                                    <button name="action_perform_sync_with_onpage" type="object" class="btn btn-primary btn-sm">
+                                                        SYNC
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col overflow-hidden text-left">
+                                                	Sync:
+                                                    <button name="action_perform_sync_brand_with_onpage" type="object" class="btn btn-primary btn-sm">
+                                                        Brand
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col overflow-hidden text-left">
+                                                	Sync:
+                                                    <button name="action_perform_sync_collections_with_onpage" type="object" class="btn btn-primary btn-sm">
+                                                        Collections
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col overflow-hidden text-left">
+                                                	Sync:
+                                                    <button name="action_perform_sync_categories_with_onpage" type="object" class="btn btn-primary btn-sm">
+                                                        Categories
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col overflow-hidden text-left">
+                                                	Sync:
+                                                    <button name="action_perform_sync_products_with_onpage" type="object" class="btn btn-primary btn-sm">
+                                                        Products
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col overflow-hidden text-left">
+                                                	Sync:
+                                                    <button name="action_perform_sync_variants_with_onpage" type="object" class="btn btn-primary btn-sm">
+                                                        Variants
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-7 o_kanban_primary_right mt-4">
+                                            <div class="row">
+                                                <div class="col overflow-hidden text-left">
+                                                    <a name="action_open_onpage_product" type="object">
+                                                        <strong>OnPage Products</strong>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!--OnPage Actions-->
+        <record id="action_onpage_account" model="ir.actions.act_window">
+            <field name="name">OnPage Account</field>
+            <field name="res_model">onpage.account</field>
+            <field name="view_mode">kanban,form,tree</field>
+        </record>
+
+        <!--OnPage Menus-->
+
+        <menuitem name="OnPage"
+        id="menu_onpage_account_root"
+        groups="syd_onpage.group_onpage"
+        web_icon="syd_onpage,static/description/icon.png"
+        sequence="1"
+        />
+
+        <menuitem id="menu_onpage_account"
+            name="OnPage Account"
+            parent="menu_onpage_account_root"
+            action="action_onpage_account"
+            />
+</odoo>

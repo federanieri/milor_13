@@ -1,0 +1,136 @@
+<odoo>
+  <data>
+ 	
+ 
+ 	
+ <record model="ir.ui.view" id="syd_approvals_category_tree">
+      <field name="name">syd_approvals.category</field>
+      <field name="model">syd_approvals.category</field>
+      <field name="arch" type="xml">
+        <tree >
+          <field name="name"/>
+          <field name="model_id"/>
+        </tree>
+      </field>
+    </record>
+
+<record model="ir.ui.view" id="syd_approvals_category_form">
+      <field name="name">syd_approvals.category</field>
+      <field name="model">syd_approvals.category</field>
+      <field name="arch" type="xml">
+        <form >
+        <sheet>
+        	<group>
+	          <field name="name"/>
+	          <field name="model_id"/>
+	           <field name="model_name" invisible="1"/>
+	          <field name="field_child_id"/>
+	          <field name="model_child_name" invisible="1"/>
+	           
+          </group>
+          <field name="rule_ids" >
+          	<tree>
+          		<field name="sequence" widget="handle"/>
+
+          		<field name="name" />
+          		<field name="category_id" invisible="1" />
+          		<field name="model_name" invisible="1"/>
+          		 <field name="model_child_name" invisible="1"/>
+          		 <field name="user_id" />
+          	</tree>
+          	<form>
+          		<sheet>
+          		<group>
+          			<field name="name" />
+          			
+          		    <field name="category_id" invisible="1" />
+          			<field name="model_name" invisible="1"/>
+          			<field name="filter_domain" widget="domain" options="{'model': 'model_name', 'in_dialog': True}"/>
+          			 <field name="model_child_name" invisible="1"/>
+          			<field name="filter_child_domain" widget="domain" options="{'model': 'model_child_name', 'in_dialog': True}"/> 
+          			<field name="state" />
+          			 <field name="user_id" />
+          			 <field name="message" />
+          			</group>
+          		</sheet>
+          	
+          	</form>
+          </field>
+        </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="syd_approvals_category_act">
+      <field name="name">Approvals Category</field>
+      <field name="res_model">syd_approvals.category</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+
+    <menuitem name="Approvals Category" id="syd_approvals_category_menu_sale" parent="sale.menu_sale_config"
+              action="syd_approvals_category_act"/>
+              
+    <menuitem name="Approvals Category" id="syd_approvals_category_menu_purchase" parent="purchase.menu_purchase_config"
+              action="syd_approvals_category_act"/>
+	
+	 <record model="ir.ui.view" id="view_sale_order_approve_form">
+         <field name="name">sale.order</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//button[@name='payment_action_capture']"  position="before">
+        		
+        			<field name="approval_state" widget="state_selection"/>
+        		
+        </xpath>
+     	</field>
+    </record>
+    
+    <record model="ir.ui.view" id="view_purchase_order_approve_form">
+         <field name="name">purchase.order</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//button[@name='action_rfq_send']"  position="before">
+        		
+        			<field name="approval_state" widget="state_selection"/>
+        		
+        </xpath>
+     	</field>
+    </record>
+    <record model="ir.ui.view" id="view_purchase_order_approve_tree">
+         <field name="name">purchase.order</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//tree[1]"  position="inside">
+        		
+        			<field name="approval_state" widget="state_selection"/>
+        		
+        </xpath>
+     	</field>
+    </record>
+    	
+    <record model="ir.ui.view" id="view_sale_order_approve_tree">
+         <field name="name">sale.order</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        
+        <field name="arch" type="xml">
+       <xpath  expr="//tree[1]"  position="inside">
+        		
+        			<field name="approval_state" widget="state_selection"/>
+        		
+        </xpath>
+     	</field>
+    </record>
+  
+    </data>
+</odoo>

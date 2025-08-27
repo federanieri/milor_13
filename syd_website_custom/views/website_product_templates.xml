@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+	<template id="add_default_code_products_item"
+		inherit_id="website_sale.products_item" name="Products default code">
+		<xpath expr="//h6[hasclass('o_wsale_products_item_title')]"
+			position="inside">
+			<div t-if="product.default_code">
+				<small style="color:#00000080;"><t t-esc="product.default_code"/></small>
+			</div>
+		</xpath>
+	</template> 
+   	
+	<template id="syd_website_custom_cart" inherit_id="website_sale.cart_popover" website_id="website.default_website" priority="100">
+        <xpath expr="//div[hasclass('te_cart_popover_qty')]" position="inside">
+			<div t-if="line.product_id.default_code" class="te_cart_popover_qty py-1">SKU:
+				<span t-esc="line.product_id.default_code" />
+			</div>
+        </xpath>
+    </template>
+
+   	<template id="syd_website_custom_cart_lines" inherit_id="website_sale.cart_lines" website_id="website.default_website" priority="100">
+        <xpath expr="//div[hasclass('te_cart_prod_attr_lines')]" position="replace">
+        	<div class="te_cart_prod_attr_lines mt4">
+	            <t t-if="len(line.product_id.product_template_attribute_value_ids)">
+	                <t t-set="total_attribute" t-value="0"></t>
+	                <t t-foreach="line.product_id.product_template_attribute_value_ids" t-as="val_vart">
+	                    <label>
+	
+	                        <span class="te_attr_span">
+	                            <t t-esc="val_vart.attribute_id.name"></t>
+	                        </span>
+	                        :
+	
+	                        <span class="te_attr_span">
+	                            <t t-esc="val_vart.name"></t>
+	                        </span>
+	                        <t t-set="total_attribute" t-value="total_attribute + 1"></t>
+	                        <t t-if="total_attribute">
+	                            <div class="te_attr_comma">,</div>
+	                        </t>
+	                    </label>
+	                </t>
+	            </t>
+        	</div>
+	        <span t-if="line.product_id.default_code" t-field="line.product_id.default_code" />
+        </xpath>
+    </template>
+
+	<template id="syd_website_custom_cart_summary" inherit_id="website_sale.cart_summary" website_id="website.default_website" priority="100">
+        <xpath expr="//div[hasclass('te_checkout_prod_attr_lines')]" position="inside">
+			<div t-if="line.product_id.default_code" class="te_attr_span">SKU:
+				<span t-esc="line.product_id.default_code"/>
+			</div>
+        </xpath>
+    </template> 
+    
+     <template id="syd_website_custom_quick_view_template" inherit_id="emipro_theme_base.quick_view_container" website_id="website.default_website" priority="100">
+        <xpath expr="//div[@id='product_details']/h1" position="after">
+			<div t-if="product.default_code" style="color: lightslategray;">SKU:
+				<span t-esc="product.default_code"/>
+			</div>
+        </xpath>
+        <xpath expr="//div[hasclass('o_not_editable')]" position="replace">
+			<div class="o_not_editable">
+				<t t-set="website_description" t-value="product._remove_internal_ref()"/>
+                <p t-raw="website_description" class="te_prod_desc"/>
+            </div>
+        </xpath>
+    </template> 
+    
+    <template id="syd_website_custom_ajax_cart_success" inherit_id="emipro_theme_base.ajax_cart_success_container" website_id="website.default_website" priority="100">
+        <xpath expr="//h1" position="attributes">
+			<attribute name="style">margin-bottom:0px;</attribute>
+        </xpath>
+        <xpath expr="//h1[@t-field='product.name_composed']" position="after">
+			<h5 t-if="bool(product.default_code)" t-field="product.default_code" style="color:lightslategray;">Sku</h5>
+        </xpath>
+    </template>  
+   
+ 	<record model="ir.ui.view" id="syd_website_custom_ajax_cart_success">
+		<field name="website_id" eval="2"/>
+	</record>
+   
+ 	<record model="ir.ui.view" id="syd_website_custom_quick_view_template">
+		<field name="website_id" eval="2"/>
+	</record> 
+   
+ 	<record model="ir.ui.view" id="syd_website_custom_cart">
+		<field name="website_id" eval="2"/>
+	</record> 
+
+ 	<record id="syd_website_custom_cart_lines" model="ir.ui.view">
+		<field name="website_id" eval="2"/>
+	</record> 
+	
+	<record id="syd_website_custom_cart_summary" model="ir.ui.view">
+		<field name="website_id" eval="2"/>
+	</record>  
+	
+    <!-- Template to show filtered image in website -->
+	 <template id="syd_website_custom_products_item" inherit_id="website_sale.products_item">
+        <xpath expr="//t[@t-set='product_href']" position="replace">
+	       	<t t-set="variant" t-value="product._get_filtered_image(has_plating) if has_plating else False"/>
+        	<t t-set="product_href" t-if="variant" t-value="variant.website_url"/>        
+        	<t t-set="product_href" t-else="" t-value="keep(product.website_url, page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))" />
+        </xpath>
+        <xpath expr="//span[@t-field='product.image_1920']" position="replace">
+        	<t t-set="image" t-value="variant or product"/>
+        	<span t-field="image.image_1920"
+                  t-options="{'widget': 'image', 'preview_image': 'image_1024' if product_image_big else 'image_512'}"
+                  class="new_span dd_shop_prod_bg d-flex h-100 justify-content-center align-items-center"/>
+        </xpath>
+    </template>
+	 
+</odoo>
+

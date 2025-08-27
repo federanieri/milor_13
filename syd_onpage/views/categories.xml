@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="category_view_onpage">
+        <field name="name">product.category.form.onpage</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='first']" position="before">
+        		<group string="OnPage Params">
+                    <field name="is_onpage_category"/>
+                    <field name="onpage_id"/>
+        		</group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_onpage_categories" model="ir.actions.act_window">
+        <field name="name">OnPage Categories</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.category</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_onpage_category', '=', True)]</field>
+    </record>
+
+    <menuitem id="menu_onpage_category"
+            name="OnPage Categories"
+            parent="menu_onpage_account_root"
+            action="action_onpage_categories"/>
+</odoo>

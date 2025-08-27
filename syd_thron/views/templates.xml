@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="assets_tests" name="Asset Thron" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+        	<script type="text/javascript" src="https://milorgroupdev-cdn.thron.com/shared/lib/common/sdk/0.5.8/thron.js"></script>
+            <script type="text/javascript" src="/syd_thron/static/src/js/odoo-thron.js"></script>
+        </xpath>
+    </template>
+</odoo>

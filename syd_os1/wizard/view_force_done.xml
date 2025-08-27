@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record model="ir.ui.view" id="wizard_force_done_form_view">
+			<field name="name">wizard.form</field>
+			<field name="model">syd_os1.wizard_force_done</field>
+			<field name="arch" type="xml">
+				<form string="Ricerca">
+					<group>
+						<field name="doc_os1_id" readonly="1" />
+						<field name="key" />
+					</group>
+					<footer>
+						<button string="Force done" type="object"
+							name="startforceDone" class="oe_inline oe_stat_button" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+
+		<record model="ir.actions.act_window"
+			id="action_wizard_force_done">
+			<field name="name">Wizard of force Invoice</field>
+			<field name="res_model">syd_os1.wizard_force_done</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+	</data>
+</odoo>

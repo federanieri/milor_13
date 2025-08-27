@@ -1,0 +1,46 @@
+<odoo>
+  <data>
+
+	  	<record id="big_customer_res_partner_view" model="ir.ui.view">
+	        <field name="name">big.customer.res.partner.view</field>
+	        <field name="model">res.partner</field>
+	        <field name="inherit_id" ref="base.view_partner_form"/>
+	        <field name="arch" type="xml">
+		        <xpath expr="//field[@name='vat']" position="after">
+		        	<field name="big_customer"/>
+		        </xpath>
+		        <xpath  expr="//notebook"  position="inside">
+		        	<page string="Prodotti Collegati" attrs="{'invisible': [('big_customer', '!=', True)]}">
+     					<button type="object" class="btn btn-secondary" name="set_prodotti_collegati" string="Update Prodotti Collegati"/>
+       					<group>
+		        			<field name="prodotti_collegati" nolabel="1" readonly="1">
+		        				<tree editable="bottom">
+			        				<field name="products_id"/>
+			        				<field name="last_price"/>
+			        				<field name="mean_price"/>
+		        				</tree>
+		        			</field>
+        				</group>
+		        	</page>
+		        </xpath>
+		    </field>
+	  	</record>
+	  	
+        <record id="view_order_line_tree_inherit_big_customer" model="ir.ui.view">
+            <field name="name">sale.order.line.tree.big.customer</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="model">sale.order</field>
+            <field name="arch" type="xml">   	
+            	<xpath expr="//field[@name='name']" position="before">
+            		<field name="big_customer" invisible="1"/>
+            	</xpath>
+                <xpath  expr="//field[@name='order_line']/tree" position="inside">
+                	<field name="was_bought" attrs="{'column_invisible': [('parent.big_customer', '!=', True)]}"/> <!-- ,('parent.state','in',['draft','sent','cancel'])]} -->
+                    <field name="last_price" attrs="{'column_invisible': [('parent.big_customer', '!=', True)]}"/>
+                    <field name="mean_price" attrs="{'column_invisible': [('parent.big_customer', '!=', True)]}"/>
+                </xpath>
+            </field>
+        </record>
+  	
+  	</data>
+</odoo>

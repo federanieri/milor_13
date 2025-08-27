@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="product_product_form_view" model="ir.ui.view">
+        <field name="name">product.product.form.view</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook//page[last()]" position="after">
+                <page name="txt_stl" string="TXT/STL" groups="syd_dis.group_manager">
+                    <group>
+                        <group>
+                            <field name="txt_type"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

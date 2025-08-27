@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+	<template id ="sale_report_saleorder_document" inherit_id="sale.report_saleorder_document">
+		<xpath expr="//th[@name='th_description']" position="after">
+			<th t-if="doc.repair_so" name="th_product_repair" class="text-left">Product To Repair</th>
+		</xpath>
+		<xpath expr="//td[@name='td_name']" position="after">
+			<t t-if="doc.repair_so">
+				<t t-set="repair_product" t-value="line.repair_product_for.take_name()"/>
+				<td name="td_product_repair"><span t-if="repair_product" t-esc="repair_product"/></td>
+			</t>
+		</xpath>
+	</template>
+</odoo>

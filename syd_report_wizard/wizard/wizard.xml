@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="wizard_report" model="ir.ui.view">
+            <field name="name">syd_report_wizard.wizard_report</field>
+            <field name="model">syd_report_wizard.wizard_report</field>
+            <field name="arch" type="xml">
+                <form string="Wizard Report Helper">
+                    <group >
+                    	<field name="quantity" />
+                    	<field name="report_id" />
+                    	<field name="model" invisible="1" />
+                    	<field name="res_ids" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button name="print_report"  string="Print" type="object" class="btn-primary"/>
+                       
+                        
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        
+        
+</odoo>

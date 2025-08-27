@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_ftp_config_settings" model="ir.ui.view">
+	            <field name="name">OS1 Settings</field>
+	            <field name="model">res.config.settings</field>
+	            <field name="priority" eval="1"/>
+	            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+	            <field name="arch" type="xml">
+	                <xpath expr="//div[hasclass('app_settings_block')]" position="before">
+	                    <div class="app_settings_block" data-string="OS1" data-key="syd_os1">
+	                        <h2>FTP Configuration</h2>
+	                      	<div class="row mt16 o_settings_container">	                      	
+                            <div class="col-xs-12 col-md-8 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                <group>
+                                    <field name="ftp_host"/>
+                                    <field name="ftp_user"/>                                  
+                                    <field name="ftp_password" password="True" /> 
+                                    <field name="ftp_model_id"/> 
+                                    <field name="field_from_model"/> 
+						            <field name="sftp_config"/>
+						            <field name="field_from_model_to_change_id"/>
+                                </group>
+                                </div>
+                            </div>
+                        </div>
+	                  	</div>
+	                  </xpath>
+                  </field>
+   	</record>
+
+    <record id="action_ftp_configuration" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_ftp_config_settings"/>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'syd_os1'}</field>
+    </record>
+
+    <menuitem id="menu_ftp_general_settings" name="Settings" parent="syd_os1.config_menu_item"
+        sequence="0" action="action_ftp_configuration" groups="base.group_system"/>
+        
+ 
+</odoo>

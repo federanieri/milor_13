@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record model="ir.actions.server"
+		id="action_create_invoice_from_os1">
+		<field name="name">Create Invoice from OS1</field>
+		<field name="model_id" ref="syd_os1.model_syd_os1_doc_os1" />
+		<field name="binding_model_id" ref="syd_os1.model_syd_os1_doc_os1" />
+		<field name="state">code</field>
+		<field name="code">
+if records:
+	action = records.create_invoice_from_one_doc_os1()
+		</field>
+	</record>
+	
+	<record model="ir.actions.server"
+		id="action_create_invoice_from_os1_from_account">
+		<field name="name">Create Invoice from OS1</field>
+		<field name="model_id" ref="syd_os1.model_syd_os1_os1_account" />
+		<field name="binding_model_id" ref="syd_os1.model_syd_os1_os1_account" />
+		<field name="state">code</field>
+		<field name="code">
+if records:
+	action = records.create_invoice_from_os1()
+		</field>
+	</record>
+	
+	<record model="ir.actions.server"
+		id="action_create_document_os1_from_sp">
+		<field name="name">Create Document OS1</field>
+		<field name="model_id" ref="stock.model_stock_picking" />
+		<field name="binding_model_id" ref="stock.model_stock_picking" />
+		<field name="state">code</field>
+		<field name="code">
+if records:
+	action = records.createDocumentOS1()
+		</field>
+	</record>
+	
+	<record model="ir.actions.server"
+		id="action_get_nation_code">
+		<field name="name">Get ID Nation</field>
+		<field name="model_id" ref="base.model_res_country" />
+		<field name="binding_model_id" ref="base.model_res_country" />
+		<field name="state">code</field>
+		<field name="code">
+if records:
+	action = records.get_nation_code()
+		</field>
+	</record>
+	
+	<record model="ir.actions.server"
+		id="action_create_document_os1_from_so">
+		<field name="name">Create Document OS1</field>
+		<field name="model_id" ref="sale.model_sale_order" />
+		<field name="binding_model_id" ref="sale.model_sale_order" />
+		<field name="state">code</field>
+		<field name="code">
+if records:
+	action = records.createDocumentOS1()
+		</field>
+	</record>
+	
+	<record model="ir.actions.server"
+		id="action_create_document_os1_from_rma">
+		<field name="name">Create Document OS1</field>
+		<field name="model_id" ref="website_shop_return_rma.model_return_order" />
+		<field name="binding_model_id" ref="website_shop_return_rma.model_return_order" />
+		<field name="state">code</field>
+		<field name="code">
+if records:
+	action = records.createDocumentOS1()
+		</field>
+	</record>
+	
+	<record model="ir.actions.server"
+		id="action_cancel_invoice">
+		<field name="name">Cancel Invoice</field>
+		<field name="model_id" ref="syd_os1.model_syd_os1_doc_os1" />
+		<field name="binding_model_id" ref="syd_os1.model_syd_os1_doc_os1" />
+		<field name="state">code</field>
+		<field name="code">
+if records:
+	action = records.cancelInvoice()
+		</field>
+	</record>
+	
+	<record model="ir.actions.server"
+		id="action_get_invoice">
+		<field name="name">Get Invoice</field>
+		<field name="model_id" ref="syd_os1.model_syd_os1_doc_os1" />
+		<field name="binding_model_id" ref="syd_os1.model_syd_os1_doc_os1" />
+		<field name="state">code</field>
+		<field name="code">
+if records:
+	action = records.getStateOS1()
+		</field>
+	</record>
+	
+	<record model="ir.actions.server"
+		id="action_create_contact_os1">
+		<field name="name">Create contact in OS1</field>
+		<field name="model_id" ref="syd_os1.model_res_partner" />
+		<field name="binding_model_id" ref="syd_os1.model_res_partner" />
+		<field name="state">code</field>
+		<field name="code">
+if records:
+	action = records.createTemporaryCustomers()
+		</field>
+	</record>
+	
+	<record model="ir.actions.server"
+		id="action_get_unique_code">
+		<field name="name">Get unique code contact in OS1</field>
+		<field name="model_id" ref="syd_os1.model_res_partner" />
+		<field name="binding_model_id" ref="syd_os1.model_res_partner" />
+		<field name="state">code</field>
+		<field name="code">
+if records:
+	action = records.getUniqueCode()
+		</field>
+	</record>
+	
+	<record model="ir.actions.server"
+		id="action_manual_invoice">
+		<field name="name">Manual Invoice</field>
+		<field name="model_id" ref="syd_os1.model_syd_os1_doc_os1" />
+		<field name="binding_model_id" ref="syd_os1.model_syd_os1_doc_os1" />
+		<field name="state">code</field>
+		<field name="code">
+if records:
+	action = records.forceCreateInvoice()
+		</field>
+	</record>
+	
+	<record model="ir.actions.server"
+		id="action_force_ddt">
+		<field name="name">Force DDT</field>
+		<field name="model_id" ref="syd_os1.model_syd_os1_doc_os1" />
+		<field name="binding_model_id" ref="syd_os1.model_syd_os1_doc_os1" />
+		<field name="state">code</field>
+		<field name="code">
+if records:
+	action = records.forceDDT()
+		</field>
+	</record>
+	
+	<record model="ir.actions.server"
+		id="action_force_invoice">
+		<field name="name">Force Invoice</field>
+		<field name="model_id" ref="syd_os1.model_syd_os1_doc_os1" />
+		<field name="binding_model_id" ref="syd_os1.model_syd_os1_doc_os1" />
+		<field name="state">code</field>
+		<field name="code">
+if records:
+	action = records.forceInvoice()
+		</field>
+	</record>
+	
+	<record model="ir.actions.server"
+		id="action_create_json">
+		<field name="name">Create JSON</field>
+		<field name="model_id" ref="syd_os1.model_syd_os1_doc_os1" />
+		<field name="binding_model_id" ref="syd_os1.model_syd_os1_doc_os1" />
+		<field name="state">code</field>
+		<field name="code">
+if records:
+	action = records.create_file_json()
+		</field>
+	</record>
+</odoo>

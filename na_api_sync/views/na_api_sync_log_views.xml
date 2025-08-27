@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright 2022 Nexapp S.r.l.
+  License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+ -->
+<odoo>
+    <data>
+        <record id="na_api_sync_log_form_view" model="ir.ui.view">
+            <field name="name">na.api.sync.log.form.view</field>
+            <field name="model">na.api.sync.log</field>
+            <field name="arch" type="xml">
+                <form string="Sync Log Form">
+                    <sheet>
+                        <group>
+                            <field name="create_date"/>
+                            <field name="config_id"/>
+                            <field name="method"/>
+                        </group>
+                        <group string="Error Log"/>
+                        <field name="log_msg"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="na_api_sync_log_tree_view" model="ir.ui.view">
+            <field name="name">na.api.sync.log.tree.view</field>
+            <field name="model">na.api.sync.log</field>
+            <field name="arch" type="xml">
+                <tree string="Sync Log Tree">
+                    <field name="create_date"/>
+                    <field name="config_id"/>
+                    <field name="method"/>
+                    <field name="log_msg"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="na_api_sync_log_search_view" model="ir.ui.view">
+            <field name="name">na.api.sync.log.search.view</field>
+            <field name="model">na.api.sync.log</field>
+            <field name="arch" type="xml">
+                <search string="Sync Log Search">
+                    <field name="create_date"/>
+                    <field name="config_id"/>
+                    <field name="method"/>
+                    <field name="log_msg"/>
+                </search>
+            </field>
+        </record>
+        
+        <record id="na_action_api_sync_log" model="ir.actions.act_window">
+            <field name="name">Log</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">na.api.sync.log</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'create': False, 'edit': False}</field>
+        </record>
+
+        <menuitem
+                name="Log"
+                action="na_action_api_sync_log"
+                id="menu_api_sync_log"
+                parent="menu_api_sync_root"
+                sequence="3"/>
+    </data>
+</odoo>

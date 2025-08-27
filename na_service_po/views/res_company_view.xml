@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright 2022 Nexapp S.r.l.
+  License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+ -->
+<odoo>
+    <record id="na_view_res_company_form_inherit" model="ir.ui.view">
+        <field name="name">na.view.res.company.form.inherit</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="syd_custom.view_res_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='default_service_product_id']/.." position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

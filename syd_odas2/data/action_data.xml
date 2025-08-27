@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="model_product_product_to_as2_set" model="ir.actions.server">
+        <field name="name">Set to AS2</field>
+        <field name="model_id" ref="product.model_product_product"/>
+        <field name="binding_model_id" ref="product.model_product_product"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">records.write({'to_as2':True})</field>
+    </record>
+
+    <record id="model_product_product_to_as2_unset" model="ir.actions.server">
+        <field name="name">Reset to AS2</field>
+        <field name="model_id" ref="product.model_product_product"/>
+        <field name="binding_model_id" ref="product.model_product_product"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">records.write({'to_as2': False})</field>
+    </record>
+
+    <record id="model_product_product_synch_to_as2_set" model="ir.actions.server">
+        <field name="name">Synch To AS2</field>
+        <field name="model_id" ref="product.model_product_product"/>
+        <field name="binding_model_id" ref="product.model_product_product"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">records.filtered(lambda self: self.to_as2).write({'need_synch_to_as2': True})</field>
+    </record>
+
+    <record id="model_product_product_synch_to_as2_unset" model="ir.actions.server">
+        <field name="name">Reset Synch To AS2</field>
+        <field name="model_id" ref="product.model_product_product"/>
+        <field name="binding_model_id" ref="product.model_product_product"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">records.filtered(lambda self: self.to_as2).write({'need_synch_to_as2': False})</field>
+    </record>
+
+    <record id="model_sale_order_confirm_to_as2_set" model="ir.actions.server">
+        <field name="name">Confirm to AS2</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">records.filtered(lambda self: self.from_as2).write({'need_synch_to_as2': True})</field>
+    </record>
+
+    <record id="model_sale_order_confirm_to_as2_unset" model="ir.actions.server">
+        <field name="name">Do Not Confirm to AS2</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">records.filtered(lambda self: self.from_as2).write({'need_synch_to_as2': False})</field>
+    </record>
+
+    <record id="model_odas2_message_queue_process" model="ir.actions.server">
+        <field name="name">Process Message/s</field>
+        <field name="model_id" ref="syd_odas2.model_odas2_message_queue"/>
+        <field name="binding_model_id" ref="syd_odas2.model_odas2_message_queue"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">records.action_process_message()</field>
+    </record>
+
+    <record id="model_sale_order_download_packingslip_pdf" model="ir.actions.server">
+        <field name="name">Download Packingslips PDF</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_download_packingslips_pdf()</field>
+    </record>
+
+    <record id="model_stock_picking_download_packingslip_pdf" model="ir.actions.server">
+        <field name="name">Download Packingslips PDF</field>
+        <field name="model_id" ref="model_stock_picking"/>
+        <field name="binding_model_id" ref="model_stock_picking"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_download_packingslips_pdf()</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="website_custom_delivery_portal_template" name="Shipping tracking on orders followup" inherit_id="sale_stock.sale_order_portal_content_inherit_sale_stock">
+        <xpath expr="//div[hasclass('o_sale_stock_picking')]/div[hasclass('d-lg-inline-block')]" position="inside">
+            <div t-if="i.carrier_id.name">
+	            <span>Carrier: </span>
+	            <span t-field="i.carrier_id.name"/>
+            </div>
+        </xpath>
+        <xpath expr="//t[@t-if='i.carrier_tracking_url']" position="replace">
+        	<t t-if="i.carrier_tracking_url">
+        		<t t-if="i.carrier_id.delivery_type == 'gls_italy'">
+                    <t t-if="'BAT/OUT' in i.name">
+                        <a t-attf-href="https://www.gls-italy.com/index.php?option=com_gls&amp;view=track_e_trace&amp;mode=search&amp;diretto=yes&amp;locpartenza=V6&amp;numsped={{i.carrier_tracking_ref}}" target="_blank"><span>V6</span><span t-field="i.carrier_tracking_ref"/></a>
+                    </t>
+                    <t t-else="">
+        			    <a t-attf-href="https://www.gls-italy.com/index.php?option=com_gls&amp;view=track_e_trace&amp;mode=search&amp;diretto=yes&amp;locpartenza=M4&amp;numsped={{i.carrier_tracking_ref}}" target="_blank"><span>M4</span><span t-field="i.carrier_tracking_ref"/></a>
+                    </t>
+        		</t>
+        		<t t-else="">
+	            	<a t-att-href="i.carrier_tracking_url" target="_blank"><span t-field="i.carrier_tracking_ref"/></a>
+        		</t>
+           	</t>
+        </xpath>
+    </template>
+    
+    <template id="website_custom_sale_order_protal_content" name="Sales Order Portal Content" inherit_id="sale.sale_order_portal_content" priority="100">
+        <xpath expr="//table[@id='sales_order_table']/thead/tr/th[1]" position="before">
+            <th class="text-left">Brand</th>
+        </xpath>
+        <xpath expr="//td[@id='product_name']" position="before">
+            <td><span t-field="line.product_brand_id"/></td>
+        </xpath>
+    </template>
+    
+    <template id="website_custom_payment_delivery" name="Payment Costs" inherit_id="website_sale.payment" website_id="website.default_website" priority="100">
+        <xpath expr="//div[@id='shipping_and_billing']" position="after">
+            <div style="position: relative;display: block;margin-bottom: -1px;background-color: #FFFFFF;border: 1px solid rgba(0, 0, 0, 0.125);" t-if="bool(order.partner_id.property_payment_term_id)">
+                <div class="card-body" id="add_payment_terms">
+                    <div>Payment Terms:  <span t-esc='order.partner_id.property_payment_term_id.name' class="address-inline"/></div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+    
+    <record id="website_custom_payment_delivery" model="ir.ui.view">
+		<field name="website_id" eval="2"/>
+	</record>  
+
+    <template id="portal_add_payment_costs" name="Payment Costs" inherit_id="portal.portal_layout" website_id="website.default_website" priority="100">
+        <xpath expr="//t[@t-if='user_id.partner_id.email']" position="after">
+            <t t-if="bool(user_id.partner_id.property_payment_term_id.name)">
+                    <div class="w-100 d-inline-block py-3" style="border-top: 1px solid #ededed !important;border-top-width: 1px !important;border-top-style: solid !important;border-top-color: rgb(237, 237, 237) !important;">
+                        <b>
+                            <p>Payment Terms :</p>
+                        </b>
+                        <div>
+                            <span class="fa fa-usd"/>
+                            <span class="d-block pl-4" t-field="user_id.partner_id.property_payment_term_id.name"/>
+                        </div>
+                    </div>
+                </t>
+        </xpath>
+    </template>
+    
+    <record id="portal_add_payment_costs" model="ir.ui.view">
+		<field name="website_id" eval="2"/>
+	</record> 
+	
+</odoo>

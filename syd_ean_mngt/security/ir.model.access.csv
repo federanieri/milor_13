@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+manage_ean,manage_ean,model_manage_ean,,1,1,1,1
+assign_ean,assign_ean,model_assign_ean,,1,1,1,1

@@ -1,0 +1,898 @@
+<odoo>
+    <data>
+
+        <record id="product_account_code_tree" model="ir.ui.view">
+            <field name="name">product.account.code.tree.view</field>
+            <field name="model">product.account.code</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_product_account_code" model="ir.actions.act_window">
+            <field name="name">Product Account Code</field>
+            <field name="res_model">product.account.code</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Product Account Code" id="product_account_code_menu" parent="account.menu_finance_configuration"
+                  action="action_product_account_code"/>
+
+        <record model="ir.ui.view" id="product_watch_type_tree">
+            <field name="name">product.watch_type</field>
+            <field name="model">product.watch_type</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_watch_type_act">
+            <field name="name">Show</field>
+            <field name="res_model">product.watch_type</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Watch Type" id="product_watch_type_menu" parent="sale.prod_config_main"
+                  action="product_watch_type_act"/>
+
+        <record model="ir.ui.view" id="product_milor_show_tree">
+            <field name="name">product.milor_show</field>
+            <field name="model">product.milor_show</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_milor_show_act">
+            <field name="name">Show</field>
+            <field name="res_model">product.milor_show</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Show" id="product_milor_show_menu" parent="sale.prod_config_main"
+                  action="product_milor_show_act"/>
+
+        <record model="ir.ui.view" id="product_milor_megacolor_tree">
+            <field name="name">product.megacolor</field>
+            <field name="model">product.megacolor</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_megacolor_act">
+            <field name="name">Megacolor</field>
+            <field name="res_model">product.megacolor</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Megacolor" id="product_megacolor_menu" parent="sale.prod_config_main"
+                  action="product_megacolor_act"/>
+
+        <record model="ir.ui.view" id="product_milor_unit_tree">
+            <field name="name">product.milor_unit</field>
+            <field name="model">product.milor_unit</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_milor_unit_act">
+            <field name="name">Milor Unit</field>
+            <field name="res_model">product.milor_unit</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Milor Unit" id="product_milor_unit_menu" parent="sale.prod_config_main"
+                  action="product_milor_unit_act"/>
+
+        <record model="ir.ui.view" id="product_stone_type_tree">
+            <field name="name">product.stone_type</field>
+            <field name="model">product.stone_type</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_stone_type_act">
+            <field name="name">Tipo Pietra</field>
+            <field name="res_model">product.stone_type</field>
+            <field name="view_mode">tree</field>
+        </record>
+        <menuitem name="Tipo Pietre" id="product_stone_type_menu" parent="sale.prod_config_main"
+                  action="product_stone_type_act"/>
+
+        <record model="ir.ui.view" id="product_stone_shape_tree">
+            <field name="name">product.stone_shape</field>
+            <field name="model">product.stone_shape</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_stone_shape_act">
+            <field name="name">Forma Pietra</field>
+            <field name="res_model">product.stone_shape</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Forma Pietre" id="product_stone_shape_menu" parent="sale.prod_config_main"
+                  action="product_stone_shape_act"/>
+
+        <record model="ir.ui.view" id="product_stone_cut_tree">
+            <field name="name">product.stone_cut</field>
+            <field name="model">product.stone_cut</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_stone_cut_act">
+            <field name="name">Taglio Pietra</field>
+            <field name="res_model">product.stone_cut</field>
+            <field name="view_mode">tree</field>
+        </record>
+        <menuitem name="Taglio Pietre" id="product_stone_cut_menu" parent="sale.prod_config_main"
+                  action="product_stone_cut_act"/>
+
+        <record model="ir.ui.view" id="product_hts_tree">
+            <field name="name">product.hts</field>
+            <field name="model">product.hts</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                    <field name="duty" widget="percentage" />
+                    <field name="code"/>
+                    <field name="duty_extra" widget="percentage" />
+                    <field name="spedition_cost" widget="percentage" />
+                    <field name="company_id" invisible="1"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="metal_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_hts_act">
+            <field name="name">HTS</field>
+            <field name="res_model">product.hts</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="HTS" id="product_hts_menu" parent="sale.prod_config_main"
+                  action="product_hts_act"/>
+
+        <record model="ir.ui.view" id="product_stamp_tree">
+            <field name="name">product.stamp</field>
+            <field name="model">product.stamp</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="image_1920" widget="image" />
+                    <field name="image_1920_2" widget="image" />
+                    <field name="image_1920_3" widget="image" />
+                    <field name="image_1920_4" widget="image" />
+                    <field name="name"/>
+                    <field name="milor_unit_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_stamp_act">
+            <field name="name">Bollo</field>
+            <field name="res_model">product.stamp</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Bolli" id="product_stamp_menu" parent="sale.prod_config_main"
+                  action="product_stamp_act"/>
+
+        <record model="ir.ui.view" id="product_plating_tree">
+            <field name="name">product.plating</field>
+            <field name="model">product.plating</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_plating_act">
+            <field name="name">Placcature</field>
+            <field name="res_model">product.plating</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Placcature" id="product_plating_menu" parent="sale.prod_config_main"
+                  action="product_plating_act"/>
+
+        <record model="ir.ui.view" id="product_stone_tree">
+            <field name="name">product.stone</field>
+            <field name="model">product.stone</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                    <field name="stone_type_id"/>
+                    <field name="megacolor_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_stone_act">
+            <field name="name">Pietre</field>
+            <field name="res_model">product.stone</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Pietre" id="product_stone_menu" parent="sale.prod_config_main"
+                  action="product_stone_act"/>
+
+        <record model="ir.ui.view" id="product_metal_tree">
+            <field name="name">product.metal</field>
+            <field name="model">product.metal</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_metal_act">
+            <field name="name">Metalli</field>
+            <field name="res_model">product.metal</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Metalli" id="product_metal_menu" parent="sale.prod_config_main"
+                  action="product_metal_act"/>
+
+        <record model="ir.ui.view" id="product_metal_code_name_tree">
+            <field name="name">product.metal.code.title</field>
+            <field name="model">product.metal.code.title</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_metal_code_title_act">
+            <field name="name">Metalli Code &amp; Title</field>
+            <field name="res_model">product.metal.code.title</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Metalli Code &amp; Title" id="product_metal_code_title_menu" parent="sale.prod_config_main"
+                  action="product_metal_code_title_act"/>
+
+        <record model="ir.ui.view" id="product_watch_strap_material_tree">
+            <field name="name">product.watch_strap_material</field>
+            <field name="model">product.watch_strap_material</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_watch_strap_material_act">
+            <field name="name">Materiale Cinturino</field>
+            <field name="res_model">product.watch_strap_material</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Tipi Cinturino" id="product_watch_strap_material_menu" parent="sale.prod_config_main"
+                  action="product_watch_strap_material_act"/>
+
+        <record model="ir.ui.view" id="product_genre_tree">
+            <field name="name">product.genre</field>
+            <field name="model">product.genre</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_genre_act">
+            <field name="name">Genere</field>
+            <field name="res_model">product.genre</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Generi" id="product_genre_menu" parent="sale.prod_config_main"
+                  action="product_genre_act"/>
+
+        <record model="ir.ui.view" id="product_season_tree">
+            <field name="name">product.season</field>
+            <field name="model">product.season</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_season_act">
+            <field name="name">Stagione</field>
+            <field name="res_model">product.season</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Stagioni" id="product_season_menu" parent="sale.prod_config_main"
+                  action="product_season_act"/>
+
+        <record model="ir.ui.view" id="product_collection_tree">
+            <field name="name">product.collection</field>
+            <field name="model">product.collection</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_collection_act">
+            <field name="name">Collezione</field>
+            <field name="res_model">product.collection</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Collezioni" id="product_collection_menu" parent="sale.prod_config_main"
+                  action="product_collection_act"/>
+
+        <record model="ir.ui.view" id="product_closure_type_tree">
+            <field name="name">product.closure_type</field>
+            <field name="model">product.closure_type</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_closure_type_act">
+            <field name="name">Tipo Chiusura</field>
+            <field name="res_model">product.closure_type</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Tipo Chiusura" id="product_closure_type_menu" parent="sale.prod_config_main"
+                  action="product_closure_type_act"/>
+
+        <record model="ir.ui.view" id="product_rolo_tree">
+            <field name="name">product.rolo</field>
+            <field name="model">product.rolo</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_rolo_act">
+            <field name="name">Tipo Catena</field>
+            <field name="res_model">product.rolo</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Tipo Catena" id="product_rolo_menu" parent="sale.prod_config_main"
+                  action="product_rolo_act"/>
+
+        <record model="ir.ui.view" id="product_trend_tree">
+            <field name="name">product.trend</field>
+            <field name="model">product.trend</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_trend_act">
+            <field name="name">Trend</field>
+            <field name="res_model">product.trend</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Trend" id="product_trend_menu" parent="sale.prod_config_main"
+                  action="product_trend_act"/>
+
+        <record model="ir.ui.view" id="product_feature_tree">
+            <field name="name">product.feature</field>
+            <field name="model">product.feature</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                    <field name="for_shopify"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_feature_act">
+            <field name="name">Feature</field>
+            <field name="res_model">product.feature</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Feature" id="product_feature_menu" parent="sale.prod_config_main"
+                  action="product_feature_act"/>
+
+        <record model="ir.ui.view" id="view_res_company_milor_form">
+            <field name="name">res.company.milor</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath  expr="//group[@name='social_media']"  position="after">
+                    <group string="Unit of Measure">
+                        <field name="uom_cm_id" />
+                        <field name="uom_inch_id" />
+                        <field name="uom_gr_id" />
+                        <field name="uom_ct_id" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_product_category_milor_form">
+            <field name="name">product.category.milor</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <xpath  expr="//group[@name='first']"  position="after">
+                    <group string="Milor">
+                        <field name="is_packaging" />
+                        <field name="is_accessory" />
+                        <field name="is_watch" />
+                        <field name="with_stone" />
+                        <field name="metal_and_plating" />
+                        <field name="with_closure" />
+                        <field name="is_a_stone" />
+                        <field name="with_rolo" />
+                        <field name="megacategory"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_product_product_milor_search">
+            <field name="name">product.product.search.milor</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_search_form_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="replace">
+                    <field name="name" string="Product" filter_domain="['|', '|', '|',('milor_code','ilike',self),('default_code', 'ilike', self), ('name', 'ilike', self), ('barcode', 'ilike', self)]"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_product_template_milor_search">
+            <field name="name">product.template.search.milor</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="filter_domain">
+                        ['|', '|', '|','|',('milor_code','ilike',self),('default_code', 'ilike', self), ('product_variant_ids.default_code', 'ilike', self),('name', 'ilike', self), ('barcode', 'ilike', self)]
+                    </attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_product_template_milor_form">
+            <field name="name">product.template.milor</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='image_1920']" position="attributes">
+                    <attribute name="options">
+                        {'zoom': true, 'preview_image':'image_128'}
+                    </attribute>
+                </xpath>
+                <xpath  expr="//field[@name='type']"  position="after">
+                    <field name="milor_type" />
+                    <field name="price_type" />
+                </xpath>
+                <xpath  expr="//group[@name='group_standard_price']"  position="after">
+                    <group string="Milor Cost" colspan="3">
+                        <group>
+                            <field name="currency_for_cost_id" />
+                            <!-- <field name="currency_cost" /> -->
+                        </group>
+                        <group>
+                            <field name="gold_base_cost" />
+                            <field name="cost_coefficient" widget="percentage"/>
+
+                            <field name="metal_cost_gr" />
+                            <field name="metal_cost" />
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='categ_id']" position="before">
+                    <field name="milor_unit_id" required="1"/>
+                    <field name="milor_code" />
+                    <field name="client_article_code" />
+                    <field name="milor_account_code" />
+                    <field name="milor_account_code_id" string="New Milor Account Code"/>
+                    <label for="qvc_code"/>
+                    <div>
+                        <field name="qvc_code" class="oe_inline"/>
+                        <field name="qvc_code_url" class="oe_inline" style="margin-left: 8px;cursor: pointer" widget="link_button" icon="fa-search" attrs="{'invisible':[('qvc_code','=',False)]}"/>
+                    </div>
+                    <field name="group_code" />
+                    <field name="customer_ids" widget="many2many_tags" />
+                </xpath>
+                <xpath  expr="//page[@name='inventory']"  position="after">
+                    <field name="is_watch" invisible="1" />
+                    <field name="is_packaging" invisible="1" />
+                    <field name="is_a_stone" invisible="1" />
+                    <field name="with_stone" invisible="1" />
+                    <field name="metal_and_plating" invisible="1" />
+                    <field name="with_closure" invisible="1" />
+                    <field name="with_rolo" invisible="1" />
+                    <page string="Collezione, stagione e genere">
+                        <group name="Collection" >
+                            <field name="collection_id" />
+                            <field name="out_of_collection" readonly="True"/>
+                            <field name="out_of_catalog" />
+                            <field name="season_id" />
+                            <field name="supplies_last"/>
+                            <field name="genre_id" />
+                            <field name="trend_id" />
+                            <field name="show_id" />
+                        </group>
+                    </page>
+                    <page string="Dimensione e Peso">
+                        <group name="Dimension">
+                            <field name="weight_gr" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="weight_gr_min" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="weight_gr_max" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="dimension" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="length_cm" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="extension_cm" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="length_inch" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="extension_inch" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="chp" />
+                            <field name="top" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="depth" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="width" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="height" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="stem" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                        	<field name="specific" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                        	
+                        </group>
+                    </page>
+                    <page string="Package" attrs="{'invisible':[('is_packaging','=',False)]}">
+                        <group>
+                            <field name="package_logo"  />
+                            <field name="package_logo_image_1920" widget="image" />
+                            <field name="package_color" />
+                            <field name="package_logo_color" />
+                            <field name="metal_id" />
+                        </group>
+                    </page>
+                    <page string="Orologio" attrs="{'invisible':[('is_watch','=',False)]}">
+                        <group name="Watch" >
+                            <field name="watch_type_id"  />
+                            <field name="watch_case" />
+                            <field name="watch_case_mm" />
+                            <field name="watch_strap" />
+                            <field name="watch_strap_material_id" />
+                            <field name="watch_strap_thickness" />
+                        </group>
+                    </page>
+                    <page string="Metallo e placcatura" attrs="{'invisible':[('metal_and_plating','=',False)]}">
+                        <group name="Metal" >
+                            <field name="metal_id" />
+                            <field name="metal_title" />
+                            <field name="metal_code_title_id" />
+                            <field name="metal_weight_gr" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="metal_weight_gr_min" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="metal_weight_gr_max" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="plating_id" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="plating_note" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="plating_depth" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                        	<field name="plating_title" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                        	
+                        </group>
+                    </page>
+                    <page string="Pietre" attrs="{'invisible':[('with_stone','=',False)]}">
+                        <group name="Stone">
+                            <field name="stone_number" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="stone_ids" widget="many2many_tags" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="stone_sample" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="stone_dimension" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="weight_stone_gr" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="weight_stone_kt" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="lucid_sphere" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="satinate_sphere" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                        </group>
+                    </page>
+                    <page string="Catene" attrs="{'invisible':[('with_rolo','=',False)]}">
+                        <group>
+                            <field name="rolo_id" />
+                            <field name="rolo_thickness" />
+                        </group>
+                    </page>
+                    <page string="Chiusura" attrs="{'invisible':[('with_closure','=',False)]}">
+                        <group name="Closure">
+                            <field name="closure_type_id" />
+                            <field name="closure_dimension" />
+                            <field name="closure_thickness" />
+                        </group>
+                    </page>
+                    <page string="Dettagli Pietra" attrs="{'invisible':[('is_a_stone','=',False)]}">
+                        <group name="stone_detail">
+                            <field name="stone_sample" />
+                            <field name="stone_type" />
+
+                            <field name="stone_shape" />
+                            <field name="stone_cut" />
+                            <field name="stone_color" />
+                            <field name="stone_quality" />
+                            <field name="only_stone_weight" />
+                            <field name="stone_ct" />
+                            <field name="stone_measure" />
+                            <field name="stone_thickness" />
+                        </group>
+                        <label for="product_with_stone_ids" string="Prodotti con questa Pietra"></label>
+                        <field name="product_with_stone_ids" readonly="1">
+                            <tree editable="bottom">
+                                <field name="name"></field>
+                                <field name="default_code"></field>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Features">
+                        <field name="feature_ids" widget="many2many_checkboxes"/>
+                    </page>
+                    <page string="Altre Informazioni" id="altre_info">
+                        <group colspan="3">
+                            <group>
+                                <field name="stamp_id" />
+                                <field name="stamp_image_256" widget="image" attrs="{'invisible':[('stamp_image_256','=',False)]}"/>
+                                <field name="stamp_image_256_2" widget="image" attrs="{'invisible':[('stamp_image_256_2','=',False)]}"/>
+                                <field name="stamp_image_256_3" widget="image" attrs="{'invisible':[('stamp_image_256_3','=',False)]}"/>
+                                <field name="stamp_image_256_4" widget="image" attrs="{'invisible':[('stamp_image_256_4','=',False)]}"/>
+                                <field name="stamp_note" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}" />
+                                <field name="size" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}" />
+                                <field name="hts_id" />
+                                <field name="hts_duty" widget="percentage"/>
+                                <field name="hts_code" />
+                                <field name="hts_duty_extra" widget="percentage"/>
+                                <field name="hts_spedition_cost" widget="percentage"/>
+                                <field name="keyword" />
+                            </group>
+                            <group>
+                                <field name="packaging_code_id" />
+                                <field name="milor_packaging_code" />
+                                <field name="add_packaging_to_order" attrs="{'invisible':[('packaging_code_id','=',False)]}" />
+                            </group>
+                            <group>
+                                <field name="packing_master_carton" />
+                                <field name="packing_inner_carton" />
+                                <field name="plastic_size" />
+                            </group>
+                            <group>
+                                <field name="finish_id" />
+                                <field name="hole" />
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Metadata">
+                        <group name="metadata">
+                            <field name="name_lang" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="description_lang" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="keywords" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="title" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="meta_description" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="alternative_text" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="general_description" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="collection_description" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="technical_description" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="plating_description" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="stone_description" attrs="{'invisible':[('product_variant_count', '&gt;', 1)]}"/>
+                            <field name="bullet_points" />
+                            <field name="when_use" />
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_product_product_milor_template_form">
+            <field name="name">product.template.milor</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <button  name="%(product.product_variant_action)d"  position="replace">
+                    <button name="%(product.product_variant_action)d" type="action"
+                            icon="fa-sitemap" class="oe_stat_button"
+                            groups="product.group_product_variant">
+                        <field string="Variants" name="product_variant_count" widget="statinfo" />
+                    </button>
+                </button>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_product_product_milor_form">
+            <field name="name">product.product.milor</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath  expr="//field[@name='default_code']"  position="before">
+                    <field name="milor_extension_code" />
+                    <field name="price_type" invisible="1"/>
+                </xpath>
+                <xpath  expr="//field[@name='lst_price']"  position="attributes">
+                    <attribute name="attrs">{'readonly':[('price_type','!=','on_variant')]}</attribute>
+                </xpath>
+                <xpath  expr="//field[@name='group_code']"  position="before">
+                    <field name="qvc_extension_code" />
+                    <field name="qvc_complete_code" />
+                    <field name="commercehub_code" />
+                    <field name="milor_upc_code" />
+                </xpath>
+                <xpath  expr="//field[@name='client_article_code']"  position="before">
+                    <field name="client_extension_code" />
+                </xpath>
+                <xpath  expr="//group[@name='inventory']"  position="after">
+                    <group>
+                        <field name="milor_plateau" />
+                        <field name="hts_price" />
+                    </group>
+                </xpath>
+                <xpath  expr="//field[@name='weight_gr']"  position="after">
+                    <field name="weight_gr" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="weight_gr_min" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="weight_gr_max" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="dimension" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="length_cm" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="extension_cm" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="length_inch" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="extension_inch" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="top" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="depth" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="width" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="height" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="stem" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                	<field name="specific" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                	
+                </xpath>
+                <xpath  expr="//field[@name='metal_weight_gr']"  position="after">
+                    <field name="metal_weight_gr" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="metal_weight_gr_min" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="metal_weight_gr_max" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="plating_id" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="plating_note" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="plating_depth" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                	<field name="plating_title" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                	
+                </xpath>
+                <xpath  expr="//field[@name='stone_ids']"  position="after">
+                    <field name="stone_ids" widget="many2many_tags" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="stone_sample" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="stone_dimension" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="weight_stone_gr" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="weight_stone_kt" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="lucid_sphere" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="satinate_sphere" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                </xpath>
+                <xpath expr="//group[@name='Stone']" position="after">
+                    <label for="product_stone_ids" string="Prodotti Pietre"></label>
+                    <field name="product_stone_ids" >
+                        <tree editable="bottom">
+                            <field name="name"></field>
+                            <field name="default_code"></field>
+                        </tree>
+                    </field>
+                </xpath>
+                <xpath  expr="//field[@name='keyword']"  position="after">
+                    <field name="size" attrs="{'invisible':[('product_variant_count', '=', 1)]}" />
+                    <field name="other_info" />
+                    <field name="out_of_collection_variant" readonly="1"/>
+                    <field name="out_of_catalog_variant" />
+                </xpath>
+                <xpath  expr="//field[@name='keywords']"  position="after">
+                    <field name="name_lang" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="description_lang" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="keywords" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="title" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="meta_description" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="alternative_text" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="general_description" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="collection_description" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="technical_description" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="plating_description" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                    <field name="stone_description" attrs="{'invisible':[('product_variant_count', '=', 1)]}"/>
+                </xpath>
+                <xpath expr="//page[@id='altre_info']/group/group[4]" position="after">
+                	<group>
+	                	<field name="import_description"/>
+                	</group>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_product_template_2_milor_form">
+            <field name="name">product.template.milor_tem</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath  expr="//field[@name='default_code']"  position="replace">
+                    <field name="default_code" />
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_quotation_form_milor_pack">
+            <field name="name">sale.order.milor</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+
+            <field name="arch" type="xml">
+                <xpath  expr="//field[@name='client_order_ref']"  position="after">
+                    <field name="add_packaging_to_order" />
+                </xpath>
+                <xpath  expr="//button[@name='action_confirm']"   position="after">
+                    <button name="add_packages" id="add_packages" string="Add Packages"  type="object" attrs="{'invisible': ['|',('add_packaging_to_order','=',True),('state', 'not in', ['draft','sent'])]}"/>
+                    <button name="remove_packages" id="remove_packages" string="Remove Packages"  type="object" attrs="{'invisible': ['|',('add_packaging_to_order','=',False),('state', 'not in', ['draft','sent'])]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_quotation_form_milor">
+            <field name="name">sale.order.milor</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath  expr="//field[@name='order_line']/tree/field[@name='price_unit']"  position="before">
+                    <field name="free_product" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_template_search_view_customer" model="ir.ui.view">
+            <field name="name">product.template.customer_search</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view" />
+            <field name="arch" type="xml">
+                <field name="categ_id" position="after">
+                    <field name="customer_ids" />
+                </field>
+            </field>
+        </record>
+        <!-- <record id="res_partner_view_product_buttons" model="ir.ui.view">
+             <field name="name">res.partner.view.product</field>
+             <field name="model">res.partner</field>
+             <field name="inherit_id" ref="base.view_partner_form" />
+             <field name="arch" type="xml">
+                 <div name="button_box" position="inside">
+                     <button class="oe_stat_button" type="action" name="%(sale.product_template_action)d"
+                         icon="fa-usd"
+                         context = "{'search_default_customer_ids': active_id, 'default_customer_ids': active_id}">
+                         <field string="Products" name="customer_product_count" widget="statinfo"/>
+                     </button>
+                 </div>
+                <field name="property_product_pricelist" position="after">
+
+                  <field name="web_customer" />
+              </field>
+             </field>
+         </record> -->
+    </data>
+</odoo>

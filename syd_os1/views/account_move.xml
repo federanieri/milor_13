@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Added By Dimpal on 5/oct/2019 -->
+	<data>
+		
+		<record id="view_tree_account_move_os1" model="ir.ui.view">
+            <field name="name">syd.account.move.tree.inherit.sale</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_invoice_tree"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='name']" position="after">
+					<field name='temp_name' />
+				</xpath>
+            </field>
+        </record>
+		
+		<record model="ir.ui.view" id="view_form_account_move_os1">
+			<field name="name">syd.view_form_account_move_ept</field>
+			<field name="model">account.move</field>
+			<field name="inherit_id" ref="account.view_move_form" />
+			<field name="arch" type="xml">
+				<data>
+					<xpath expr="//field[@name='name']" position="after">
+						<field name='temp_name'
+							attrs="{'invisible': [('temp_name','=',False)]}" />
+					</xpath>
+					<xpath expr="//notebook" position="inside">
+						<page string="Info OS1" name="info_os1" id="info_os1">
+							<group>
+								<field name="tot_document_euro" readonly="1" />
+								<field name="tot_document_net_euro" readonly="1" />
+								<field name="tot_vat_euro" readonly="1" />
+								<field name="transport_costs_euro" readonly="1" />
+								<field name="miscellaneous_expenses_euro" readonly="1" />
+								<field name="packaging_costs_euro" readonly="1" />
+							</group>
+						</page>
+					</xpath>
+				</data>
+			</field>
+		</record>
+	</data>
+</odoo>

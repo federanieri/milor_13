@@ -1,0 +1,32 @@
+<odoo>
+  <data>
+ 	
+ 
+ 	
+     
+      <record model="ir.ui.view" id="view_res_company_pricelist_form">
+         <field name="name">res.company</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//group[@name='social_media']"  position="after">
+        		<group string="Pricelists for field">
+        			<field name="pricelist1_id" />
+        			<field name="pricelist2_id" />
+        			<field name="pricelist3_id" />
+        			<field name="pricelist4_id" />
+        			<field name="pricelist5_id" />
+        			<field name="pricelist6_id" />
+        			<field name="pricelist7_id" />
+        			<field name="pricelist8_id" />
+        			<field name="pricelist9_id" />
+        			
+        		</group>
+        </xpath>
+     	</field>
+    </record>
+    
+     
+    </data>
+</odoo>

@@ -1,0 +1,65 @@
+<odoo>
+  <data>
+ 	
+ 	
+ 	 <record model="ir.ui.view" id="view_shopify_milor_sale_order">
+         <field name="name">sale.order</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="/form[1]/sheet[1]/div[1]"  position="before">
+        		<field name="ept_financial_order_status" invisible="1"/>
+        		 <widget name="web_ribbon" title="SH-INVOICED" bg_color="bg-danger" attrs="{'invisible': [('ept_financial_order_status', '!=', 'invoiced')]}"/>
+				 <widget name="web_ribbon" title="SH-PAYED" bg_color="bg-danger" attrs="{'invisible': [('ept_financial_order_status', '!=', 'payed')]}"/>
+        </xpath>
+     
+     	</field>
+    </record>
+ 	
+ 
+ 	<record id="view_shopify_config_settings_milor" model="ir.ui.view">
+            <field name="name">Shopify Settings</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="1"/>
+            <field name="inherit_id" ref="shopify_ept.view_shopify_config_settings"/>
+     		<field name="arch" type="xml">
+     		<field name="shopify_stock_field" position="attributes">
+     			<attribute name="domain">[('model_id.model','=','product.product'),('name','in',['qty_available','virtual_available','free_qty'])]</attribute>
+     		</field>
+     		</field>
+     		</record>
+     		
+    
+     <record model="ir.ui.view" id="view_shopify_form_milor">
+         <field name="name">shopify.instance.ept.milor</field>
+        <field name="model">shopify.instance.ept</field>
+        <field name="inherit_id" ref="shopify_ept.shopify_instance_form_view_ept"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//field[@name='shopify_country_id']"  position="after">
+        		<field name="lang"  />
+        		
+        			
+        		
+        </xpath>
+     
+     	</field>
+    </record>
+     
+     
+     <!--  <record model="ir.ui.view" id="view_shopify_tree_product_milor">
+         <field name="name">shopify.product.template.ept.milor</field>
+        <field name="model">shopify.product.template.ept</field>
+        <field name="inherit_id" ref="shopify_ept.shopify_product_tree_view_ept"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//field[@name='website_published']"  position="after">
+        		<field name="thron_message"  />
+        </xpath>
+     
+     	</field>
+    </record> -->
+     
+    </data>
+</odoo>

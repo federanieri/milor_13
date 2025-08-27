@@ -1,0 +1,586 @@
+<odoo>
+	<template id="assets_backend" name="return assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+        	<script type="text/javascript" src="/syd_commercial_return/static/src/js/qty_at_date_widget_return.js"></script>
+        </xpath>
+    </template>
+    
+    <template id="assets_frontend" name="hide div" inherit_id="website.assets_frontend">
+        <xpath expr="." position="inside">
+        	<script type="text/javascript" src="/syd_commercial_return/static/src/js/hide_other_div.js"></script>
+        </xpath>
+    </template>
+    
+    <template id="portal_return_my_home_menu_return_order_sheet" name="Portal layout : return order menu entries" inherit_id="portal.portal_breadcrumbs">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="bool(page_name == 'return_sheet') or bool(creturn)" t-attf-class="breadcrumb-item #{'active' if not creturn else ''}">
+	            <a t-if="creturn" t-attf-href="/my/commercial_returns?{{ keep_query() }}">Return Orders</a>
+                <t t-else="">Return Orders</t>
+            </li>
+            <li t-if="creturn" class="breadcrumb-item active">
+                <t t-esc="creturn.number"/>
+            </li>
+        </xpath>
+    </template>
+
+        <template id="portal_my_return" name="Portal My return: project entries" inherit_id="portal.portal_my_home" priority="40">
+            <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+                <t t-if="has_commercial_return" t-call="portal.portal_docs_entry">
+                    <t t-set="title">Your Commercial Returns</t>
+                    <t t-set="url" t-value="'/my/commercial_returns'"/>
+                    <t t-set="count" t-value="return_sheet_count"/>
+                </t>
+            </xpath>
+        </template>
+
+    <template id="display_sheet_returns" name="Display Returns">
+        <t t-call="portal.portal_layout">
+        <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Return Order</t>
+            </t>
+            <h2 t-if="bool(from_so)" class="my-0" style="font-size: 1.2em;padding-left: 1em;padding-bottom: 1em;font-weight: bold;">For Sales Order <a t-esc="from_so.name" style="font-style: italic;color: #840a0a;text-decoration: underline;" t-attf-href="/my/orders/#{from_so.id}?{{ keep_query() }}"/></h2>
+            <table class="table table-hover o_my_status_table bg-white rounded">
+                <thead>
+                  <tr class="active">
+                    <th>Number</th>
+                    <th>Return Type</th>
+                    <th>Created Date</th>
+                    <th>Stage</th>
+                  </tr>
+                </thead>
+                <t t-foreach="creturns" t-as="ret">
+                    <tr>
+                        <td>
+                        <a t-if="not bool(from_so)" t-att-href="'/commercial_return/%d' % (ret.id)" >
+                            <span t-field="ret.number"/>
+                         </a>
+                         <a t-if="bool(from_so)" t-att-href="'/commercial_return/%d/%d' % (ret.id, from_so.id)" >
+                            <span t-field="ret.number"/>
+                         </a>
+                        </td>
+                        <td>
+                            <span t-field="ret.return_type"/>
+                        </td>
+                        <td>
+                            <span t-field="ret.create_date"/>
+                        </td>
+                        
+                         <td>
+                            <span t-field="ret.state"/>
+                        </td>
+                    </tr>
+                </t>
+            </table>
+             <a class="btn btn-secondary  mr-3" title="New Return" href="#" data-placement="top" data-id = "ol" data-html="true" data-toggle="modal" data-target="#create_return"> Return</a>
+            
+            
+            
+	            <div role="dialog" class="modal fade" tabindex="-1" id="create_return">
+	                 <div class="modal-dialog modal-md" role="document">
+                		<div class="modal-content">
+            				<div class="modal-body">
+	                    <form action="/commercial_return/new" method="post" enctype="multipart/form-data">
+	                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+	                        <input type="hidden" name="sale_order" t-att-value="from_so.id if bool(from_so) else None"/>
+	                                        <div class="row">
+	                                           
+	                                            <div class="form-group col-xl-12">
+	                                                <label class="col-form-label" for="name">Type</label>
+	                                                <select name="return_type" class="form-control" required="required">
+                                                        
+                                                        <t t-foreach="types or []" t-as="i">
+														<option t-att-value="i[0]">
+															<t t-esc="i[1]" />
+														</option>
+													</t>
+                                                    </select>
+	                                            </div>
+	                                            
+	                                            
+	                                        </div>
+
+	                                    <button class="btn btn-success" type="submit">Create</button>
+
+	                    </form>
+	                </div>
+	            </div>
+	            </div>
+	            </div> 
+            
+            
+             </t>
+    </template>
+
+	<!-- inherit_id="sale.portal_order_page" -->
+    <template id="return_order_sheet" name="Sale order product return" priority="28" >
+         <t t-call="portal.portal_layout">	
+        <div class="container">
+          <div class="card">
+            <div class="card-header">
+            <div class="row">
+                <div class="col-lg-6">
+                  <h4>
+                    <t t-if="creturn.state in ['draft']">
+                      <span>Draft Commercial Return</span>
+                    </t>
+                    <t t-else="1">
+                      <span>Commercial Return</span>
+                    </t>
+                    <span t-esc="creturn.number"/>
+                  </h4>
+                </div>
+                <div class="col-lg-6">
+                     <strong>Type:</strong> 
+                	 <span t-field="creturn.return_type"/>
+                </div>
+                    
+              </div>
+              
+              <div class="row">
+               <div class="col-lg-6">
+                  		
+				            <address t-field="creturn.partner_id.commercial_partner_id"
+				            t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+				        
+        		</div>
+		         <div class="col-lg-6">
+			         <strong>Date:</strong> <span t-field="creturn.create_date" t-options='{"widget": "date"}'/><br/><br/>
+			         <t t-if="creturn.state in ['done']" t-set="style" t-value="'color:#10b569;'"/>
+			         <t t-if="creturn.state in ['confirm']" t-set="style" t-value="'color:#16bdae;'"/>
+			         <t t-if="creturn.state in ['sent']" t-set="style" t-value="'color:#ff8e4c;'"/>
+                	 <strong>Stage: </strong><b><span t-field="creturn.state" t-att-style="style or None"/></b>
+                	 
+        		</div>
+
+              </div>
+              <div class="row" t-if="error">
+	              <div class="col-lg-12">
+	              		<div class="alert alert-danger" role="alert">
+						<span t-esc="error"></span>					
+						</div>
+	              </div>
+              </div>
+              <div class="row" t-if="message">
+	              <div class="col-lg-12">
+	              		<div class="alert alert-primary" role="alert">
+						<span t-esc="message"></span>					
+						</div>
+	              </div>
+              </div>
+              <div class="row" t-if="creturn.state in ['draft']">
+               <div class="col-lg-6">
+                   <a class="btn btn-secondary  mr-3" title="ADD" href="#" data-placement="top" data-id = "ol" data-html="true" data-toggle="modal" data-target="#add_product">Add</a>
+               
+              </div>
+              <!-- <div class="col-lg-6" >
+                   <form action="/commercial_return_line/add_barcode" class="form-inline" method="post" enctype="multipart/form-data">
+	                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+	                        <input type="hidden" name="return_order_sheet_id" t-att-value="creturn.id"/>
+	                        <input type="text" name="product_code" autofocus="autofocus" class="form-control" required="True"/>
+	                        <button class="btn btn-secondary" type="submit"><i class="fa fa-barcode"></i></button>
+                       </form>
+               
+              </div> -->
+              </div>
+              
+              
+              </div>
+              <div class="card-body">
+		              	<table class="table">
+				              <tr>
+				               <th>
+				               </th>
+				               <th>
+				                  <strong>Product</strong>
+				               </th>
+				                <th>
+				                  <strong>Invoice / Sale Order</strong>
+				               </th>
+				              <th>
+				                  <strong>Quantity</strong>
+				               </th>
+				               
+				               <th>
+				                  <strong>Reason</strong>
+				               </th>
+				               <th t-if="creturn.state in ['draft']">
+				                  
+				               </th>
+				             </tr>
+				             
+				              <t t-foreach="creturn.return_order_line_ids" t-as="line">
+		               
+		                <tr >
+				                <td>
+		                      <img t-if="line.product_id.image_256" t-att-src="image_data_uri(line.product_id.image_256)" alt="Product"/>
+		                  </td>
+		                  <td>
+		                     <span t-field="line.product_id" />(<span t-field="line.product_code" />)
+		                     
+		                     
+		                  </td>
+		                  <td>
+		                  	<span t-field="line.sale_code" />
+		                  
+		                  </td>
+		                  <td>
+		                     <span t-field="line.quantity" />
+		                    
+		                  </td>
+		                  <td>
+		                      <span t-field="line.reason" />
+		                  </td>
+		                  <td t-if="creturn.state in ['draft']">
+		                  	<form action="/commercial_return_line/delete" method="post" enctype="multipart/form-data">
+	                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+	                        <input type="hidden" name="line_id" t-att-value="line.id"/>
+	                        
+	                        <button class="btn btn-secondary" type="submit"><i class="fa fa-trash"></i></button>
+                       </form>
+		                  
+		                  </td>
+		                 </tr>
+		                 </t>
+		              </table> 
+                  
+            
+            			<form t-if="creturn.state in ['draft']" action="/commercial_return/confirm" method="post" enctype="multipart/form-data">
+	                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+	                        <input type="hidden" name="return_order_sheet_id" t-att-value="creturn.id"/>
+	                        
+	                        <button class="btn btn-success" type="submit">Confirm</button>
+                       </form>
+            	</div>
+            	
+            	
+            </div>
+            
+            </div>
+            <div id="creturn_order_communication" class="mt-4">
+                        <h2>Message and History</h2>
+                        <t t-call="portal.message_thread">
+                            <t t-set="object" t-value="creturn"/>
+                        </t>
+            </div>
+            <div role="dialog" tabindex="-1"  class="modal fade"  id="add_product">
+                <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+            		<div class="modal-body">
+                    <form action="/commercial_return_line/save" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="return_order_sheet_id" t-att-value="creturn.id"/>
+                                        <div class="row">
+                                           
+                                            <div class="form-group col-xl-4" id="product">
+                                                 <label class="col-form-label" for="product_code">Product Barcode</label><i>*</i>
+                                                <input type="text" name="product_code" class="form-control" required="True"/>
+                                            </div>
+                                             <div class="form-group col-xl-4">
+                                                <label class="col-form-label" for="reason">Invoice / Order</label>
+                                                <input type="text" name="sale_code" class="form-control"/>
+                                            </div>
+                                            <div class="form-group col-xl-3">
+                                                <label class="col-form-label" for="quantity">Quantity</label><i>*</i>
+                                                <input type="number" class="form-control" name="quantity" required="True"/>
+                                            </div>
+                                            <input type="hidden" id="other_reason" name="other_reason" t-att-value="other_reason_id"/>
+                                            <div class="form-group col-xl-11">
+                                                <label class="col-form-label" for="reason">Reason</label><i>*</i>
+                                                <select class="form-control" name="reason" id="reason" required="True" onchange="hideDiv()">
+									               <t t-foreach="reasons" t-as="reason">
+									                   <option t-if="reason.sudo().reason_for in (creturn.return_type, 'all')" t-att-value="reason.sudo().id" t-esc="reason.sudo().name"/>
+									               </t>
+									           </select>
+                                            </div>
+                                            <div t-if="bool(reasons)" id="reason_text_area" class="form-group col-xl-11" t-att-style="'display:none;' if len(reasons) > 1 else 'display:block;'">
+			                                   <textarea id="closing_text" class="form-control" name="closing_text" style="width: 100%;" rows="4"></textarea>
+			                               </div>
+                                        </div>
+                                
+                                    <button class="btn btn-success" type="submit">Add</button>
+                            
+                        
+                    </form>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            </t>
+    </template>
+<!--     ADD RETURN BUTTON IN SALE ORDER VIEW
+ -->    
+    <template id="return_button_portal_sale_order" inherit_id="sale.sale_order_portal_content">
+        <xpath expr="//form[@id='reorder']" position="after">
+        	<t t-if="not rco">
+	            <a t-if="sale_order.state in ['sale','done']" type="submit" class="pull-right btn btn-primary" style="margin-right: 0.5em;background: #840a0a;border-color: #840a0a;" id="return_custom" href="#" data-placement="top" data-id = "ol" data-html="true" data-toggle="modal" data-target="#create_return_so"><span class="fa fa-exchange mr4"/>Return</a>
+	            <div role="dialog" class="modal fade" tabindex="-1" id="create_return_so">
+	            	<div class="modal-dialog modal-md" role="document">
+	               		<div class="modal-content">
+	           				<div class="modal-body">
+					            <form id="create_return_so" method="POST" t-attf-action="/return?order_id=#{sale_order.id}&amp;access_token=#{sale_order.access_token}">
+					                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+					                <input type="hidden" class="sale_id" t-att-value="sale_order.id" />
+					                <div class="row">  
+	                                   	<div class="form-group col-xl-12">
+		                                    <label class="col-form-label" for="name">Type</label>
+		                                       <select name="return_type" class="form-control" required="required">   
+	                                        		<t t-foreach="types or []" t-as="i">
+														<option t-att-value="i[0]">
+															<t t-esc="i[1]" />
+														</option>
+													</t>
+	                                       </select>
+	                                   </div>
+	                                </div>
+	                                <button class="btn btn-success" type="submit">Create</button>
+					            </form>
+					        </div>
+				        </div>
+			       	</div>
+	            </div>
+            </t>
+            <t t-if="rco">
+     	    	<a class="pull-right btn btn-primary" style="margin-right: 0.5em;background: white;border-color: #840a0a;color: #840a0a;border-width: 1px;padding: 0.6rem 0.9rem;" t-attf-href="/my/commercial_returns/#{sale_order.id}?{{ keep_query() }}"><t t-esc="len(rco)"/> Return Orders</a>
+            </t>                      																																			
+        </xpath>
+    </template>
+    
+    <template id="display_products_to_return" name="Sale order product return" priority="28" >
+        <t t-call="website.layout">
+            <div id="wrap">
+            	<h2 t-if="bool(sale_order)" class="container" style="font-size: 1.2em;padding-left: 1em;padding-bottom: 1em;font-weight: bold;padding-top: 1em;">For Sales Order 
+            		<a t-esc="sale_order.name" style="font-style: italic;color: #840a0a;text-decoration: underline;" t-attf-href="/my/orders/#{sale_order.id}?{{ keep_query() }}"/>
+            	</h2>
+            	<t t-call="syd_commercial_return.resume_commercial_return"/>
+                <div class="container oe_website_sale py-2">
+                    <div class="row">
+                        <div class="col-12 col-xl-8 oe_cart">
+                            <div class="row">
+                                <div class="col-lg-12">
+									<t t-call="syd_commercial_return.cart_summary_for_cro"/>
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-12 col-xl-4" style="margin-bottom: 2em;">
+							<div class="card" style="box-shadow: 10px 10px #8888884a;">
+								<div class="card-body">
+									<h4 class="d-xl-block">Return Order Resume</h4>
+									<hr class="d-xl-block"/>
+									<div>
+										<t t-call="syd_commercial_return.total_cro">
+											<t t-set='no_rowspan'>1</t>
+										</t>
+										<form t-if="creturn.state in ['draft']" action="/commercial_return/confirm" method="post" enctype="multipart/form-data">
+											<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+											<input type="hidden" name="return_order_sheet_id" t-att-value="creturn.id"/>
+											<button class="btn btn-secondary float-right d-xl-inline-block" type="submit">Confirm</button>
+									   </form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</t>
+    </template>
+    
+	<template id="total_cro">
+		<div id="cart_total_cro" t-att-class="extra_class or ''" t-if="sale_order and sale_order.order_line">
+			<table class="table">
+				<tr t-foreach="creturn.return_order_line_ids" t-as="line">
+				  <tr id="empty">
+					  <t t-if='not no_rowspan'><td rowspan="10" class="noborder"/></t>
+					  <td class="col-md-2 col-3 noborder"></td>
+					  <td class="col-md-2 col-3 noborder" ></td>
+				  </tr>
+				  <tr>
+					  <td colspan="2" class="noborder"><b>Product: </b><br/>
+	                     <span t-field="line.product_id" /><t t-if="line.product_code">(<span t-field="line.product_code" />)</t>
+	                  </td>
+					  <td class="text-xl-right noborder"><b>Qty:</b></td>
+	                  <td>
+	                     <span t-field="line.quantity" />
+	                  </td>
+	                  <td t-if="creturn.state in ['draft']" style="border-top: 0;padding-left: 8px;padding-right: 8px;">
+                	  	<form action="/commercial_return_line/delete" method="post" enctype="multipart/form-data">
+	                      <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                          <input type="hidden" name="line_id" t-att-value="line.id"/>
+                          <input type="hidden" name="sale_order" t-att-value="sale_order.id"/>
+              		  	  <button type="submit" class="fa fa-trash-o" data-toggle="tooltip" title="Remove product from your return order" style="font-weight: bold;background: none;border: none;color: #840a0a;"/>
+              		  	</form>
+	                  </td>
+				  </tr>
+				  <tr>
+					<td style="padding-top: 0px;border-top: 0;" colspan="4"><b>Reason:</b>
+	                   <span t-field="line.reason"/>
+	                   <span t-if="bool(line.specify_reason) and bool(line.reason.id == other_reason_id)"> - <t t-esc="line.specify_reason"/></span>
+	                </td>
+				  </tr>
+				</tr>	
+			</table>
+		</div>
+	</template>
+    
+	<template id="cart_summary_for_cro">
+		<div>
+			<div t-if="not sale_order or not sale_order.order_line" class="alert alert-info">
+				There are no products to return or refund!
+			</div>
+			<div>
+				<table class="mb64 table table-striped table te_cart_table" t-if="sale_order and sale_order.order_line">
+					<thead>
+						<tr>
+							<th class="border-top-0 td-img">Product</th>
+							<th class="border-top-0"></th>
+							<th class="border-top-0 td-qty">Brand</th>
+							<th class="border-top-0 td-qty">Quantity</th>
+							<th t-if="bool(creturn.return_order_line_ids)" class="border-top-0 td-qty" style="color: #d70000f2;font-weight: bold;">Returned Qty.</th>
+							<th class="border-top-0 text-center td-price">Price</th>
+							<th class="border-top-0 text-center td-price">Subtotal</th>
+							<th class="text-center td-action"/>
+						</tr>
+					</thead>
+					<t t-set="_id" t-value="0"/>
+					<tbody>
+						<tr t-foreach="sale_order.order_line" t-as="line">
+							<!-- <td class='' colspan="2" t-if="not line.product_id.product_tmpl_id"></td> -->
+							<td class='td-img text-center' t-if="bool(line.product_id.sudo().product_tmpl_id)">
+								<span t-field="line.product_id.sudo().image_128" t-options="{'widget': 'image', 'qweb_img_responsive': False, 'class': 'rounded o_image_64_max'}" />
+							</td>
+							<td class='td-product_name' t-if="line.product_id.product_tmpl_id">
+								<div>
+									<strong t-field="line.name_short" />
+								</div>
+							</td>
+							<td class='td-qty'>
+								<div t-esc="line.product_id.product_tmpl_id.product_brand_id.name" />
+							</td>
+							<td class='td-qty'>
+								<div t-esc="line.product_uom_qty" />
+							</td>
+							<td t-if="bool(creturn.return_order_line_ids)" class='td-qty' style="color: #d70000f2;font-weight: bold;">
+								<div>
+									<t t-if="creturn.return_order_line_ids.filtered(lambda x: x.product_id.id == line.product_id.id)" t-esc="creturn.return_order_line_ids.filtered(lambda x: x.product_id.id == line.product_id.id).quantity"/>
+								</div>
+							</td>
+							<td class="text-center td-price">
+								<span t-field="line.price_reduce_taxexcl" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'display_currency': sale_order.currency_id}" groups="account.group_show_line_subtotals_tax_excluded" />
+								<span t-field="line.price_reduce_taxinc" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'display_currency': sale_order.currency_id}" groups="account.group_show_line_subtotals_tax_included" />
+							</td>
+							<td class="text-center td-price">
+								<span class="oe_order_line_price_subtotal" t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+								<span class="oe_order_line_price_total" t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+							</td>
+							<td class="td-action">
+								<t t-if="bool(line.product_id.barcode) and bool(creturn.return_order_line_ids.filtered(lambda x: x.product_id.id == line.product_id.id).quantity &lt; line.product_uom_qty) and bool(line.price_subtotal &gt; 0 or line.price_total &gt; 0)">
+									<a href="#" aria-label="Return from SO" title="Return from SO" data-placement="top" data-html="true" data-toggle="modal" t-attf-id="#{_id}" onclick="show_modal(this.id)"><i class="fa fa-exchange"></i></a>
+								</t>
+							</td>
+							
+						<!-- 	MODAL TO RETURN PRODUCT -->
+							<div role="dialog" tabindex="-1"  class="modal fade"  id="add_product" t-attf-id="hidden_box_#{_id}">
+				                <div class="modal-dialog modal-md" role="document">
+				                <div class="modal-content">
+				            		<div class="modal-body">
+				                    <form action="/commercial_return_line/save" method="post" enctype="multipart/form-data">
+				                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+				                        <input type="hidden" name="sale_order" t-att-value="sale_order.id"/>
+				                        <input type="hidden" name="return_order_sheet_id" t-att-value="creturn.id"/>
+					                        <div class="row">
+					                           
+					                            <div class="form-group col-xl-4" id="product">
+					                                <label class="col-form-label" for="product_code">Product Barcode</label><i>*</i>
+					                                <input type="text" name="product_code" class="form-control" required="True" t-att-value="line.product_id.barcode"/>
+					                            </div>
+					                             <div class="form-group col-xl-4">
+					                                <label class="col-form-label" for="reason">Invoice / Order</label>
+					                                <input type="text" name="sale_code" class="form-control" t-att-value="sale_order.name"/>
+					                            </div>
+					                            <div class="form-group col-xl-3">
+					                                <label class="col-form-label" for="quantity">Quantity</label><i>*</i>
+					                                <t t-set="returned_qty" t-value="creturn.return_order_line_ids.filtered(lambda x: x.product_id.id == line.product_id.id).quantity if creturn.return_order_line_ids.filtered(lambda x: x.product_id.id == line.product_id.id) else 0"/>
+					                                <input type="number" class="form-control" name="quantity" required="True" min="1" t-att-max="line.product_uom_qty - returned_qty"/>
+					                            </div>
+					                            <input type="hidden" id="other_reason" name="other_reason" t-att-value="other_reason_id"/>
+					                            <div class="form-group col-xl-11">
+					                                <label class="col-form-label" for="reason">Reason</label><i>*</i>
+					                                <select class="form-control" name="reason" t-attf-id="#{_id}" required="True" onchange="hideSpecific(this.id)">
+												        <t t-foreach="reasons" t-as="reason">
+									                   		<option t-if="reason.sudo().reason_for in (creturn.return_type, 'all')" t-att-value="reason.sudo().id" t-esc="reason.sudo().name"/>
+												        </t>
+												    </select>
+					                            </div>
+					                            <div t-if="bool(reasons)"  t-attf-id="reason_text_area_#{_id}" class="form-group col-xl-11" t-att-style="'display:none;' if len(reasons) > 1 else 'display:block;'">
+							                      <textarea t-attf-id="closing_text_#{_id}" class="form-control" t-attf-name="closing_text_#{_id}" style="width: 100%;" rows="4"></textarea>
+							                  </div>
+				                        </div>
+					                    <button class="btn btn-success" type="submit">Add</button>
+				                    </form>
+				                    </div>
+				                    </div>
+				                </div>
+				            </div>
+				            <t t-set="_id" t-value="_id + 1"/>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</template>
+	
+	<template id="resume_commercial_return">
+		<div class="col-12">
+		<div class="card-header container">
+			<div class="row">
+			<div class="col-lg-6">
+			  <h4>
+				<t t-if="creturn.state in ['draft']">
+				  <span>Draft Commercial Return</span>
+				</t>
+				<t t-else="1">
+				  <span>Commercial Return</span>
+				</t>
+				<span t-esc="creturn.number"/>
+			  </h4>
+			</div>
+			<div class="col-lg-6">
+				 <strong>Type:</strong> 
+				 <span t-field="creturn.return_type"/>
+			</div>
+		  </div>
+		  <div class="row">
+		   <div class="col-lg-6">
+				<address t-field="creturn.partner_id.commercial_partner_id"
+				t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+			</div>
+			 <div class="col-lg-6">
+				 <strong>Date:</strong> <span t-field="creturn.create_date" t-options='{"widget": "date"}'/><br/><br/>
+				 <t t-if="creturn.state in ['done']" t-set="style" t-value="'color:#10b569;'"/>
+				 <t t-if="creturn.state in ['confirm']" t-set="style" t-value="'color:#16bdae;'"/>
+				 <t t-if="creturn.state in ['sent']" t-set="style" t-value="'color:#ff8e4c;'"/>
+				 <strong>Stage: </strong><b><span t-field="creturn.state" t-att-style="style or None"/></b>
+				 
+			</div>
+		  </div>
+		  <div class="row" t-if="error">
+			  <div class="col-lg-12">
+					<div class="alert alert-danger" role="alert">
+					<span t-esc="error"></span>					
+					</div>
+			  </div>
+		  </div>
+		  <div class="row" t-if="message">
+			  <div class="col-lg-12">
+					<div class="alert alert-primary" role="alert">
+					<span t-esc="message"></span>					
+					</div>
+			  </div>
+		  </div>
+		  </div>
+		</div>
+	</template>				
+				 
+
+</odoo>

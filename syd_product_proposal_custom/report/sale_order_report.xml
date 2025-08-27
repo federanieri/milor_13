@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>   
+        <template id="report_simple_barcode_customer_zpl">
+            <t t-translation="off">
+                <t t-set="options" t-value="options or 'PD'"/>
+                ^XA
+                ^LH0,0
+                
+                ^CF0N,18
+                ^FO30,20
+                ^FD<t t-esc="default_code"/>^FS
+                <t t-if="'P' in options">
+                    ^FO300,20,1
+                    ^FH
+                    ^FD<t t-esc="'%.2f' % price"/><t t-if="currency_id.symbol == '€'">_15</t><t t-if="currency_id.symbol == '$'">_24</t><t t-if="currency_id.symbol == '£'">_9C</t>^FS
+                </t>
+                ^CI28
+                <t t-if="'D' in options">
+                    ^FO30,41
+                    ^A0,14
+                    ^FB200,40
+                    ^FD<t t-esc="product.barcode_text"/> <t t-esc="product.stone_name"/>^FS
+                </t>
+                ^FO300,45,1
+                ^FD<t t-esc="milor_plateau"/>^FS
+                <t t-if="line.customer_product_code">
+                    ^AA,20
+                    ^FO<t t-esc="30+int((20-len(line.customer_product_code))/2*10.0)"/>,70
+                    ^BY1^BC,40,N
+                    ^FD<t t-esc="line.customer_product_code"/>^FS
+                    ^FO,115
+                    ^AA,20
+                    ^FB320,20,,C
+                    ^FD<t t-esc="line.customer_product_code"/>^FS
+                </t>
+                <t t-else="">^FDNo customer code available^FS</t>
+                ^XZ
+            </t>
+        </template>
+        
+        <template id="report_so_productbarcodecustomer_zpl">
+            <t t-foreach="docs" t-as="stock_picking">
+                <t t-foreach="stock_picking.origin_sale_id.order_line" t-as="line">
+                    <t t-if="not line.product_id.no_print_label">
+                        <t t-foreach="range(int(line.product_uom_qty)*2)" t-as="l">
+                            <t t-call="syd_product_proposal_custom.report_simple_barcode_customer_zpl">
+                                <t t-set="product" t-value="line.product_id"/>
+                                <t t-set="price" t-value="line.retail_price"/>
+                                <t t-set="currency_id" t-value="line.currency_id"/>
+                                <t t-set="milor_plateau" t-value="line.product_id.milor_plateau"/>
+                                <t t-set="default_code" t-value="line.product_id.default_code" />
+                            </t>
+                        </t>
+                    </t>
+                </t>
+            </t>
+         </template>
+         
+	</data>
+</odoo>

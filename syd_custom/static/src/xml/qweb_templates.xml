@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" inherit_id="stock_barcode.template" xml:space="preserve">
+
+   
+	<!-- <t t-extend="stock_barcode_lines_template">
+		
+		<t t-jquery=".o_barcode_line.list-group-item.d-flex.flex-row.flex-nowrap .o_barcode_line_details.flex-grow-1.flex-column.flex-nowrap" t-operation="after">
+			<div class="o_barcode_line_details flex-grow-1 flex-column flex-nowrap">
+	            <span>Stock:</span>
+	            <strong><span class="d-inline-block text-left" t-esc="line.product_id.qty_available"/></strong>
+	            <span t-if="groups.group_uom" t-esc="line.product_uom_id[1]"/>
+	            <span>Forecast:</span>
+	            <strong><span class="d-inline-block text-left" t-esc="line.product_id.virtual_available"/></strong>
+	            <span t-if="groups.group_uom" t-esc="line.product_uom_id[1]"/>
+            </div>
+        </t>
+	</t> -->
+	
+
+	<t t-extend="stock_barcode_settings_widget">
+        <t t-jquery=".o_print_barcodes_zpl" t-operation="replace">
+        	<button t-if="widget.model == 'stock.picking'" class="btn-lg btn btn-dark text-uppercase o_print_barcodes_zpl">Print Picking Label</button>
+        		
+        </t>
+<!--        <t t-jquery=".o_print_picking" t-operation="replace">-->
+<!--            <button t-if="widget.model == 'stock.picking'" class="btn-lg btn btn-dark text-uppercase o_print_picking">Print Complete Picking Operations</button>-->
+<!--        		-->
+<!--        </t>-->
+        <t t-jquery=".o_print_delivery_slip" t-operation="replace">
+            <button t-if="widget.model == 'stock.picking'" class="btn-lg btn btn-dark text-uppercase o_print_delivery_slip">Print Packing List</button>
+        		
+        </t>
+        <t t-jquery=".o_print_barcodes_pdf" t-operation="replace">
+            <button t-if="widget.model == 'stock.picking'" class="btn-lg btn btn-dark text-uppercase o_print_barcodes_pdf">Print Product Barcodes</button>
+        		
+        </t>
+        <t t-jquery=".o_print_barcodes_pdf" t-operation="replace">
+            <button t-if="widget.model == 'stock.picking'" class="btn-lg btn btn-dark text-uppercase o_print_qvc_barcodes_zpl">Print Product QVC Barcodes</button>
+
+        </t>
+    </t>
+	
+	
+</templates>

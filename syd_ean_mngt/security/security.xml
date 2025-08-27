@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="ean_access" model="ir.module.category">
+        <field name="name">EAN Access </field>
+        <field name="sequence">6</field>
+    </record>
+
+    <record id="group_users" model="res.groups">
+        <field name="name">Users</field>
+        <field name="category_id" ref="ean_access"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="view_partner_form_inherit_syd_b2b_retailers" model="ir.ui.view">
+            <field name="name">res.partner.inherit.b2b.retailers</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="category_id" position="after">
+                    <field name="is_retailer"/>
+                    <field name="product_brand_ids" widget="many2many_tags" attrs="{'invisible':[('is_retailer','=', False)]}"/>
+                    <field name="fixed_invoice_partner_id" attrs="{'invisible':[('is_retailer','=', False)]}" />
+                </field>
+            </field>
+        </record>
+        
+        
+        <record id="view_brand_form_inherit_syd_b2b_retailers" model="ir.ui.view">
+            <field name="name">common.product.brand.ept.b2b.retailers</field>
+            <field name="model">common.product.brand.ept</field>
+            <field name="inherit_id" ref="common_connector_library.view_common_product_brand_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="group_id"/>
+                    <field name="group_name"  attrs="{'invisible':[('group_id','=', False)]}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

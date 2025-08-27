@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_res_region,ifs_region.res_region,model_res_region,,1,1,1,1

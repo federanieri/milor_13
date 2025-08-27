@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <template id="portal_my_home_purchase" name="Portal My Home : purchase entry" inherit_id="purchase.portal_my_purchase_orders" priority="25">
+      <xpath expr="//thead" position="attributes">
+	  	<attribute name="style">font-size:smaller;</attribute>
+      </xpath>
+      <xpath expr="//tbody" position="attributes">
+	  	<attribute name="class" separator=" " add="small"/>
+      </xpath>
+      <xpath expr="//t[@t-if='orders']/thead[1]/tr[1]/th[2]" position="after">
+          <th style="font-size:inherit;">Qty. To Do</th>
+          <th style="font-size:inherit;">Status</th>
+          <th style="font-size:inherit;">Stream</th>
+          <th style="font-size:inherit;">Open/Close</th>
+          <th style="font-size:inherit;">Milor Codes</th>
+          <th style="font-size:inherit;">Parent PO</th>
+          <th style="font-size:inherit;">Anomaly</th>
+      </xpath>
+      <xpath expr="//t[@t-if='orders']/thead[1]/tr[1]/th[1]" position="before">
+          <th>
+          </th>
+      </xpath> 
+      <xpath expr="//t[@t-if='orders']/thead[1]/tr[1]/th[2]" position="attributes">
+          <attribute name="style">font-size:inherit;</attribute>
+      </xpath>
+      <xpath expr="//t[@t-if='orders']/thead[1]/tr[1]/th[3]" position="attributes">
+          <attribute name="style">font-size:inherit;</attribute>
+      </xpath> 
+      <xpath expr="(//t[@t-if='orders']/thead[1]/tr[1]/th)[last()]" position="attributes">
+          <attribute name="style">font-size:inherit;</attribute>
+      </xpath> 
+      <xpath expr="//t[@t-foreach='orders']/tr[1]/td[1]/a" position="attributes">
+          <attribute name="style">font-size:inherit;</attribute>
+      </xpath>     
+      <xpath expr="//t[@t-foreach='orders']/tr[1]/td[2]" position="after">
+          <td>
+              <t t-set="qty_todo" t-value="sum(order.order_line.mapped('product_qty')) - sum(order.order_line.mapped('qty_received'))"/>
+              <span t-esc="qty_todo"/>
+          </td>
+          <td>
+              <t t-if="order.po_status == 'new'" t-set="color" t-value="'#c73434'"/>
+              <t t-if="order.po_status == 'in_charge'" t-set="color" t-value="'#2787ea'"/>
+              <t t-if="order.po_status == 'spedito'" t-set="color" t-value="'#df95bf'"/>
+ 	 		  <t t-if="order.po_status == 'galvanica'" t-set="color" t-value="'#f0d651'"/>
+              <t t-if="order.po_status == 'downloaded_txt'" t-set="color" t-value="'#a69d93'"/>	 		
+              <t t-if="order.po_status == 'downloaded_stl'" t-set="color" t-value="'#a69d93'"/>	 		  
+              <t t-if="order.po_status == 'partial'" t-set="color" t-value="'#ff920b'"/>
+              <t t-if="order.po_status == 'delivered'" t-set="color" t-value="'#33b533'"/>
+              
+	          <t t-if="order.purchase_order_type in ('rework_one','rework_two')"><span class="badge badge-pill" t-attf-style="font-weight: bold;color:white;background-color: #68b581;" t-field="order.purchase_order_type"/></t>
+	          <t t-else=""><span class="badge badge-pill" t-attf-style="font-weight: bold;color:white;background-color: #{color if color else ''};" t-field="order.po_status"/></t>
+       
+          </td>
+          <td>
+              <span t-esc="order.sudo().as2_stream_id.name"/>
+          </td>
+    	 <td>
+    	 	<span t-esc="'Closed' if order.closed else 'Open'" t-attf-style="font-weight: bold;color: #{'#c73434' if order.closed else '#33b533;'};"/>
+    	 </td>          
+          <td>
+              <p t-field="order.milor_codes" style="width:200px;overflow:hidden;font-size:inherit;"/>
+          </td>
+          <td>
+              <t t-if="order.parent_po_id">
+                  <span t-field="order.parent_po_id" />  - <small t-field="order.sudo().parent_po_id.partner_id.name" />
+              </t>
+          </td>
+          <td>
+              <ul>
+                  <t t-foreach="order.anomaly_ids" t-as="an">
+                      <li><span t-field="an.name"></span></li>
+                  </t>
+              </ul>
+          </td>
+      </xpath>      
+	  <xpath expr="//span[@t-field='order.date_order']" position="replace">
+         <span t-if="order.state in ('purchase')" t-field="order.date_approve"/>
+   		 <span t-else="" t-field="order.date_order"/>
+	  </xpath>
+      <xpath expr="//t[@t-foreach='orders']/tr[1]/td[1]" position="before">
+          <td t-if="not order.parent_po_id">
+              <img style="width:68px;" t-if="order.sudo().product_id.image_128" t-att-src="image_data_uri(order.sudo().product_id.image_128)" alt="Product"/>
+          </td>
+          <td t-if="order.parent_po_id">
+              <img style="width:68px;" t-if="order.sudo().product_of_service_id.image_128"  t-att-src="image_data_uri(order.sudo().product_of_service_id.image_128)" alt="Product"/>
+          </td>
+      </xpath>
+      <xpath expr="//span[hasclass('badge-info')]" position="replace">
+      </xpath>
+  </template>
+
+  <template id="portal_my_purchase_order" inherit_id="purchase.portal_my_purchase_order" name="Portal: My Purchase Order">
+     <xpath expr="//div[hasclass('container')]" position="replace">
+
+
+      <div class="container">
+      
+  
+          <div class="card">
+          <form role="form"> <!-- t-attf-action="/my/purchase/#{order.id}/notify?access_token=#{token}" method="POST" -->
+          <input type="hidden" name="access_token" class="form-control access_token" t-att-value="token"/>
+					<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+            <div class="card-header">
+            
+              <div class="row">
+                <div class="col-lg-4">
+                  <h4>
+                    <t t-if="order.state in ['draft', 'sent']">
+                      Request for Quotation
+                    </t>
+                    <t t-else="1">
+                      Purchase Order
+                    </t>
+                    <span t-esc="order.name"/>
+                  </h4>
+                  
+                   <h5>
+                    <t t-if="order.parent_po_id">
+                      Parent PO
+                    
+                    
+                    <span t-esc="order.parent_po_id.name"/>
+                    
+                    </t>
+                  </h5>
+                
+                
+                </div>
+                <div class="col">
+                	<div class="row">
+		                  <div class="col-lg-4 mb-1">
+		                      <a class="btn btn-secondary btn-block o_download_btn" style="font-size: small" t-att-href="order.get_portal_url(report_type='pdf', download=True)" title="Download"><i class="fa fa-download"/> PDF Report</a>
+		                  </div>
+		                  <div class="col-lg-4 mb-1">
+		                      <a class="btn btn-secondary btn-block o_download_btn" style="font-size: small" t-att-href="order.get_portal_url(report_type='zpl', download=True, query_string='&amp;report_name=syd_custom.report_po_productbarcode_zpl&amp;use_pn=1&amp;fallback_to_txt=1')" title="Download"><i class="fa fa-download"/> Product Label</a>
+		                  </div>
+                            <t t-if="order.service_po">
+                                <t t-if="order.parent_po_id">
+                                    <div class="col-lg-4 mb-1">
+                                        <a class="btn btn-secondary btn-block o_download_btn" style="font-size: small" t-att-href="order.parent_po_id.get_portal_url(report_type='zpl', download=True, query_string='&amp;report_name=syd_custom.report_po_productbarcode_zpl&amp;use_pn=1&amp;fallback_to_txt=1')" title="Download"><i class="fa fa-download"/> All Product Parent Label</a>
+                                    </div>
+                                </t>
+                            </t>
+		                  <div class="col-lg-4 mb-1">
+		                      <a class="btn btn-secondary btn-block o_download_btn" style="font-size: small" t-att-href="order.get_portal_url(report_type='zpl', download=True, query_string='&amp;report_name=syd_custom.report_po_productbarcode_zpl_sup&amp;use_pn=1&amp;fallback_to_txt=1')" title="Download"><i class="fa fa-download"/> Order Label</a>
+		                  </div>
+		                  <div class="col-lg-4 mb-1" t-if="not order.in_charge">
+		                      <a class="btn btn-secondary btn-block o_download_btn" style="font-size: small;background: #2787ea;border-color: #2787ea;" t-attf-href="/my/purchase/#{order.id}/charge?access_token=#{token}" title="Take in Charge"><i class="fa fa-work"/> Take in Charge</a>
+						  </div>
+						  <div class="col-lg-4 mb-1" t-if="not order.spedito_da_fornitore">
+		                      <a class="btn btn-secondary btn-block o_download_btn" style="font-size: small;background: #df95bf;border-color: #df95bf;" t-attf-href="/my/purchase/#{order.id}/spedito?access_token=#{token}" title="Spedito"><i class="fa fa-work"/> Spedito</a>
+		                  </div>
+		                  <div class="col-lg-4 mb-1" t-if="not order.spedito_in_galvanica">
+		                      <a class="btn btn-secondary btn-block o_download_btn" style="font-size: small;background: #f0d651;border-color: #f0d651;" t-attf-href="/my/purchase/#{order.id}/spedito_galv?access_token=#{token}" title="Spedito in Galvanica"><i class="fa fa-work"/> Spedito in Galvanica</a>
+		                  </div>
+		              </div>
+	             </div>
+          	</div>
+              
+              <div class="row">
+               <div class="col-lg-6">
+                  		
+				            <address t-field="order.partner_id"
+				            t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+				            <p t-if="order.partner_id.vat"><t t-esc="order.company_id.country_id.vat_label or 'Tax ID'"/>: <span t-field="order.partner_id.vat"/></p>
+				        
+        		</div>
+		         <div class="col-lg-6">
+				        <t t-if="order.dest_address_id">
+				            
+				                <strong>Shipping address:</strong>
+				                <div t-if="order.dest_address_id">
+				                    <address t-field="order.dest_address_id"
+				                        t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}' name="purchase_shipping_address"/>
+				                </div>
+				
+				            
+				        </t>
+				      <!--   <t t-if="order.parent_po_id">
+		                      	<strong>Parent PO Vendor address:</strong>
+		                    
+		                    
+		                    
+		                    
+		                    <address t-field="order.parent_po_id.partner_id"
+						            t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+						            <p t-if="order.partner_id.vat"><t t-esc="order.parent_po_id.company_id.country_id.vat_label or 'Tax ID'"/>: <span t-field="order.parent_po_id.partner_id.vat"/></p>
+						       
+                    	</t> -->
+		        </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="mb8">
+                  <strong>Date:</strong> 
+				  <span t-if="order.state == 'purchase'" t-field="order.date_approve" t-options='{"widget": "date"}'/>
+                  <span t-else="" t-field="order.date_order" t-options='{"widget": "date"}'/>
+              </div>
+              <div class="mb8">
+                  <strong>Consignment Date:</strong> <span t-field="order.date_planned" t-options='{"widget": "date"}'/>
+              </div>
+              <div class="mb8">
+              	  <t>
+                  <strong>Status:</strong>
+                	  <t t-if="order.po_status == 'new'" t-set="color" t-value="'#c73434'"/>
+			 		  <t t-if="order.po_status == 'in_charge'" t-set="color" t-value="'#2787ea'"/>
+			 		  <t t-if="order.po_status == 'spedito'" t-set="color" t-value="'#df95bf'"/>
+		  	 		  <t t-if="order.po_status == 'galvanica'" t-set="color" t-value="'#f0d651'"/>
+              		  <t t-if="order.po_status == 'downloaded_txt'" t-set="color" t-value="'#a69d93'"/>
+			 		  <t t-if="order.po_status == 'downloaded_stl'" t-set="color" t-value="'#a69d93'"/>
+			 		  <t t-if="order.po_status == 'partial'" t-set="color" t-value="'#ff920b'"/>
+			 		  <t t-if="order.po_status == 'delivered'" t-set="color" t-value="'#33b533'"/>
+                  	  <t t-if="order.purchase_order_type in ('rework_one','rework_two')"><span class="badge badge-pill" t-attf-style="font-weight: bold;color:white;background-color: #68b581;" t-field="order.purchase_order_type"/></t>
+	          		  <t t-else=""><span class="badge badge-pill" t-attf-style="font-weight: bold;color:white;background-color: #{color if color else ''};" t-field="order.po_status"/></t>
+                	</t>
+                </div>
+                <div class="mb8">
+                <t t-if="order.anomaly_ids">
+                <strong>Anomaly:</strong>
+                <ul>
+                	<t t-foreach="order.anomaly_ids" t-as="an">
+                	
+                		<li><span t-field="an.name" t-att-title="an.description"></span></li>
+                	
+                	</t>
+                </ul>
+               </t>
+              </div>
+              <t t-if="order.parent_po_id">
+               <div class="mb8"  >
+                  <strong>Photos:</strong>  <t t-raw="order.parent_po_id.image_links" />
+              </div>
+              </t>
+              <t t-else="">
+              	<strong>Photos:</strong>  <t t-raw="order.image_links" />
+              </t>
+              	<table class="table">
+               <tr>
+               <th>
+                  
+               </th>
+               	<th>
+                  <strong>Product</strong>
+               </th>
+               <th t-if="order.parent_po_id">
+                  <strong>Product of service</strong>
+               </th>
+               <th t-if="order.parent_po_id">
+                  
+               </th>
+                <th t-if="order.has_dis">DIS</th>
+                <th>Personalized</th>
+               <th>
+                  <strong>Unit Price</strong>
+              </th>
+              <th>
+                  <strong>Quantity</strong>
+               </th>
+               <th t-if="order.state == 'purchase'">
+                  <strong>Quantity Delivered</strong>
+               </th>
+               <th t-if="order.state == 'purchase' and order.received_status in ['to_receive', 'partial']">
+                  <strong>Qty. To Do</strong>
+               </th>
+               <th>
+                  <strong>Subtotal</strong>
+                  </th>
+              </tr>
+             
+              <t t-set="current_subtotal" t-value="0"/>
+              <t t-foreach="order.order_line" t-as="ol">
+               
+                <t t-set="current_subtotal" t-value="current_subtotal + ol.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                <t t-set="current_subtotal" t-value="current_subtotal + ol.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+                <tr t-if="not ol.display_type" >
+                  <td>
+                      <img t-if="ol.product_id.image_128" t-att-src="image_data_uri(ol.product_id.image_128)" alt="Product"/>
+                  </td>
+                  <td id='product_name' >
+                    <span t-esc="ol.name"/> 
+                    <span t-if="ol.product_id.milor_code" t-field="ol.product_id.milor_code" />
+                  </td>
+                  	<td t-if="order.parent_po_id" >
+        			 <span t-field="ol.product_of_service_id.display_name" /> (<span t-if="ol.product_of_service_id.milor_code" t-field="ol.product_of_service_id.milor_code" />)
+        			</td>
+        			<td t-if="order.parent_po_id">
+        			<img t-if="ol.product_of_service_id.image_128"  t-att-src="image_data_uri(ol.product_of_service_id.image_128)" alt="Product"/>
+        			</td>
+        			<td t-if="order.has_dis" >
+                  	<t t-foreach="ol.product_id.total_dis_ids" t-as="d">
+                  		<a t-attf-href="/web/content/{{d.attachment_id.id}}" ><span t-field="d.name" /></a>
+                  	</t>
+                  	<t t-foreach="ol.product_of_service_id.total_dis_ids" t-as="d">
+                  		<a t-attf-href="/web/content/{{d.attachment_id.id}}" ><span t-field="d.name" /></a>
+                  	</t>
+                	</td>
+                  <td>
+                    <span t-field="ol.custom_value"/>
+                  </td>
+                  <td>
+                    <span t-field="ol.price_unit" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/>
+                  </td>
+                  <td >
+                      <span t-esc="ol.product_qty" t-attf-id="product_qty_{{order.id}}_{{ol.id}}" t-att-value="ol.product_qty"/>
+                  </td>
+                  <td class="text-center td-qty" t-if="order.state == 'purchase'" >
+				     <div class="css_quantity input-group" >
+                         <input t-if="ol.qty_received >= ol.product_qty " type="number" t-attf-name="qtydelivered_{{order.id}}_{{ol.id}}" t-attf-id="qtydelivered_{{order.id}}_{{ol.id}}" class="js_quantity form-control qtydelivered" t-att-value="ol.qty_received" disabled="True" onchange="change_qty_to_do(this)"/>
+                         <input required="required" t-else="" type="number" t-attf-name="qtydelivered_{{order.id}}_{{ol.id}}" t-attf-id="qtydelivered_{{order.id}}_{{ol.id}}" class="js_quantity form-control qty_received" t-att-value="ol.qty_received" onchange="change_qty_to_do(this)"/>
+                     </div>
+                  </td>
+                  <td class="text-center td-qty" t-if="order.state == 'purchase' and order.received_status in ['to_receive', 'partial']">
+                  	<div class="css_quantity input-group" >
+						<input type="text" style="border: 0;background: white;" class="form-control" t-attf-id="qtytodo_{{order.id}}_{{ol.id}}" t-att-value="ol.product_qty - ol.qty_received" readonly="1"/>
+	              	</div>
+	              </td>
+                  <td >
+                    <span t-field="ol.price_subtotal" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/>
+                  </td>
+                </tr>
+                <t t-if="ol.display_type == 'line_section'">
+                    <tr>
+                    <td t-att-colspan="7">
+                        <strong t-esc="ol.name"/>
+                     </td>
+                    </tr>
+                    <t t-set="current_section" t-value="ol"/>
+                    <t t-set="current_subtotal" t-value="0"/>
+                </t>
+                <t t-elif="ol.display_type == 'line_note'">
+                    <tr>
+                    <td t-att-colspan="7">
+                        <span style="font-style:italic" t-esc="ol.name"/>
+                     </td>
+                    </tr>
+                </t>
+                
+                <t t-if="current_section and (ol_last or order.order_line[ol_index+1].display_type == 'line_section')">
+                  <tr>
+                    <td t-att-colspan="4">Subtotal</td>
+                    <td t-att-colspan="3">
+                      <span
+                            t-esc="current_subtotal"
+                            t-options='{"widget": "monetary", "display_currency": order.currency_id}'
+                          />
+                    </td>
+                  </tr>
+                </t>
+              
+              </t>
+              </table>
+              <hr/>
+              <div class="row">
+                <div class="col-lg-12 text-right">
+                  <div class="row">
+                    <div class="col-lg-10 text-right">
+                      Untaxed Amount:
+                    </div>
+                    <div class="col-lg-2 text-right">
+                      <span t-field="order.amount_untaxed" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-10 text-right">
+                      Taxes:
+                    </div>
+                    <div class="col-lg-2 text-right">
+                      <span t-field="order.amount_tax" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-10 text-right">
+                      <strong>Total:</strong>
+                    </div>
+                    <div class="col-lg-2 text-right">
+                      <strong><span t-field="order.amount_total" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/></strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-lg-12 text-left">
+                <p t-field="order.notes" />
+                </div>
+               </div>
+               
+                   
+            
+              
+            </div>
+            
+            </form>
+          </div>
+      </div>
+      <div class="oe_structure mb32"/>
+    </xpath>
+  </template>
+  
+  <!-- Remove o_menu_loading class -->
+  <template id="layout_remove_class" name="Main layout remove in header" inherit_id="portal.frontend_layout">
+    <xpath expr="//header//ul[@id='top_menu']" position="attributes">
+        <attribute name="class" separator=" " remove="o_menu_loading"/>
+    </xpath>
+  </template>
+
+</odoo>

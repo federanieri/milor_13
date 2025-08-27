@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="auto_confirm_purchase_order" model="ir.cron">
+            <field name="name">Auto Confirm Company Purchase Order</field>
+            <field name="model_id" ref="model_purchase_order"/>
+            <field name="state">code</field>
+            <field name="code">model._auto_confirm_purchase_order()</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+        </record>
+
+        <record id="auto_daily_confirm_po_send_mail" model="ir.cron">
+            <field name="name">Auto Send mail Confirmed Vendor PO </field>
+            <field name="model_id" ref="model_purchase_order"/>
+            <field name="state">code</field>
+            <field name="code">model.send_daily_email_vendor_confirmed_order()</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field eval="False" name="active" />
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+        </record>
+    </data>
+</odoo>

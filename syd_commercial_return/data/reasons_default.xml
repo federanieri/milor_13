@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="reason_type_other" model="return.order.reason">
+			<field name="reason_code">OT</field>
+			<field name="name">Other</field>
+		</record>
+		
+		<record id="repair_product_category" model="product.category">
+			<field name="name">REPAIR</field>
+		</record>
+       	
+       	<record id="product_template_4_service" model="product.template">
+            <field name="name">REPAIR SERVICE</field>
+            <field name="categ_id" ref="repair_product_category"/>
+            <field name="type">service</field>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="uom_po_id" ref="uom.product_uom_unit"/>
+            <field name="description_sale">Service for repairing products</field>
+        </record>
+        
+	</data>
+</odoo>

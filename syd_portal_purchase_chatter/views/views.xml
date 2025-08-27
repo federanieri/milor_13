@@ -1,0 +1,32 @@
+<odoo>
+	<data>
+		 <record model="ir.ui.view" id="view_po_portal_form">
+         <field name="name">purchase.order.portal</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        
+        <field name="arch" type="xml">
+       <xpath expr="//field[@name='fiscal_position_id']" position="after">
+            		       		<field name="published_in_portal" />
+
+  </xpath>
+        <xpath  expr="//div[@name='button_box']"  position="inside" >
+        		
+        		<button name="preview_purchase_order"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-globe icon" attrs="{'invisible':[('published_in_portal','=',False)]}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Vendor</span>
+                                <span class="o_stat_text">Preview</span>
+                            </div>
+                            
+                        </button>
+        </xpath>
+       
+      
+     	</field>
+    </record>
+	
+	</data>
+</odoo>

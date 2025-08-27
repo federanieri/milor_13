@@ -1,0 +1,860 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* na_api_sync
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-10 12:54+0000\n"
+"PO-Revision-Date: 2024-05-10 12:54+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__ftp_folder
+msgid "FTP Folder"
+msgstr "Cartella FTP"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__autoremove
+msgid "Auto. Remove Files"
+msgstr "Rimuove file automaticamente"
+
+#. module: na_api_sync
+#: model:ir.model.fields,help:na_api_sync.field_na_api_sync_config__autoremove
+msgid "If you check this option you can choose to automaticly remove the files after xx days"
+msgstr "Se selezioni questa opzione, puoi rimuovere automaticamente i file dopo xx giorni"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__days_to_keep
+msgid "Remove after x days"
+msgstr "Rimuovi dopo x giorni"
+
+#. module: na_api_sync
+#: model:ir.model.fields,help:na_api_sync.field_na_api_sync_config__days_to_keep
+msgid "Choose after how many days the files should be deleted. For example:\nIf you fill in 5 the files will be removed after 5 days."
+msgstr "Seleziona dopo quanti giorni i file debbano essere rimossi. Per esempio:\nSe imposti 5, i file verranno rimossi dopo 5 giorni."
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__api_actions_ids
+msgid "API Actions"
+msgstr "Azioni API"
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_config_form_view
+msgid "API Actions Tree"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_env__api_key
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_env__auth_type__api_key
+msgid "API Key"
+msgstr "Chiave API"
+
+#. module: na_api_sync
+#: model:ir.ui.menu,name:na_api_sync.menu_api_sync_root
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_res_config_settings_view_form
+msgid "API Sync"
+msgstr ""
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_config_search_view
+msgid "API Sync Search"
+msgstr ""
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_config_tree_view
+msgid "API Sync Tree"
+msgstr ""
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_env_form_view
+msgid "API Sync env Form"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.actions.server,name:na_api_sync.na_ir_cron_delete_old_log_ir_actions_server
+#: model:ir.cron,cron_name:na_api_sync.na_ir_cron_delete_old_log
+msgid "API Sync: Delete Old Log"
+msgstr "API Sync: Eliminazione Vecchi Log"
+
+#. module: na_api_sync
+#: model:ir.actions.server,name:na_api_sync.na_ir_cron_download_async_feed_ir_actions_server
+#: model:ir.cron,cron_name:na_api_sync.na_ir_cron_download_async_feed
+msgid "API Sync: Download Async Feed"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__api_tag
+msgid "API Tag"
+msgstr "Tag API"
+
+#. module: na_api_sync
+#. odoo-python
+#: code:addons/na_api_sync/models/na_api_sync_config.py:0
+#, python-format
+msgid "API Tag not found"
+msgstr "Tag API non trovato"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_env__accept
+msgid "Accept"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_env__access_token
+msgid "Access Token"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_actions__name
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_manual_import_json_wiz__action_tag
+msgid "Action Tag"
+msgstr "Tag Azione"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__feed_file_name_add_date
+msgid "Add Date to Name"
+msgstr "Aggiungi Data al Nome"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__feed_file_name_date
+msgid "Date Format"
+msgstr "Formato Data"
+
+#. module: na_api_sync
+#: model:ir.model.fields,help:na_api_sync.field_na_api_sync_config__feed_file_name_date
+msgid ""
+"Enter the date format that will be added to the file name, for example: "
+"%Y-%m-%d"
+msgstr ""
+"Inserisci il formato data che verrà utilizzato per il nome file, per esempio: %Y-%m-%d"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__record_domain
+msgid "Domain Value"
+msgstr "Valore Dominio"
+
+#. module: na_api_sync
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_config__type__export_feed
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_env__api_type__export_feed
+msgid "Export Data Feed"
+msgstr "Esporta Feed Data"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__feed_file_name
+msgid "Feed File Name"
+msgstr "Nome Feed File"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__remove_feed_file_name
+msgid "To Remove Feed File Name"
+msgstr "Nome Feed File da Rimuovere"
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_config_form_view
+msgid "File Name"
+msgstr "Nome File"
+
+#. module: na_api_sync
+#: model:ir.model.fields,help:na_api_sync.field_na_api_sync_config__feed_xml_element_tag
+msgid ""
+"In case only one element is passed, insert only the element tag and not the "
+"root."
+msgstr ""
+"Nel caso in cui solo un elemento è passato, inserisci solo il tag elemento e non la radice."
+
+#. module: na_api_sync
+#: model:ir.model.fields,help:na_api_sync.field_na_api_sync_config__feed_xml_root_tag
+msgid "Root tag, which will contain all the information."
+msgstr "Tag radice, che contiene tutte le informazioni."
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__feed_xml_element_tag
+msgid "XML Element Tag"
+msgstr "XML Tag Elemento"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__feed_xml_root_tag
+msgid "XML Root Tag"
+msgstr "XML Tag Radice"
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_config_form_view
+msgid "XML Tags"
+msgstr "XML Tag"
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_config_form_view
+msgid "History"
+msgstr "Storico"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__feed_file_async_get
+msgid "Async Feed File Download"
+msgstr "Download Asincrono File di Feed"
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_env_form_view
+msgid "Authentication"
+msgstr "Autenticazione"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_env__auth_type
+msgid "Authentication Type"
+msgstr "Tipologia Autenticazione"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_env__authorization_scope
+msgid "Authorization Scope"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__check_field
+msgid "Check Field"
+msgstr "Campo Controllo"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_actions__config_id
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__config_id
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_json_preview_wiz__config_id
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_manual_import_json_wiz__config_id
+msgid "Configuration"
+msgstr "Configurazione"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__field_config_id
+msgid "Configuration Field"
+msgstr "Configurazione Campo"
+
+#. module: na_api_sync
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_config__type__con
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_env__api_type__con
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_config_form_view
+msgid "Connect to external API"
+msgstr "Connetti ad API esterne"
+
+#. module: na_api_sync
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_config__type__both
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_env__api_type__both
+msgid "Connect to external API and expose from Odoo"
+msgstr "Connetti ad API esterne ed esponile da Odoo"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__advanced_field_management
+msgid "Advanced Field Management"
+msgstr "Gestione Campi Avanzata"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__filler
+msgid "Filler"
+msgstr "Filler"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__filler_align
+msgid "Filler Align"
+msgstr "Allineamento Filler"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__value_align
+msgid "Value Align"
+msgstr "Allineamento Valore"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__fixed_value
+msgid "Fixed Value"
+msgstr "Valore Fisso"
+
+#. module: na_api_sync
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_config_fields__filler_align__left
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_config_fields__value_align__left
+msgid "Left"
+msgstr "Sinistra"
+
+#. module: na_api_sync
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_config_fields__filler_align__right
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_config_fields__value_align__right
+msgid "Right"
+msgstr "Destra"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__length
+msgid "Length"
+msgstr "Lunghezza"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__vir
+msgid "Separator"
+msgstr "Separatore"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__decimal
+msgid "Decimal Number"
+msgstr "Numero Decimale"
+
+#. module: na_api_sync
+#: model:ir.model.fields,help:na_api_sync.field_na_api_sync_config__advanced_field_management
+msgid ""
+"Activating this flag enables advanced field management, which allows for "
+"precise manipulation of data."
+msgstr ""
+"Attivando questo flag abilita la gestione avanzata dei campi, la quale permette una manipolazione precisa."
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_env__content_type
+msgid "Content Type"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__create_uid
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_actions__create_uid
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__create_uid
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_env__create_uid
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_json_preview_wiz__create_uid
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_log__create_uid
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_manual_import_json_wiz__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__create_date
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_actions__create_date
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__create_date
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_env__create_date
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_json_preview_wiz__create_date
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_log__create_date
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_manual_import_json_wiz__create_date
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_config_form_view
+msgid "Data Feed"
+msgstr "Feed dati"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__api_fields_ids
+msgid "Definition Fields"
+msgstr "Definizione Campi"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__display_name
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_actions__display_name
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__display_name
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_env__display_name
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_json_preview_wiz__display_name
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_log__display_name
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_manual_import_json_wiz__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model.fields,help:na_api_sync.field_na_api_sync_config__return_json
+msgid ""
+"Does not automatically import data but_run_api_sync returns JSON response to"
+" be elaborated externally (for instance do some work and then import with "
+"import_record function"
+msgstr ""
+"Non importa automaticamente i dati ma la funzione _run_api_sync ritorna la "
+"risposta JSON per essere elaborata esternamente (per esempio fare un "
+"elaborazione dei dati e poi importarti con la funzione import_record)"
+
+#. module: na_api_sync
+#: model:ir.model.fields,help:na_api_sync.field_na_api_sync_config__feed_file_async_get
+msgid "Download Feed File with a dedicated routine, helpful for large files"
+msgstr "Scarica il file di feed con una routine dedicata, utile per file di grandi dimensioni"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__get_endpoint
+msgid "Endpoint GET"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__post_endpoint
+msgid "Endpoint POST"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__env_id
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_log__env_id
+msgid "Environment"
+msgstr "Ambiente"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_env__name
+msgid "Environment Name"
+msgstr "Nome Ambiente"
+
+#. module: na_api_sync
+#: model:ir.actions.act_window,name:na_api_sync.na_action_api_sync_env
+#: model:ir.ui.menu,name:na_api_sync.menu_api_sync_env
+msgid "Environments"
+msgstr "Ambienti"
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_log_form_view
+msgid "Error Log"
+msgstr "Log Errore"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__exclusive_use
+msgid "Exclusive Use"
+msgstr "Utilizzo Esclusivo"
+
+#. module: na_api_sync
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_config__type__exp
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_env__api_type__exp
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_config_form_view
+msgid "Expose API from Odoo"
+msgstr "Esponi API da Odoo"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__ext_system_field
+msgid "External System Field"
+msgstr "Campo Sistema Esterno"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__ext_system_subfield
+msgid "External System Subfield"
+msgstr "Sottocampo Sistema Esterno"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__feed_file_path
+msgid "Feed File Path"
+msgstr "Percorso File Feed"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__feed_format
+msgid "Feed Format"
+msgstr "Formato Feed"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__feed_suffix
+msgid "Feed Suffix"
+msgstr "Suffisso Feed"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__feed_url
+msgid "Feed URL"
+msgstr "URL Feed"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__odoo_field_ttype
+msgid "Field Type"
+msgstr "Tipo Campo"
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_config_form_view
+msgid "Fields"
+msgstr "Campi"
+
+#. module: na_api_sync
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_config__type__fc
+msgid "Fields Configuration"
+msgstr "Configurazione Campi"
+
+#. module: na_api_sync
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_config_fields__exclusive_use__get
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_log__method__get
+msgid "GET"
+msgstr ""
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_env_form_view
+msgid "Header Parameters"
+msgstr "Parametri Header"
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_res_config_settings_view_form
+msgid ""
+"Here you can manage settings for integrations (additional modules may be "
+"required)"
+msgstr ""
+"Qui puoi configurare le impostazioni per le integrazioni (potrebbero essere "
+"richiesti moduli aggiuntivi)"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__id
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_actions__id
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__id
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_env__id
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_json_preview_wiz__id
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_log__id
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_manual_import_json_wiz__id
+msgid "ID"
+msgstr ""
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_manual_import_json_view_form
+msgid "Import"
+msgstr "Importa"
+
+#. module: na_api_sync
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_config__type__import_feed
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_env__api_type__import_feed
+msgid "Import from Data Feed"
+msgstr "Importa da Feed Dati"
+
+#. module: na_api_sync
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_config__type__export_feed
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_env__api_type__export_feed
+msgid "Export Data Feed"
+msgstr "Esporta Feed Dati"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__feed_data_exchange_mode
+msgid "Feed Data Exchange Mode"
+msgstr "Feed Modalità Scambio Dato"
+
+#. module: na_api_sync
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_config__feed_format__json
+msgid "JSON"
+msgstr ""
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_config_form_view
+msgid "JSON POST Preview"
+msgstr "Anteprima JSON POST"
+
+#. module: na_api_sync
+#: model:ir.actions.act_window,name:na_api_sync.na_api_sync_json_preview_wizard_view_action
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_json_preview_wiz__api_preview
+msgid "JSON Preview"
+msgstr "Anteprima JSON"
+
+#. module: na_api_sync
+#: model:ir.model,name:na_api_sync.model_na_api_sync_json_preview_wiz
+msgid "JSON Preview Wizard"
+msgstr "Wizard Anteprima JSON"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_manual_import_json_wiz__json_to_imp
+msgid "JSON to Import"
+msgstr "JSON da importare"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__feed_file_keep
+msgid "Keep just most recent file"
+msgstr "Mantieni solo il file più recente"
+
+#. module: na_api_sync
+#: model:ir.model.fields,help:na_api_sync.field_na_api_sync_config__feed_file_keep
+msgid "Keeps just more recent feed file."
+msgstr "Mantiene solo il file di feed più recente"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config____last_update
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_actions____last_update
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields____last_update
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_env____last_update
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_json_preview_wiz____last_update
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_log____last_update
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_manual_import_json_wiz____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__write_uid
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_actions__write_uid
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__write_uid
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_env__write_uid
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_json_preview_wiz__write_uid
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_log__write_uid
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_manual_import_json_wiz__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__write_date
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_actions__write_date
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__write_date
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_env__write_date
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_json_preview_wiz__write_date
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_log__write_date
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_manual_import_json_wiz__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__feed_latest_dl_file
+msgid "Latest Downloaded Feed File"
+msgstr "Ultimo File di Feed Scaricato"
+
+#. module: na_api_sync
+#: model:ir.actions.act_window,name:na_api_sync.na_action_api_sync_log
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_log__log_msg
+#: model:ir.ui.menu,name:na_api_sync.menu_api_sync_log
+msgid "Log"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_env__log_days
+msgid "Log Days"
+msgstr "Giorni Permanenza Log"
+
+#. module: na_api_sync
+#: model:ir.actions.act_window,name:na_api_sync.na_api_sync_manual_import_json_view_action
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_config_form_view
+msgid "Manual Import JSON"
+msgstr "Importa manualmente JSON"
+
+#. module: na_api_sync
+#: model:ir.model,name:na_api_sync.model_na_api_sync_manual_import_json_wiz
+msgid "Manual Import JSON Wizard"
+msgstr "Wizard Importa JSON"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_log__method
+msgid "Method"
+msgstr "Metodo"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__model_id
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_actions__model_id
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__model_id
+msgid "Model"
+msgstr "Modello"
+
+#. module: na_api_sync
+#. odoo-python
+#: code:addons/na_api_sync/models/na_api_sync_config.py:0
+#, python-format
+msgid "More the one record found for the value %s"
+msgstr "Più di un record trovati per il valore %s"
+
+#. module: na_api_sync
+#. odoo-python
+#: code:addons/na_api_sync/models/na_api_sync_config.py:0
+#, python-format
+msgid "NA API Sync Error: %s"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__name
+msgid "Name"
+msgstr "Nome"
+
+#. module: na_api_sync
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_env__auth_type__oauth2
+msgid "OAuth 2.0"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_actions__action_id
+msgid "Odoo Action"
+msgstr "Azione Odoo"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__odoo_field_id
+msgid "Odoo Field"
+msgstr "Campo Odoo"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_json_preview_wiz__rec_id
+msgid "Odoo Record"
+msgstr "Record Odoo"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__odoo_subfield
+msgid "Odoo Subfield"
+msgstr "Sottocampo Odoo"
+
+#. module: na_api_sync
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_config_fields__exclusive_use__post
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_log__method__post
+msgid "POST"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_env__password
+msgid "Password"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__return_json
+msgid "Return JSON"
+msgstr "Ritorna JSON"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config_fields__sequence
+msgid "Sequence"
+msgstr "Sequenza"
+
+#. module: na_api_sync
+#: model:ir.actions.act_window,name:na_api_sync.na_api_sync_config_settings_action
+#: model:ir.ui.menu,name:na_api_sync.na_api_sync_settings
+msgid "Settings"
+msgstr "Configurazione"
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_env_search_view
+msgid "Sync Env Search"
+msgstr ""
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_config_form_view
+msgid "Sync Fields Tree"
+msgstr ""
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_config_form_view
+msgid "Sync Form"
+msgstr ""
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_log_form_view
+msgid "Sync Log Form"
+msgstr ""
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_log_search_view
+msgid "Sync Log Search"
+msgstr ""
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_log_tree_view
+msgid "Sync Log Tree"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_env__api_type
+msgid "Sync Type"
+msgstr "Modalità API"
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_env_tree_view
+msgid "Sync env Tree"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_log__config_id
+msgid "Synchronization"
+msgstr "Sincronizzazione"
+
+#. module: na_api_sync
+#: model:ir.actions.act_window,name:na_api_sync.na_action_api_sync_config
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_env__config_ids
+#: model:ir.ui.menu,name:na_api_sync.menu_api_sync_config
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_env_form_view
+msgid "Synchronizations"
+msgstr "Sincronizzazioni"
+
+#. module: na_api_sync
+#: model:ir.model.fields,help:na_api_sync.field_na_api_sync_config_actions__name
+msgid "Tag to identify the action when called via XML-RPC"
+msgstr "Tag per identificare l'azione da chiamare via XML-RPC"
+
+#. module: na_api_sync
+#: model:ir.model.fields,help:na_api_sync.field_na_api_sync_config__api_tag
+msgid ""
+"Tag used to identify the API exposed by Odoo when called, if not set the API"
+" will not be callable via XML-RPC.This field cannot contain spaces."
+msgstr ""
+"Tag usato per identificare l'API esposta da Odoo, se non impostato l'API non"
+" sarà chiamabile via XML-RPC. Questo campo non può contenere spazi."
+
+#. module: na_api_sync
+#. odoo-python
+#: code:addons/na_api_sync/models/na_api_sync_config_fields.py:0
+#, python-format
+msgid "The Odoo Field field must be only one for each api sync config."
+msgstr "Il Campo Odoo è univoco per ogni configurazione API"
+
+#. module: na_api_sync
+#. odoo-python
+#: code:addons/na_api_sync/models/na_api_sync_config_fields.py:0
+#, python-format
+msgid "The check field must be only one for each api sync config."
+msgstr ""
+"Ci può essere solo un campo impostato come controllo per configurazione"
+
+#. module: na_api_sync
+#: model:ir.model.constraint,message:na_api_sync.constraint_na_api_sync_config_check_api_tag
+msgid "This API Tag already exists."
+msgstr "Questo Tag API esiste già"
+
+#. module: na_api_sync
+#: model:ir.model.constraint,message:na_api_sync.constraint_na_api_sync_config_actions_check_name
+msgid "This Action Tag already exists."
+msgstr "Questo Tag Azione esiste già"
+
+#. module: na_api_sync
+#. odoo-python
+#: code:addons/na_api_sync/models/na_api_sync_config.py:0
+#, python-format
+msgid "This type is not supported by your environment API Type"
+msgstr "Questa modalità non è supportata dell'ambiente impostato"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_env__token_url
+msgid "Token URL"
+msgstr "URL Token"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_config__type
+msgid "Type"
+msgstr "Modalità"
+
+#. module: na_api_sync
+#: model:ir.model.fields,field_description:na_api_sync.field_na_api_sync_env__username
+msgid "Username"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model.fields.selection,name:na_api_sync.selection__na_api_sync_env__auth_type__up
+msgid "Username and Password"
+msgstr "Username e Password"
+
+#. module: na_api_sync
+#: model:ir.model.fields,help:na_api_sync.field_na_api_sync_manual_import_json_wiz__json_to_imp
+msgid "You can only import one record"
+msgstr "Puoi importare solo un record"
+
+#. module: na_api_sync
+#: model:ir.model.fields,help:na_api_sync.field_na_api_sync_config_fields__exclusive_use
+msgid ""
+"if the selection is left blank, the field will be used in both get and post "
+"calls "
+msgstr ""
+"Se la selezione viene lasciata vuota il campo sarà usato sia nella chiamata "
+"get che in quella post"
+
+#. module: na_api_sync
+#: model:ir.model,name:na_api_sync.model_na_api_sync_config
+msgid "na.api.sync.config"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model,name:na_api_sync.model_na_api_sync_config_actions
+msgid "na.api.sync.config.actions"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model,name:na_api_sync.model_na_api_sync_config_fields
+msgid "na.api.sync.config.fields"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model,name:na_api_sync.model_na_api_sync_env
+msgid "na.api.sync.env"
+msgstr ""
+
+#. module: na_api_sync
+#: model:ir.model,name:na_api_sync.model_na_api_sync_log
+msgid "na.api.sync.log"
+msgstr ""
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_json_preview_wizard_view_form
+msgid "na_json_preview_form"
+msgstr ""
+
+#. module: na_api_sync
+#: model_terms:ir.ui.view,arch_db:na_api_sync.na_api_sync_manual_import_json_view_form
+msgid "na_manual_import_json_form"
+msgstr ""

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="purchase_order_form_view" model="ir.ui.view">
+        <field name="name">purchase.order.form.view</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page/field[@name='order_line']/tree" position="inside">
+                <button icon="fa-refresh" type="object" name="action_generate_txt_stl" confirm="Are you sure you want to try to generate txt/stl for this line?"
+                        groups="syd_dis.group_admin"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

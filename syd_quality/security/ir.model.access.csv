@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_syd_quality_team,syd_quality_team,model_syd_quality_team,base.group_user,1,1,1,1
+access_syd_quality_team_user,syd_quality_team_user,model_syd_quality_team_user,base.group_user,1,1,1,1
+access_syd_quality_check,syd_quality_check,model_syd_quality_check,base.group_user,1,1,1,1

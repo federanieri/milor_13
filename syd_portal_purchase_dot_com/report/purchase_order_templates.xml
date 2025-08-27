@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="report_production_list">
+                   
+                        <tr >
+                            
+                                <td id="image" rowspan="9" width="15%">
+                                    <h3 t-field="o.name" />
+                                    <img style="max-width:128px;" t-attf-src="data: image/*;base64,{{line.product_po_id.image_128}}"/>
+                                    <br/><span t-field="line.custom_value" />
+                                    <br/><span t-field="line.commercehub_po" />
+                                </td>
+                                <td id="description" colspan="3" >
+                                    <strong>Description: </strong><span t-field="line.product_po_id.name"/>
+                                </td>
+                                
+                        </tr >
+                        <tr>
+                                <td id="codart" >
+                                    <strong>Cod Art Sup: </strong><span t-field="line.name"/>
+                                </td>
+                                <td id="metal" >
+                                    <strong>Metal: </strong><span t-field="line.product_po_id.metal_id"/>
+                                </td>
+                                <td id="length" >
+                                    <strong>Length: </strong><span t-field="line.product_po_id.length_cm"/>
+                                </td>
+                        </tr>
+                        
+                         <tr>
+                                <td id="milorcode" >
+                                    <strong>Milor Code: </strong><span t-field="line.product_po_id.milor_code"/>
+                                </td>
+                                <td id="title" >
+                                    <strong>Title: </strong><span t-field="line.product_po_id.metal_title"/>
+                                </td>
+                                <td id="extended" >
+                                    <strong>Extended: </strong><span t-field="line.product_po_id.extension_cm"/>
+                                </td>
+                        </tr>
+                        <tr>
+                                <td id="specifica" >
+                                    <strong>Specifica: </strong><span t-field="line.product_po_id.specific"/>
+                                </td>
+                                <td id="color" >
+                                    <strong>Color: </strong><span t-field="line.product_po_id.plating_id"/>
+                                </td>
+                                <td id="inch" >
+                                    <strong>Length Inch: </strong><span t-field="line.product_po_id.length_inch"/>
+                                </td>
+                        </tr>    
+                        <tr>
+                                <td id="bolli" >
+                                    <strong>Bolli: </strong><span t-field="line.product_po_id.stamp_id"/>
+                                </td>
+                                <td id="size" >
+                                    <strong>Size: </strong><span t-field="line.product_taglia"/>
+                                </td>
+                                <td id="ext_inch" >
+                                    <strong>Extended Inch: </strong><span t-field="line.product_po_id.extension_inch"/>
+                                </td>
+                        </tr>   
+                        <tr>
+                                <td id="price" >
+                                    <strong>Price: </strong><span t-field="line.price_unit"/>
+                                </td>
+                                <td id="stone" >
+                                    <strong>Stone: </strong><span t-field="line.product_pietra"/>
+                                </td>
+                                <td id="weight" >
+                                    <strong>Weight: </strong><span t-field="line.product_po_id.weight_gr"/>
+                                </td>
+                        </tr>   
+                        <tr>
+                                <td >
+                                    <strong>Ord. Quantity: </strong><span t-field="line.product_qty"/><span t-field="line.product_uom"/>
+                                </td>
+                                <td id="other" >
+                                    <strong>Other: </strong>
+                                </td>
+                                <td  >
+                                   
+                                </td>
+                        </tr>   
+                        <tr>
+                                <td id="plating_title" >
+                                    <strong>Plating title: </strong><span t-field="line.product_po_id.plating_title"/>
+                                </td>
+                                <td id="thicknes" >
+                                    <strong>Thickness: </strong><span t-field="line.product_po_id.plating_depth"/>
+                                </td>
+                                <td id="Plating Note" >
+                                    <strong>Plating Note: </strong><span t-field="line.product_po_id.plating_note"/>
+                                </td>
+                        </tr>
+                        <tr>
+                        	<td id="note_personaliz" colspan="3">
+                        		<strong>Note Personalized: </strong><span t-field="line.product_po_id.note_personalized"/>
+                        	</td>
+                        </tr>   
+                        
+                
+           
+
+            
+       
+   
+</template>
+
+<template id="report_poproductionorder">
+    <t t-set="data_report_landscape" t-value="True"/>
+
+    <t t-call="web.html_container">
+    	<t t-call="web.external_layout">
+	        <t t-foreach="docs" t-as="o">
+		        <t t-foreach="o.order_line.filtered(lambda x: x.display_type == False)" t-as="line">
+		        	<table class="table table-sm o_main_table">
+		            <t t-call="syd_portal_purchase_dot_com.report_production_list" t-lang="o.partner_id.lang"/>
+		        	</table>
+		        </t>
+	        </t>
+    	</t>
+   </t>
+</template>
+</odoo>

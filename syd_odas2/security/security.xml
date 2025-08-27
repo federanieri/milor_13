@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="0">
+
+		<record model="ir.module.category" id="module_category_syd_odas2">
+			<field name="name">OdAS2</field>
+			<field name="description">Permission to manage AS2 operaiotns.</field>
+		</record>
+
+		<record id="group_user" model="res.groups">
+			<field name="name">User (can only access AS2 marked documents)</field>
+			<field name="category_id" ref="module_category_syd_odas2" />
+			<field name="implied_ids" eval="[(6, 0, [ref('base.group_user')])]"/>
+		</record>
+
+		<record id="group_manager" model="res.groups">
+			<field name="name">Manager (can access any documents, no technical)</field>
+			<field name="category_id" ref="module_category_syd_odas2" />
+			<field name="implied_ids" eval="[(4, ref('group_user'))]"/>
+		</record>
+
+		<record id="group_admin" model="res.groups">
+			<field name="name">Administrator (as Manager, + technical options)</field>
+			<field name="category_id" ref="module_category_syd_odas2" />
+			<field name="implied_ids" eval="[(4, ref('group_manager'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+		</record>
+
+		<record id="odas2_stream_company_rule" model="ir.rule">
+			<field name="name">odas2 streams</field>
+			<field name="model_id" ref="model_odas2_stream"/>
+			<field name="global" eval="True"/>
+			<field name="domain_force">[('company_id', '=', company_id)]</field>
+		</record>
+
+	</data>
+</odoo>

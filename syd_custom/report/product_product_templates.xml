@@ -1,0 +1,752 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <template id="report_simple_qvc_code_zpl_small">
+            ^XA
+            ^LH0,0
+
+            ^AA,20
+            ^FO<t t-esc="30+int((20-len(product.barcode))/2*10.0)"/>,40
+            ^BY1^BC,40,N
+            ^FD<t t-esc="product.barcode"/>^FS
+
+            ^AA,24
+            ^FO0,90
+            ^FB320,30,,C
+            ^FD<t t-esc="product.qvc_complete_code"/>^FS
+
+            ^XZ
+        </template>
+
+        <template id="report_product_picking_qvc_code_zpl_small">
+            <t t-foreach="docs" t-as="picking">
+                <t t-foreach="picking.move_lines" t-as="line">
+                    <t t-if="not line.product_id.no_print_label">
+                        <t t-foreach="range(int(line.product_uom_qty))" t-as="l">
+                            <t t-call="syd_custom.report_simple_qvc_code_zpl_small">
+                                <t t-set="product" t-value="line.product_id"/>
+                            </t>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_product_product_qvc_code_zpl_small">
+            <t t-foreach="docs" t-as="product_id">
+                <t t-if="not product_id.no_print_label and product_id.barcode">
+                    <t t-call="syd_custom.report_simple_qvc_code_zpl_small">
+                        <t t-set="product" t-value="product_id"/>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_simple_qvc_code_zpl">
+            ^XA
+            ^LH0,0
+
+            ^A0,34
+            ^FO0,40
+            ^FB450,30,,C
+            ^FD<t t-esc="product.qvc_complete_code"/>^FS
+
+            ^FO<t t-esc="100+int((20-len(product.barcode))/2*10.0)"/>,90
+            ^BY1^BC,60,N
+            ^FD<t t-esc="product.barcode"/>^FS
+
+            ^XZ
+        </template>
+
+        <template id="report_product_picking_qvc_code_zpl">
+            <t t-foreach="docs" t-as="picking">
+                <t t-foreach="picking.move_lines" t-as="line">
+                    <t t-if="not line.product_id.no_print_label">
+                        <t t-foreach="range(int(line.product_uom_qty))" t-as="l">
+                            <t t-call="syd_custom.report_simple_qvc_code_zpl">
+                                <t t-set="product" t-value="line.product_id"/>
+                            </t>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <!-- INFO: 'options' defaulted to 'PD': 'P" prints price, 'D' prints description. -->
+        <!--       Below there is a double ^FD product.barcode number to trick zpl to center number under its barcode. -->
+        <template id="report_simple_barcode_zpl">
+            <t t-translation="off">
+                <t t-set="options" t-value="options or 'PD'"/>
+                ^XA
+                ^LH0,0
+                
+                ^CF0N,18
+                ^FO30,20
+                ^FD<t t-esc="default_code"/>^FS
+                <t t-if="'P' in options">
+                    ^FO300,20,1
+                    ^FH
+                    ^FD<t t-esc="'%.2f' % price"/><t t-if="currency_id.symbol == '€'">_15</t><t t-if="currency_id.symbol == '$'">_24</t><t t-if="currency_id.symbol == '£'">_9C</t>^FS
+                </t>
+                ^CI28
+                <t t-if="'D' in options">
+                    ^FO30,41
+                    ^A0,14
+                    ^FB200,40
+                    ^FD<t t-esc="product.barcode_text"/> <t t-esc="product.stone_name"/>^FS
+                </t>
+                ^FO300,45,1
+                ^FD<t t-esc="milor_plateau"/>^FS
+                <t t-if="product.barcode">
+                    ^AA,20
+                    ^FO<t t-esc="30+int((20-len(product.barcode))/2*10.0)"/>,70
+                    ^BY1^BC,40,N
+                    ^FD<t t-esc="product.barcode"/>^FS
+                    ^FO,115
+                    ^AA,20
+                    ^FB320,20,,C
+                    ^FD<t t-esc="product.barcode"/>^FS
+                </t>
+                <t t-else="">^FDNo barcode available^FS</t>
+                ^XZ
+            </t>
+        </template>
+
+        <!-- INFO: 'options' defaulted to 'PD': 'P" prints price, 'D' prints description. -->
+        <!--       Below there is a double ^FD product.barcode number to trick zpl to center number under its barcode. -->
+        <template id="report_barcode_zpl_sup">
+            <t t-translation="off">
+                ^XA
+                ^LH0,0
+
+                ^A0,54
+                ^FO0,20
+                ^FB800,30,,C
+                ^FDPO: <t t-esc="po"/>^FS
+
+                ^A0,30
+                ^FO0,80
+                ^FB800,20,,C
+                ^FD<t t-esc="co"/>^FS
+
+                ^CI28
+                ^CF0,34
+
+                ^FO30,150
+                ^FDCommerceHub Code:^FS
+                ^FO330,150
+                ^FD<t t-esc="product.commercehub_code"/>^FS
+
+                ^FO30,200
+                ^FDWeight:^FS
+                ^FO150,200
+                ^FD<t t-esc="product.weight_gr"/>^FS
+
+                ^FO330,200
+                ^FDColor:^FS
+                ^FO450,200
+                ^FD<t t-esc="product.plating_id and product.plating_id.name or ''"/>^FS
+
+                ^FO30,250
+                ^FDName:^FS
+                ^FO150,250
+                ^FD<t t-esc="name"/>^FS
+
+                ^FO330,250
+                ^FDSize:^FS
+                ^FO450,250
+                ^FD<t t-esc="product.with_context(lang=None).product_template_attribute_value_ids.filtered(lambda self: self.attribute_id.name in ['SIZE USA', 'SIZE', 'Size', 'SIZE UK', 'SIZE FR']).name or ''"/>^FS
+
+                ^FO30,350
+                ^FDFrom:^FS
+                ^FO150,350
+                ^FD<t t-esc="from_partner"/>^FS
+
+                ^FO<t t-esc="70+int((20-len(barcode))/2*20.0)"/>,420
+                ^BY3^BC,60,N
+                ^FD<t t-esc="barcode"/>^FS
+                ^A0,40
+                ^FO0,490
+                ^FB800,20,,C
+                ^FD<t t-esc="barcode"/>^FS
+                ^XZ
+            </t>
+        </template>
+
+        <template id="syd_custom.report_po_productbarcode_zpl_sup">
+            <t t-foreach="docs" t-as="order">
+                <t t-foreach="order.order_line.filtered(lambda l: not l.display_type)" t-as="line">
+                    <t t-if="not line.product_id.sudo().no_print_label">
+                        <t t-foreach="range(int(line.product_uom_qty))" t-as="l">
+                            <t t-call="syd_custom.report_barcode_zpl_sup">
+                                <t t-set="po" t-value="line.commercehub_po"/>
+                                <t t-set="co" t-value="line.commercehub_co"/>
+                                <t t-set="product" t-value="line.product_id"/>
+                                <t t-set="name" t-value="line.custom_value"/>
+                                <t t-set="from_partner" t-value="order.partner_id.name"/>
+                                <t t-set="barcode" t-value="order.name"/>
+                            </t>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_simple_barcode">
+            <div t-attf-style="width: {{product.product_barcode_width}}; display: inline-table; height: {{product.product_barcode_height}};font-size:6px">
+                <table class="table table-bordered mb-0" >
+                    <tr>
+                        <td style="padding:0px;" class="table-active text-left" colspan="3">
+                            <span t-esc="default_code"/>
+                        </td>
+                        <td style="padding:0px;" class="table-active text-left" colspan="1">
+                            <span t-esc="price"/> <span t-esc="currency_id.symbol"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:0px;" class="table-active text-left" colspan="3">
+                            <span t-field="product.show_id.name"/>
+                        </td>
+                        <td style="padding:0px;" class="table-active text-left" colspan="1">
+                            <span t-esc="milor_plateau"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle" style="height:0.5rem;padding:0px;" colspan="4">
+                            <t t-if="product.barcode">
+                                <img alt="Barcode" t-if="len(product.barcode) == 13" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', quote_plus(product.barcode or ''), 600, 150)" style="width:100%;height:0.5rem;"/>
+                                <img alt="Barcode" t-elif="len(product.barcode) == 8" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN8', quote_plus(product.barcode or ''), 600, 150)" style="width:100%;height:0.5rem;"/>
+                                <img alt="Barcode" t-else="" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(product.barcode or ''), 600, 150)" style="width:100%;height:0.5rem;"/>
+                                <span t-field="product.barcode"/>
+                            </t>
+                            <t t-else=""><span class="text-muted">No barcode available</span></t>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </template>
+
+        <template id="report_productbarcode_zpl">
+            <t t-foreach="docs" t-as="product">
+                <t t-call="syd_custom.report_simple_barcode_zpl">
+
+                    <t t-set="price" t-value="product.lst_price"/>
+                    <t t-set="currency_id" t-value="product.currency_id"/>
+                    <t t-set="milor_plateau" t-value="product.milor_plateau"/>
+                    <t t-set="default_code" t-value="product.default_code" />
+                </t>
+            </t>
+        </template>
+
+        <template id="report_productbarcode">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-foreach="docs" t-as="product">
+                        <t t-call="syd_custom.report_simple_barcode">
+
+                            <t t-set="price" t-value="product.lst_price"/>
+                            <t t-set="currency_id" t-value="product.currency_id"/>
+                            <t t-set="milor_plateau" t-value="product.milor_plateau"/>
+                            <t t-set="default_code" t-value="product.default_code" />
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <template id="report_producttemplatebarcode_zpl">
+            <t t-foreach="docs" t-as="product">
+                <t t-call="syd_custom.report_simple_barcode_zpl">
+                    <t t-set="price" t-value="product.lst_price"/>
+                    <t t-set="currency_id" t-value="product.currency_id"/>
+                    <t t-set="milor_plateau" t-value="product.product_variant_id.milor_plateau"/>
+                    <t t-set="default_code" t-value="product.default_code" />
+                </t>
+            </t>
+        </template>
+		
+		
+		<template id="syd_custom.report_product_productbarcode_without_description_price_zpl">
+            <t t-foreach="docs" t-as="product">
+                            <t t-call="syd_custom.report_simple_barcode_zpl">
+                               
+                                <t t-set="price" t-value="product.lst_price"/>
+                                <t t-set="currency_id" t-value="product.currency_id"/>
+                                <t t-set="milor_plateau" t-value="product.milor_plateau"/>
+                                <t t-set="default_code" t-value="product.default_code" />
+                                <t t-set="options" t-value="'A'" />
+                            </t>
+                       
+            </t>
+        </template>
+        
+		<template id="syd_custom.report_product_productbarcode_without_price_zpl">
+            <t t-foreach="docs" t-as="product">
+                
+                            <t t-call="syd_custom.report_simple_barcode_zpl">
+                                
+                                <t t-set="price" t-value="product.lst_price"/>
+                                <t t-set="currency_id" t-value="product.currency_id"/>
+                                <t t-set="milor_plateau" t-value="product.milor_plateau"/>
+                                <t t-set="default_code" t-value="product.default_code" />
+                                <t t-set="options" t-value="'D'" />
+                          
+                </t>
+            </t>
+        </template>
+        
+        <template id="syd_custom.report_product_productbarcode_without_description_zpl">
+            <t t-foreach="docs" t-as="product">
+               
+                            <t t-call="syd_custom.report_simple_barcode_zpl">
+                               
+                                <t t-set="price" t-value="product.lst_price"/>
+                                <t t-set="currency_id" t-value="product.currency_id"/>
+                                <t t-set="milor_plateau" t-value="product.milor_plateau"/>
+                                <t t-set="default_code" t-value="product.default_code" />
+                                <t t-set="options" t-value="'P'" />
+                            </t>
+                      
+            </t>
+        </template>
+		
+		
+        <template id="report_producttemplatebarcode">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-foreach="docs" t-as="product">
+                        <t t-call="syd_custom.report_simple_barcode">
+                            <t t-set="price" t-value="product.lst_price"/>
+                            <t t-set="currency_id" t-value="product.currency_id"/>
+                            <t t-set="milor_plateau" t-value="product.product_variant_id.milor_plateau"/>
+                            <t t-set="default_code" t-value="product.default_code" />
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <template id="report_productpricelistbarcode_zpl">
+            <t t-foreach="docs" t-as="plistitem">
+                <t t-call="syd_custom.report_simple_barcode_zpl">
+                    <t t-set="price" t-value="plistitem.fixed_price"/>
+                    <t t-set="currency_id" t-value="plistitem.currency_id"/>
+                    <t t-set="product" t-value="plistitem.product_id" />
+                    <t t-set="milor_plateau" t-value="plistitem.product_id.milor_plateau"/>
+                    <t t-set="default_code" t-value="plistitem.product_id.default_code" />
+                </t>
+            </t>
+        </template>
+
+        <template id="report_productpricelistbarcode">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-foreach="docs" t-as="plistitem">
+                        <t t-call="syd_custom.report_simple_barcode">
+                            <t t-set="price" t-value="plistitem.fixed_price"/>
+                            <t t-set="currency_id" t-value="plistitem.currency_id"/>
+                            <t t-set="product" t-value="plistitem.product_id" />
+                            <t t-set="milor_plateau" t-value="plistitem.product_id.milor_plateau"/>
+                            <t t-set="default_code" t-value="plistitem.product_id.default_code" />
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <template id="syd_custom.report_picking_productbarcode_zpl">
+            <t t-foreach="docs" t-as="picking">
+                <t t-foreach="picking.move_lines" t-as="line">
+                    <t t-if="not line.product_id.no_print_label">
+                        <t t-foreach="range(int(line.product_uom_qty)*2)" t-as="l">
+                            <t t-call="syd_custom.report_simple_barcode_zpl">
+                                <t t-set="product" t-value="line.product_id"/>
+                                <t t-set="price" t-value="line.price"/>
+                                <t t-set="currency_id" t-value="line.currency_id"/>
+                                <t t-set="milor_plateau" t-value="line.product_id.milor_plateau"/>
+                                <t t-set="default_code" t-value="line.product_id.default_code" />
+                            </t>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+		<template id="syd_custom.report_picking_productbarcode_without_description_price_zpl">
+            <t t-foreach="docs" t-as="picking">
+                <t t-foreach="picking.move_lines" t-as="line">
+                    <t t-if="not line.product_id.no_print_label">
+                        <t t-foreach="range(int(line.product_uom_qty)*2)" t-as="l">
+                            <t t-call="syd_custom.report_simple_barcode_zpl">
+                                <t t-set="product" t-value="line.product_id"/>
+                                <t t-set="price" t-value="line.price"/>
+                                <t t-set="currency_id" t-value="line.currency_id"/>
+                                <t t-set="milor_plateau" t-value="line.product_id.milor_plateau"/>
+                                <t t-set="default_code" t-value="line.product_id.default_code" />
+                                <t t-set="options" t-value="'A'" />
+                            </t>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+        
+		<template id="syd_custom.report_picking_productbarcode_without_price_zpl">
+            <t t-foreach="docs" t-as="picking">
+                <t t-foreach="picking.move_lines" t-as="line">
+                    <t t-if="not line.product_id.no_print_label">
+                        <t t-foreach="range(int(line.product_uom_qty)*2)" t-as="l">
+                            <t t-call="syd_custom.report_simple_barcode_zpl">
+                                <t t-set="product" t-value="line.product_id"/>
+                                <t t-set="price" t-value="line.price"/>
+                                <t t-set="currency_id" t-value="line.currency_id"/>
+                                <t t-set="milor_plateau" t-value="line.product_id.milor_plateau"/>
+                                <t t-set="default_code" t-value="line.product_id.default_code" />
+                                <t t-set="options" t-value="'D'" />
+                            </t>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+        
+        <template id="syd_custom.report_picking_productbarcode_without_description_zpl">
+            <t t-foreach="docs" t-as="picking">
+                <t t-foreach="picking.move_lines" t-as="line">
+                    <t t-if="not line.product_id.no_print_label">
+                        <t t-foreach="range(int(line.product_uom_qty)*2)" t-as="l">
+                            <t t-call="syd_custom.report_simple_barcode_zpl">
+                                <t t-set="product" t-value="line.product_id"/>
+                                <t t-set="price" t-value="line.price"/>
+                                <t t-set="currency_id" t-value="line.currency_id"/>
+                                <t t-set="milor_plateau" t-value="line.product_id.milor_plateau"/>
+                                <t t-set="default_code" t-value="line.product_id.default_code" />
+                                <t t-set="options" t-value="'P'" />
+                            </t>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+		
+        <template id="syd_custom.report_picking_productbarcode">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-foreach="docs" t-as="picking">
+                        <t t-foreach="picking.move_lines" t-as="line">
+                            <t t-if="not line.product_id.no_print_label">
+                                <t t-foreach="range(int(line.product_uom_qty))" t-as="l">
+                                    <t t-call="syd_custom.report_simple_barcode">
+                                        <t t-set="product" t-value="line.product_id"/>
+                                        <t t-set="price" t-value="line.price"/>
+                                <t t-set="currency_id" t-value="line.currency_id"/>
+                                        <t t-set="milor_plateau" t-value="line.product_id.milor_plateau"/>
+                                        <t t-set="default_code" t-value="line.product_id.default_code" />
+                                    </t>
+                                </t>
+                            </t>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <!-- INFO: Pure ZPL report for SO. -->
+        <template id="syd_custom.report_so_productbarcode_zpl">
+            <t t-foreach="docs" t-as="order">
+                <t t-foreach="order.order_line" t-as="line">
+                    <t t-if="not line.product_id.no_print_label">
+                        <t t-foreach="range(int(line.product_uom_qty)*2)" t-as="l">
+                            <t t-call="syd_custom.report_simple_barcode_zpl">
+                                <t t-set="product" t-value="line.product_id"/>
+                                <t t-set="price" t-value="line.retail_price"/>
+                                <t t-set="currency_id" t-value="line.currency_id"/>
+                                <t t-set="milor_plateau" t-value="line.product_id.milor_plateau"/>
+                                <t t-set="default_code" t-value="line.product_id.default_code" />
+                            </t>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <template id="syd_custom.report_so_productbarcode">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-foreach="docs" t-as="order">
+                        <t t-foreach="order.order_line" t-as="line">
+                            <t t-if="not line.product_id.no_print_label">
+                                <t t-foreach="range(int(line.product_uom_qty))" t-as="l">
+                                    <t t-call="syd_custom.report_simple_barcode">
+                                        <t t-set="product" t-value="line.product_id"/>
+                                        <t t-set="price" t-value="line.price_unit"/>
+                                        <t t-set="currency_id" t-value="line.currency_id"/>
+                                        <t t-set="milor_plateau" t-value="line.product_id.milor_plateau"/>
+                                        <t t-set="default_code" t-value="line.product_id.default_code" />
+                                    </t>
+                                </t>
+                            </t>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <template id="syd_custom.report_po_productbarcode_zpl">
+            <t t-foreach="docs" t-as="order">
+                <t t-foreach="order.order_line.filtered(lambda l: not l.display_type)" t-as="line">
+                    <t t-if="not line.product_id.no_print_label">
+                        <t t-foreach="range(int(line.product_uom_qty))" t-as="l">
+                            <t t-foreach="range(2)" t-as="i">
+                                <t t-call="syd_custom.report_simple_barcode_zpl">
+                                    <t t-set="product" t-value="line.product_id"/>
+                                    <t t-set="price" t-value="line.product_id.lst_price"/>
+                                    <t t-set="currency_id" t-value="line.retail_currency_id"/>
+                                    <t t-set="milor_plateau" t-value="line.product_id.milor_plateau"/>
+                                    <t t-set="default_code" t-value="line.product_id.default_code" />
+                                </t>
+                            </t>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <template id="syd_custom.report_po_productbarcode">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-foreach="docs" t-as="order">
+                        <t t-foreach="order.order_line" t-as="line">
+                            <t t-if="not line.product_id.no_print_label">
+                                <t t-foreach="range(int(line.product_uom_qty))" t-as="l">
+                                    <t t-call="syd_custom.report_simple_barcode">
+                                        <t t-set="product" t-value="line.product_id"/>
+                                        <t t-set="price" t-value="line.price_unit"/>
+                                        <t t-set="currency_id" t-value="line.currency_id"/>
+                                        <t t-set="milor_plateau" t-value="line.product_id.milor_plateau"/>
+                                        <t t-set="default_code" t-value="line.product_id.default_code" />
+                                    </t>
+                                </t>
+                            </t>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <template id="report_milor_product">
+            <div t-attf-style="width: {{product.product_label_width}}; display: inline-table; height: {{product.product_label_height}};">
+                <table style="font-size:8px;border: 2px solid black;" class="table table-bordered mb-0" >
+                    <tr>
+                        <td style="padding:0px;" class="table-active text-left" colspan="3">
+                            <strong>Code Milor:</strong>
+                            <span t-field="product.milor_code"/>
+                        </td>
+                        <td style="padding:0px;" class="table-active text-left" rowspan="2">
+                            <strong>Weight:</strong>
+                            <span t-field="product.weight_gr"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:0px;" class="table-active text-left" colspan="3">
+                            <strong>Code Art Client:</strong>
+                            <span t-esc="default_code"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:0px;" class="table-active text-center" colspan="4">
+                            <span t-field="product.image_128" t-options-widget="&quot;image&quot;"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:0px;" class="table-active text-left" colspan="4">
+                            <span t-field="product.milor_plateau"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:0px;" class="table-active text-left" colspan="1">
+                            <span>Retail (€)</span><br />
+                            <t t-if="price">
+                            <span t-esc="price"/>
+                            </t><t t-else="">
+                            	<span t-field="product.lst_price"/>
+                            </t>
+                        </td>
+                        <td style="padding:0px;" class="table-active text-left" colspan="1">
+                            <span>In Stock</span><br />
+                            <span t-esc="qty_available"/>
+                        </td>
+                        <td style="padding:0px;" class="table-active text-left" colspan="1">
+                            <span>Forecast</span><br />
+                            <span t-esc="virtual_available"/>
+                        </td>
+                        <td style="padding:0px;" class="table-active text-left" colspan="1">
+                            <span>Free to Use</span><br />
+                            <span t-esc="free_qty"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:0px;" class="table-active text-left" colspan="1">
+                            <span>Length</span><br />
+                            <span t-field="product.length_cm"/>
+                        </td>
+                        <td style="padding:0px;height: 20px;" class="text-center align-middle" colspan="3" >
+                            <t t-if="product.barcode">
+                                <img alt="Barcode" t-if="len(product.barcode) == 13" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', quote_plus(product.barcode or ''), 600, 20)" style="width:100%;height:20px;"/>
+                                <img alt="Barcode" t-elif="len(product.barcode) == 8" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN8', quote_plus(product.barcode or ''), 600, 20)" style="width:100%;height:20px;"/>
+                                <img alt="Barcode" t-else="" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(product.barcode or ''), 600, 20)" style="width:100%;height:20px;"/>
+                                <span t-field="product.barcode"/>
+                            </t>
+                            <t t-else=""><span class="text-muted">No barcode available</span></t>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </template>
+
+        <template id="report_producttemplateprint">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-foreach="docs" t-as="template">
+                        <t t-call="syd_custom.report_milor_product">
+                            <t t-set="product" t-value="template.product_variant_id" />
+                            <t t-set="qty_available" t-value="template.qty_available" />
+                            <t t-set="virtual_available" t-value="template.virtual_available" />
+                            <t t-set="free_qty" t-value="template.free_qty" />
+                            <t t-set="default_code" t-value="template.default_code" />
+                        </t>
+
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <template id="report_productprint">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-foreach="docs" t-as="product">
+                        <t t-call="syd_custom.report_milor_product">
+                            <t t-set="qty_available" t-value="product.qty_available" />
+                            <t t-set="virtual_available" t-value="product.virtual_available" />
+                            <t t-set="free_qty" t-value="product.free_qty" />
+                            <t t-set="default_code" t-value="product.default_code" />
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <template id="syd_custom.report_so_productmilorprint">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-foreach="docs" t-as="order">
+                        <t t-foreach="order.order_line" t-as="line">
+                            <t t-foreach="range(int(line.product_uom_qty))" t-as="l">
+                                <t t-call="syd_custom.report_milor_product">
+                                    <t t-set="product" t-value="line.product_id"/>
+                                    <t t-set="qty_available" t-value="line.product_id.qty_available" />
+                                    <t t-set="virtual_available" t-value="line.product_id.virtual_available" />
+                                    <t t-set="free_qty" t-value="line.product_id.free_qty" />
+                                    <t t-set="default_code" t-value="line.product_id.default_code" />
+                                </t>
+                            </t>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <template id="syd_custom.report_po_productmilorprint">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-foreach="docs" t-as="order">
+                        <t t-foreach="order.order_line" t-as="line">
+                            <t t-foreach="range(int(line.product_uom_qty))" t-as="l">
+                                <t t-call="syd_custom.report_milor_product">
+                                    <t t-set="product" t-value="line.product_id"/>
+                                    <t t-set="qty_available" t-value="line.product_id.qty_available" />
+                                    <t t-set="virtual_available" t-value="line.product_id.virtual_available" />
+                                    <t t-set="free_qty" t-value="line.product_id.free_qty" />
+                                    <t t-set="default_code" t-value="line.product_id.default_code" />
+                                </t>
+                            </t>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+		
+		
+		<template id="report_milor_plateau">
+            <div t-attf-style="width: {{product.product_barcode_width}}; display: inline-table; height: {{product.product_barcode_height}};">
+                <table class="table table-bordered m-0">
+                    <tbody>
+                        <tr>
+                            <td style="padding:0px;" class="text-center align-middle" colspan="5">
+                                <span t-field="product.image_128" style="max-height: 128px;" class="text-center" t-options="{'widget': 'image', 'qweb_img_responsive': False, 'style': 'max-height: 128px;'}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:0px;font-size:1em;" class="text-center align-middle" colspan="2">
+                                <strong>Code Milor:</strong>
+                                <span t-esc="milor_code"/>
+                            </td>
+                            <td style="padding:0px;font-size:1.5em;" class="text-center align-middle" colspan="3">
+                                <span t-field="product.milor_plateau"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:0px;font-size:0.90em;" class="text-center align-middle" colspan="5">
+                                <span t-esc="default_code"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:0px;font-size:0.90em;" class="text-center align-middle" colspan="5">
+                                <t t-if="product.barcode">
+                                    <img alt="Barcode" t-if="len(product.barcode) == 13" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', quote_plus(product.barcode or ''), 500, 40)" style="width:100%;height:40px;"/>
+                                    <img alt="Barcode" t-elif="len(product.barcode) == 8" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN8', quote_plus(product.barcode or ''), 500, 40)" style="width:100%;height:40px;"/>
+                                    <img alt="Barcode" t-else="" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(product.barcode or ''), 500, 40)" style="width:100%;height:40px;"/>
+                                    <span t-field="product.barcode"/>
+                                </t>
+                                <t t-else=""><span class="text-muted">No barcode available</span></t>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </template>
+
+        <template id="report_product_milor_plateau">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-foreach="docs" t-as="template">
+                        <t t-call="syd_custom.report_milor_plateau">
+                            <t t-set="product" t-value="template.product_variant_id" />
+                            <t t-set="default_code" t-value="template.default_code" />
+                            <t t-set="milor_code" t-value="template.milor_code" />
+                        </t>
+
+                    </t>
+                </div>
+            </t>
+        </template>
+        
+        <template id="report_product_product_milor_plateau">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-foreach="docs" t-as="product">
+                        <t t-call="syd_custom.report_milor_plateau">
+                            
+                            <t t-set="default_code" t-value="product.default_code" />
+                            <t t-set="milor_code" t-value="product.milor_code" />
+                        </t>
+
+                    </t>
+                </div>
+            </t>
+        </template>
+		
+    </data>
+</odoo>

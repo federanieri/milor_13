@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<menuitem id="os1_instance_menu_item" name="OS1"
+			web_icon="syd_os1,static/description/icon.png" groups="syd_os1.group_user_os1"/>
+			
+		<menuitem id="os1_main_menu_os1_dashboard" name="Dashboard"
+			parent="syd_os1.os1_instance_menu_item"
+			action="os1_kanban_action_ept" sequence="1" />
+		
+		<menuitem id="os1_instance_menu_item_instance"
+			name="Instances" parent="syd_os1.os1_instance_menu_item" sequence="3"
+			action="action_os1_instance_ept" />
+		
+		<menuitem id="document_os1_menu_item" name="OS1 documents"
+			parent="syd_os1.os1_instance_menu_item" sequence="2"
+			action="action_document_os1" />
+
+		<menuitem id="config_menu_item" name="Configuration"
+			parent="syd_os1.os1_instance_menu_item" sequence="4" />
+			
+		<menuitem id="syd_os1_reason_reference_os1_menu_item"
+			name="Reason Reference OS1" parent="config_menu_item" sequence="1"
+			action="action_syd_os1_reason_reference_os1" />
+		
+		<menuitem id="syd_os1_error_os1_menu_item"
+			name="Error OS1" parent="config_menu_item" sequence="2"
+			action="os1_error_action" />
+		
+		<menuitem id="document_os1_menu_item_sales"
+			name="OS1 documents" parent="sale.menu_sale_invoicing" sequence="10"
+			action="action_document_os1_sales" />
+	</data>
+</odoo>

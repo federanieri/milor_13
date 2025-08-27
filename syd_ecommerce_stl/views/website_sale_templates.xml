@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product_stl_viewer" name="Product STL Viewer" inherit_id="website_sale.product">
+        <xpath expr="//div[@id='product_details']//t[@t-placeholder='select']" position="after">
+            <t t-call="syd_website_stl_viewer.stl_viewer" t-if="product.stl_url">
+				                            <t t-set="stl_url" t-value="product.stl_url" />
+				                            <t t-set="id" t-value="1"/>
+				                        </t>
+        </xpath>
+        
+        <xpath expr="//div[@id='product_full_description']" position="after">
+        	<t t-call="syd_website_stl_viewer.stl_viewer_modal">
+				                            
+				                        </t>
+				                        
+		</xpath>		                        
+    </template>
+</odoo>

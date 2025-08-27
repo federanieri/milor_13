@@ -1,0 +1,27 @@
+<odoo>
+  <data>
+     <record model="ir.ui.view" id="view_stock_custom_tracking">
+         <field name="name">stock.picking.custom_tracking</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='priority']" position="after">
+                    <field name="custom_tracking" invisible="1"/>
+                
+            </xpath>
+         </field>
+    </record>
+
+     <record model="ir.ui.view" id="view_picking_search_ref_milor">
+         <field name="name">stock.picking.internal_ref.search</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+           <xpath expr="//field[@name='name']" position="replace">
+            <field name="name" string="Transfer" filter_domain="['|','|','|', ('carrier_tracking_ref', '=', self),('custom_tracking', 'ilike', self),('name', 'ilike', self), ('origin', 'ilike', self)]"/>
+           </xpath>
+        </field>
+     </record>
+
+    </data>
+</odoo>

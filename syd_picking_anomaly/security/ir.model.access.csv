@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_syd_anomaly_anomaly,syd_anomaly_anomaly,model_syd_anomaly_anomaly,,1,1,1,1
+access_syd_anomaly_anomaly_picking,syd_anomaly_anomaly_picking,model_syd_anomaly_anomaly_picking,,1,1,1,1

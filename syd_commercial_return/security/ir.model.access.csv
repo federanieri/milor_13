@@ -1,0 +1,6 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_return_portal_user,return_portal_user,model_return_order_sheet,base.group_portal,1,1,1,1
+access_return_employee,return_employee,model_return_order_sheet,base.group_user,1,1,1,1
+access_return_portal_user_line,return_portal_user,model_return_order_line,base.group_portal,1,1,1,1
+access_return_employee_line,return_employee,model_return_order_line,base.group_user,1,1,1,1
+access_return_order_reason,return_order_reason.user,model_return_order_reason,base.group_user,1,1,1,1

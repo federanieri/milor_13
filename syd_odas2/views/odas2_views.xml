@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="odas2_stream_tree_view" model="ir.ui.view">
+        <field name="name">odas2.stream.tree.view</field>
+        <field name="model">odas2.stream</field>
+        <field name="arch" type="xml">
+            <tree string="OdAS2 Stream" editable="bottom">
+                <field name="name"/>
+                <field name="sender_id"/>
+                <field name="receiver_id"/>
+                <field name="vendor_id"/>
+                <field name="merchant_id"/>
+                <field name="source_id"/>
+                <field name="force_qty"/>
+                <field name="company_id" groups="base.group_multi_company" invisible="1" readonly="1"/>
+                <field name="auto_add_product"/>
+                <field name="product_ids" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_odas2_stream" model="ir.actions.act_window">
+        <field name="name">AS2 Streams</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odas2.stream</field>
+        <field name="view_id" ref="odas2_stream_tree_view"/>
+        <field name="view_mode">tree</field>
+    </record>
+
+</odoo>

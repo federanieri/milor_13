@@ -1,0 +1,12 @@
+<odoo>
+    <record id="proposal_sale_order_form_for_proposal_import" model="ir.ui.view">
+		<field name="name">proposal.sale.order.form.proposal.import</field>
+		<field name="model">proposal.sale.order</field>
+        <field name="inherit_id" ref="syd_product_proposal.view_proposal_order_form"/>
+		<field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="%(eg_sale_proposal_import.action_proposal_sale_line_import_wizard)d" type="action" string="Import Lines" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

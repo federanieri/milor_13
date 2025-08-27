@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record model="ir.ui.view" id="view_order_form_extend_crma">
+			<field name="name">view.order.form.extend.crma</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="before">
+					<field name="crma_origin_id" invisible="1"/>
+				</xpath>
+				<xpath expr="//field[@name='order_line']/tree//field[@name='name']" position="after">
+					<field name="repair_product_for" attrs="{'column_invisible':[('parent.crma_origin_id', '=', False)]}"/>
+				</xpath>
+				<xpath expr="//field[@name='order_line']/form//field[@name='name']" position="after">
+					<label for="repair_product_for"/>
+					<field name="repair_product_for" attrs="{'column_invisible':[('parent.crma_origin_id', '=', False)]}"/>
+				</xpath>
+				<xpath expr="//field[@name='partner_id']" position="before">
+					<field name="repair_so" readonly="1" attrs="{'invisible':[('repair_so', '=', False)]}"/>
+				</xpath>
+			</field>
+		</record>
+	
+
+	</data>
+</odoo>

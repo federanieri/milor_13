@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_purchaseorder_document" inherit_id="purchase.report_purchaseorder_document">
+        <xpath expr="//th[@name='th_description']" position="after">
+            <th name="th_metal"><strong>Metallo</strong></th>
+            <th name="th_taglia"><strong>Taglia</strong></th>
+            <th name="th_placcatura"><strong>Placcatura</strong></th>
+            <th t-if="o.commercehub_po" name="th_commercehub_po"><strong>CH&#160;PO</strong></th>
+            <th name="th_commercehub_code"><strong>Codice&#160;CH</strong></th>
+            <th name="th_custom_value"><strong>Personalizz.</strong></th>
+        </xpath>
+        <xpath expr="//th[@name='th_price_unit']/strong" position="replace">
+             <strong>Prz&#160;unit.</strong>
+        </xpath>
+        <xpath expr="//th[@name='th_taxes']" position="replace"/>
+        <xpath expr="//th[@name='th_date_req']" position="replace"/>
+        <xpath expr="//td[@id='product']" position="after">
+        	<td name="td_metal">
+        		<span t-field="line.product_metallo"/>
+        	</td>
+        	<td name="td_taglia">
+        		<span t-field="line.product_taglia"/>
+        	</td>
+        	<td name="td_placcatura">
+        		<span t-field="line.product_placcatura"/>
+        	</td>
+            <td t-if="line.commercehub_po" name="td_commercehub_po">
+                <span t-field="line.commercehub_po"/>
+            </td>
+            <td t-if="line.product_id.commercehub_code" name="td_commercehub_code">
+                <span t-field="line.product_id.commercehub_code"/>
+            </td>
+            <td name="td_custom_value">
+                <span t-field="line.custom_value"/>
+            </td>
+        </xpath>
+        <xpath expr="//td[@name='td_taxes']" position="replace"/>
+        <xpath expr="//span[@t-field='line.date_planned']/.." position="replace"/>
+    </template>
+
+    <template id="report_purchaseorder_document_details" inherit_id="purchase.report_purchaseorder_document">
+        <xpath expr="//th[@name='th_description']" position="after">
+            <t t-if="with_details">
+	            <th name="th_metallo"><strong>Metallo</strong></th>
+	            <th name="th_taglia"><strong>Taglia</strong></th>
+	            <th name="th_pietra"><strong>Pietra</strong></th>
+	            <th name="th_placctura"><strong>Placcatura</strong></th>
+	            <th name="th_placctura"><strong>Galvanica</strong></th>
+	            <th name="th_placctura"><strong>Profondita</strong></th>
+	            <th name="th_placctura"><strong>Marchio</strong></th>
+            </t>
+        </xpath>
+        <xpath expr="//td[@id='product']" position="after">
+        	<t t-if="with_details">
+	            <td name="td_metallo">
+	                <span t-field="line.product_metallo"/>
+	            </td>
+	            <td name="td_taglia">
+	                <span t-field="line.product_taglia"/>
+	            </td>
+	            <td name="td_pietra">
+	                <span t-field="line.product_pietra"/>
+	            </td>
+	            <td name="td_placcatura">
+	                <span t-field="line.product_placcatura"/>
+	            </td>
+	            <td name="td_galvanica">
+	                <span t-field="line.plating_id"/>
+	            </td>
+	            <td name="td_depth">
+	                <span t-field="line.plating_depth"/>
+	            </td>
+	            <td name="td_stamp">
+	                <span t-field="line.stamp_id"/>
+	            </td>
+            </t>
+        </xpath>
+        <xpath expr="//t[@t-set='address']/div" position="before">
+        	<div t-if="o.purchase_order_type">
+        		<h1><span t-field="o.purchase_order_type"/></h1>
+        	</div>
+        </xpath>
+    </template>
+
+</odoo>

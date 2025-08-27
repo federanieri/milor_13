@@ -1,0 +1,6 @@
+
+=> 13.0.0.1 : Improved related, demanded apps link version in index file.
+
+Version 13.0.0.2 (01/05/20)
+		- Solve issue of wrong count on filters
+		- Show only those filters which have products.

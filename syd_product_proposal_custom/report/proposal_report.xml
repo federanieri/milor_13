@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_proposal_saleorder_document_custom" inherit_id="syd_product_proposal.report_proposal_saleorder_document">
+	         <xpath expr="//th[@name='th_description']" position="replace">
+	         	   <th class="text-left" >Milor Code</th>
+			       <th class="text-left" >Title</th>
+			       <th class="text-left" >Type</th>
+			       <th class="text-left" >Description</th>
+			       <th class="text-left" >Weight</th>
+			       <th class="text-left" >Attributes</th>
+			       <th class="text-left" >Color</th>
+	         </xpath>
+	         
+	           <xpath expr="//td[@name='td_name']" position="replace">
+			       <td name="td_name"><span t-field="line.milor_code"/></td>
+			       <td><span t-field="line.barcode_text"/></td>
+			       <td><span t-field="line.category_name"/></td>
+			       <td><span t-field="line.name"/></td>
+			       <td><span t-field="line.weight_gr"/></td>
+			       <td><span t-field="line.length_cm"/></td>
+			       <td><span t-field="line.stone_color"/></td>
+            
+        		</xpath>
+         </template>
+    
+    <template id="syd_product_proposal_custom.report_sp_productmilorprint">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-foreach="docs" t-as="order">
+                        <t t-foreach="order.porder_line" t-as="line">
+                            
+                                <t t-call="syd_custom.report_milor_product">
+                                    <t t-set="product" t-value="line.product_id"/>
+                                    <t t-set="price" t-value="line.price_proposed"/>
+                                    <t t-set="qty_available" t-value="line.product_id.qty_available" />
+                                    <t t-set="virtual_available" t-value="line.product_id.virtual_available" />
+                                    <t t-set="free_qty" t-value="line.product_id.free_qty" />
+                                    <t t-set="default_code" t-value="line.product_id.default_code" />
+                                </t>
+                            
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+    
+    
+    <report
+            id="report_product_sp_product_milor_pdf"
+            string="Product Milor Print (PDF)"
+            model="proposal.sale.order"
+            report_type="qweb-pdf"
+            name="syd_product_proposal_custom.report_sp_productmilorprint"
+            file="syd_product_proposal_custom.report_sp_productmilorprint"
+            print_report_name="'Products barcode - %s' % (object.name)"
+        />
+    </data>
+    
+    
+    
+    
+</odoo>

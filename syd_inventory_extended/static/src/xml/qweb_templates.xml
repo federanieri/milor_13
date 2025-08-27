@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" inherit_id="stock_barcode.template" xml:space="preserve">
+
+    <t t-extend="stock_barcode_lines_widget">
+        <t t-jquery=".btn.btn-secondary.text-uppercase.o_validate_page" t-operation="replace">
+            <button t-if="widget.picking_accepted and !widget.not_correct" class="btn btn-secondary text-uppercase o_validate_page"><i class="fa fa-check mr-1"/> Validate</button>
+        </t>
+        <t t-jquery=".o_barcode_control.d-flex:last" t-operation="append">
+            <button t-if="!widget.picking_accepted" class="btn btn-success text-uppercase o_check_accept">Accept</button>
+        </t>
+    </t>
+	<t t-extend="stock_barcode_lines_template">
+		 <t t-jquery=".o_barcode_line.list-group-item.d-flex.flex-row.flex-nowrap" t-operation="attributes">
+            <attribute name="t-attf-style" value="{{(line) ? ((line.product_uom_qty &lt; line.qty_done) ? 'background-color:red;' : ((line.product_uom_qty == line.qty_done) ? 'background-color:green;' : '')) : ''}}"></attribute>
+        </t>
+		
+	</t>
+	
+	<t t-extend="stock_barcode_lines_widget">
+		 <t t-jquery=".o_put_in_pack" t-operation="attributes">
+            <attribute name="t-if" value="widget.groups.group_tracking_lot and widget.model == 'stock.picking' and !widget.cannot_put_in_pack"></attribute>
+        </t>
+        <t t-jquery=".o_barcode_lines_header" t-operation="after">
+              <div class=" d-flex   align-items-center" style="min-height: 20px;background-color:white;color:black;padding:2px;">
+            		<strong>Total:</strong>
+			<t t-esc="widget.total_line_processed_goods"/>/<t t-esc="widget.total_line_goods"/>
+            </div>
+             <div t-if="widget.product_status == 'partial'" class="o_barcode_message d-flex flex-column justify-content-center align-items-center" style="min-height: 20px;background-color:red;color:white">
+              
+                    Not all Products of this transfer are ready.
+                
+            </div>
+           
+        </t>
+	
+	</t>
+	
+</templates>

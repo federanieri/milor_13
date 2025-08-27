@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="collection_view_onpage">
+        <field name="name">product.collection.form.onpage</field>
+        <field name="model">product.collection</field>
+        <field name="arch" type="xml">
+            <form string="Collection Form">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="website_description"/>
+                        <field name="description"/>
+                        <field name="is_onpage_collection"/>
+                        <field name="onpage_id"/>
+                        <field name="brand_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="syd_product_milor.product_collection_act" model="ir.actions.act_window">
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="onpage_product_collection_tree_view" model="ir.ui.view">
+        <field name="name">OnPage Collections</field>
+        <field name="model">product.collection</field>
+        <field name="inherit_id" ref="syd_product_milor.product_collection_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="editable"></attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_custom_collections" model="ir.actions.act_window">
+        <field name="name">OnPage Collections</field>
+        <field name="res_model">product.collection</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_onpage_collection', '=', True)]</field>
+        <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create a new collection
+                </p>
+            </field>
+    </record>
+
+    <record id="action_onpage_collections" model="ir.actions.act_window">
+        <field name="name">OnPage Collections</field>
+        <field name="res_model">product.collection</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_onpage_collection', '=', True)]</field>
+        <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create a new collection
+                </p>
+            </field>
+    </record>
+
+    <menuitem id="menu_onpage_collection"
+            name="OnPage Collections"
+            parent="menu_onpage_account_root"
+            action="action_onpage_collections"/>
+</odoo>

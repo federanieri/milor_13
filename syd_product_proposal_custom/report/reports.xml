@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            id="report_product_sale_product_barcode_customer_zpl"
+            string="Product Barcode Customer (ZPL)"
+            model="stock.picking"
+            groups="syd_product_proposal.group_proposal_product_code_visibility"
+            report_type="qweb-text"
+            name="syd_product_proposal_custom.report_so_productbarcodecustomer_zpl"
+            file="syd_product_proposal_custom.report_so_productbarcodecustomer_zpl"
+            print_report_name="'Product Barcode Customer - %s' % (object.name)"
+        />   
+	</data>
+</odoo>

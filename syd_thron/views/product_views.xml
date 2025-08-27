@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_category_view_inherit_thron" model="ir.ui.view">
+        <field name="name">product.category.form.inherit.thron</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <group name="first" position="inside">
+                <field name="thron_id"/>
+            </group>
+        </field>
+    </record>
+
+     <record id="product_product_view_inherit_thron" model="ir.ui.view">
+        <field name="name">product.product.form.inherit.thron</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook//page[last()]" position="after">
+                <page name="Thron" string="Thron">
+                    <group>
+                        <group>
+                            <field name="is_thron_product" />
+                            <field name="thron_id"/>
+                            <field name="thron_create_date" readonly="1"/>
+                            <field name="thron_write_date" readonly="1"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath> 
+        </field>
+    </record>
+
+    <record id="product_search_form_view_inherit_thron" model="ir.ui.view">
+        <field name="name">product.product.search.inherit.thron</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='filter_to_sell']" position="after">
+                <filter string="Is Thron Product" name="filter_is_thron_product" domain="[('is_thron_product','=',True)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_thron_products" model="ir.actions.act_window">
+        <field name="name">Thron Product</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.product</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="domain">[('is_thron_product', '=', True)]</field>
+        <field name="context">{"search_default_filter_is_thron_product":1}</field>
+        <field name="view_id" ref="product.product_product_tree_view"/>
+        <field name="search_view_id" ref="product.product_search_form_view"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new product variant
+          </p><p>
+            You must define a product for everything you sell, whether it's a physical product,
+            a consumable or a service you offer to customers.
+            The product form contains information to simplify the sale process:
+            price, notes in the quotation, accounting data, procurement methods, etc.
+          </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_thron_product"
+            name="Thron Products"
+            parent="menu_thron_account_root"
+            action="action_thron_products"
+            sequence="3"/>
+</odoo>

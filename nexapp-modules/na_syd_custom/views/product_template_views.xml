@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright 2022 Mastini Alberto - Nexapp S.r.l.
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+ -->
+<odoo>
+    <record id="na_syd_custom_product_template" model="ir.ui.view">
+        <field name="name">na.syd.custom.product.template</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="syd_product_milor.view_product_template_milor_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='supplies_last']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="na_syd_custom_product_template_fuori_collezione" model="ir.ui.view">
+        <field name="name">na.syd.custom.product.template.fuori.collezione</field>
+        <field name="model">product.template</field>
+        <field name="groups_id" eval="[(4, ref('syd_custom.group_fuori_collezione'))]"/>
+        <field name="inherit_id" ref="na_syd_custom.na_syd_custom_product_template"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='supplies_last']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="na_syd_custom_product_template_tree_fuori_collezione" model="ir.ui.view">
+        <field name="name">na.syd.custom.product.template.tree.fuori.collezione</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="out_of_collection" readonly="1"/>
+                <field name="supplies_last" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="na_syd_custom_product_template_tree_check_fuori_collezione" model="ir.ui.view">
+        <field name="name">na.syd.custom.product.template.tree.check.fuori.collezione</field>
+        <field name="model">product.template</field>
+        <field name="groups_id" eval="[(4, ref('syd_custom.group_fuori_collezione'))]"/>
+        <field name="inherit_id"
+               ref="na_syd_custom.na_syd_custom_product_template_tree_fuori_collezione"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='out_of_collection']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+            <xpath expr="//field[@name='supplies_last']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="na_syd_custom_product_template_tree_product_fuori_collezione" model="ir.ui.view">
+        <field name="name">na.syd.custom.product.template.tree.product.fuori.collezione</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="out_of_collection_variant" readonly="1"/>
+                <field name="supplies_last" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="na_syd_custom_product_template_tree_product_check_fuori_collezione"
+            model="ir.ui.view">
+        <field name="name">na.syd.custom.product.template.tree.product.check.fuori.collezione
+        </field>
+        <field name="model">product.product</field>
+        <field name="groups_id" eval="[(4, ref('syd_custom.group_fuori_collezione'))]"/>
+        <field name="inherit_id"
+               ref="na_syd_custom.na_syd_custom_product_template_tree_product_fuori_collezione"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='out_of_collection_variant']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+            <xpath expr="//field[@name='supplies_last']" position="attributes">
+                <attribute name="readonly">False</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

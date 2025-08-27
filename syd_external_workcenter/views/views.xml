@@ -1,0 +1,80 @@
+<odoo>
+  <data>
+ 	
+ 
+
+	 <record model="ir.ui.view" id="view_workcenter_external">
+         <field name="name">mrp.workcenter</field>
+        <field name="model">mrp.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_workcenter_view"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//field[@name='name']"  position="after">
+        		
+        			<field name="is_external" />
+        			<field name="vendor_id" attrs="{'invisible':[('is_external','=',False)]}"/>
+        		
+        </xpath>
+        <xpath expr="//form[1]/sheet[1]/notebook[1]/page[1]" position="attributes">
+        		
+        			<attribute name="attrs">{'invisible':[('is_external','=',True)]}</attribute>
+        		
+        </xpath>
+        <xpath expr="//div[@name='button_box']" position="attributes">
+        		
+        			<attribute name="attrs">{'invisible':[('is_external','=',True)]}</attribute>
+        		
+        </xpath>
+        
+     	</field>
+    </record>
+    
+    <record model="ir.ui.view" id="view_routing_workcenter_external">
+         <field name="name">mrp.routing.workcenter</field>
+        <field name="model">mrp.routing.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_routing_workcenter_form_view"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//group[@name='workorder']"  position="after">
+        		<field name="is_external" invisible="1"/>
+        		<group>
+        		
+        			<field name="service_product_id" />
+        			<field name="product_uom" />
+        			<field name="product_qty" />
+        			<field name="currency_id" invisible="1" />
+        			<field name="price" />
+        			
+        		</group>	
+        		
+        </xpath>
+        <xpath expr="//group[@name='workorder']" position="attributes">
+        		
+        			<attribute name="attrs">{'invisible':[('is_external','=',True)]}</attribute>
+        		
+        </xpath>
+        
+        
+     	</field>
+    </record>
+    
+    <record model="ir.ui.view" id="view_workorder_external">
+         <field name="name">mrp.workorder</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit"/>
+        
+        <field name="arch" type="xml">
+  		<xpath expr="//form[1]/sheet[1]/notebook[1]/page[1]" position="after">
+  			<page string="Purchase Order" >
+  				<group>
+                    <field name="purchase_order_id" />
+                    <field name="purchase_order_line_id" />
+                    </group>
+                </page>
+                    
+  		</xpath>
+        
+     	</field>
+    </record>
+    </data>
+</odoo>

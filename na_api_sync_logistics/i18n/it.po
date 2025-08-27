@@ -1,0 +1,113 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* na_api_sync_logistics
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-07 10:08+0000\n"
+"PO-Revision-Date: 2024-08-07 10:08+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: na_api_sync_logistics
+#: model:ir.actions.server,name:na_api_sync_logistics.na_ir_cron_export_import_products_ir_actions_server
+#: model:ir.cron,cron_name:na_api_sync_logistics.na_ir_cron_export_import_products
+#: model:ir.cron,name:na_api_sync_logistics.na_ir_cron_export_import_products
+msgid "API Sync Logistics: Export / Import Products"
+msgstr "API Sync Logistics: Esporta / Importa Prodotto"
+
+#. module: na_api_sync_logistics
+#: model:ir.model.fields,field_description:na_api_sync_logistics.field_na_api_sync_env__forecast_goods
+msgid "Forecast Goods"
+msgstr "Previsionale Merce"
+
+#. module: na_api_sync_logistics
+#: model:ir.model.fields,field_description:na_api_sync_logistics.field_na_api_sync_env__goods_delivery
+msgid "Goods Delivery"
+msgstr "Consegna Merce"
+
+#. module: na_api_sync_logistics
+#: model:ir.model.fields,field_description:na_api_sync_logistics.field_na_api_sync_env__delivery_create_backorder
+msgid "Delivery Create Backorder"
+msgstr "Crea Ordine Residuo Per Le Consegne"
+
+#. module: na_api_sync_logistics
+#: model:ir.model.fields,field_description:na_api_sync_logistics.field_na_api_sync_env__forecast_create_backorder
+msgid "Forecast Create Backorder"
+msgstr "Crea Ordine Residuo Per I Previsionali"
+
+#. module: na_api_sync_logistics
+#: model:ir.model.fields,field_description:na_api_sync_logistics.field_na_api_sync_env__goods_registry
+msgid "Goods Registry"
+msgstr "Anagrafica Merce"
+
+#. module: na_api_sync_logistics
+#: model_terms:ir.ui.view,arch_db:na_api_sync_logistics.na_api_sync_env_form_view_inherit
+msgid "Goods input in logistics"
+msgstr "Ingresso merce in logistica"
+
+#. module: na_api_sync_logistics
+#: model_terms:ir.ui.view,arch_db:na_api_sync_logistics.na_api_sync_env_form_view_inherit
+msgid "Goods output in logistics"
+msgstr "Uscita merce in logistica"
+
+#. module: na_api_sync_logistics
+#: model:ir.model.fields,field_description:na_api_sync_logistics.field_na_api_sync_env__logistics_goods_confirmation
+msgid "Logistics Goods Confirmation"
+msgstr "Conferma Merce Logistica"
+
+#. module: na_api_sync_logistics
+#: model:ir.model.fields,field_description:na_api_sync_logistics.field_na_api_sync_env__logistics_goods_inventory
+msgid "Logistics Goods Inventory"
+msgstr "Inventario Merce Logistica"
+
+#. module: na_api_sync_logistics
+#: model:ir.model.fields,field_description:na_api_sync_logistics.field_na_api_sync_env__location_id
+msgid "Location"
+msgstr "Ubicazione"
+
+#. module: na_api_sync_logistics
+#: model:ir.model.fields,field_description:na_api_sync_logistics.field_na_api_sync_env__logistics_goods_validation
+msgid "Logistics Goods Validation"
+msgstr "Validazione Merce Logistica"
+
+#. module: na_api_sync_logistics
+#: model:ir.model.fields.selection,name:na_api_sync_logistics.selection__na_api_sync_env__api_type__logistic
+msgid "Logistics Integration - FTP"
+msgstr "Integrazione Logistica - FTP"
+
+#. module: na_api_sync_logistics
+#: model:ir.model.fields,field_description:na_api_sync_logistics.field_na_api_sync_env__api_type
+msgid "Sync Type"
+msgstr "Modalità API"
+
+#. module: na_api_sync_logistics
+#: model_terms:ir.ui.view,arch_db:na_api_sync_logistics.na_api_sync_env_form_view_inherit
+msgid "Synchronization between systems"
+msgstr "Sincronizzazione tra sistemi"
+
+#. module: na_api_sync_logistics
+#: model:ir.model,name:na_api_sync_logistics.model_na_api_sync_config
+msgid "na.api.sync.config"
+msgstr ""
+
+#. module: na_api_sync_logistics
+#: model:ir.model,name:na_api_sync_logistics.model_na_api_sync_env
+msgid "na.api.sync.env"
+msgstr ""
+
+#. module: na_api_sync_logistics
+#: model_terms:ir.ui.view,arch_db:na_api_sync_logistics.na_view_picking_form_inherit
+msgid "Re-export"
+msgstr "Riesporta"
+
+#. module: na_api_sync_logistics
+#: model_terms:ir.ui.view,arch_db:na_api_sync_logistics.na_view_picking_form_inherit
+msgid "Do you confirm that you want to re-export the data?"
+msgstr "Confermi di voler riesportare il dato?"

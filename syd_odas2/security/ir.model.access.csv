@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_odas2_message_queue_user,access_odas2_message_queue_user,model_odas2_message_queue,group_user,1,0,0,0
+access_odas2_message_queue_manager,access_odas2_message_queue_manager,model_odas2_message_queue,group_manager,1,1,1,1
+
+access_odas2_stream_user,access_odas2_stream_user,model_odas2_stream,group_user,1,0,0,0
+access_odas2_stream_manager,access_odas2_stream_manager,model_odas2_stream,group_manager,1,1,1,1

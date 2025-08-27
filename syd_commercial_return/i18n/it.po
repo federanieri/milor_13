@@ -1,0 +1,33 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* syd_commercial_return
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-18 16:39+0000\n"
+"PO-Revision-Date: 2020-09-18 16:39+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: it\n"
+"Plural-Forms: \n"
+
+#. module: syd_commercial_return
+#: model:ir.model.fields.selection,name:syd_commercial_return.selection__return_order_sheet__return_type__replacement
+msgid "Replacement"
+msgstr "Sostituzione"
+
+#. module: syd_commercial_return
+#: model:ir.model.fields.selection,name:syd_commercial_return.selection__return_order_sheet__return_type__refund
+msgid "Refund"
+msgstr "Rimborso"
+
+#. module: syd_commercial_return
+#: model:ir.model.fields.selection,name:syd_commercial_return.selection__return_order_sheet__return_type__repair
+msgid "Repair"
+msgstr "Riparazione"
+

@@ -1,0 +1,3 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_vendor_return_reason_user,access.vendor.return.reason.user,model_vendor_return_reason,base.group_user,1,1,1,1
+access_purchase_return_wizard_user,access.purchase.return.reason.user,model_purchase_return_wizard,base.group_user,1,1,1,1

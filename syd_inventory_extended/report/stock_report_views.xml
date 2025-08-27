@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       
+        <report
+            string="Packing List"
+            id="action_report_packing_list_barcode"
+            model="stock.quant.package"
+            report_type="qweb-pdf"
+            name="syd_inventory_extended.report_package_barcode"
+            file="syd_inventory_extended.report_package_barcode"/>
+        
+        
+        />
+    </data>
+</odoo>

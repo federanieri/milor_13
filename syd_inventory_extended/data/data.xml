@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	
+		<function model="stock.picking.type" name="_disable_detailed_operation"/>
+	</data>
+    <data noupdate="1">
+
+		
+        <!--	New action added in eg_custom with condition in operation type	-->
+        <!--        <record id="model_stock_picking_validate" model="ir.actions.server">-->
+        <!--            <field name="name">Validate Transfer</field>-->
+        <!--            <field name="model_id" ref="stock.model_stock_picking"/>-->
+        <!--            <field name="binding_model_id" ref="stock.model_stock_picking"/>-->
+        <!--            <field name="binding_view_types">list</field>-->
+        <!--            <field name="state">code</field>-->
+        <!--            <field name="code">action = records.action_multiple_done()</field>-->
+        <!--        </record>-->
+        
+        <record id="model_scrap_transfer_create" model="ir.actions.server">
+            <field name="name">Create transfer on Vendor</field>
+            <field name="model_id" ref="stock.model_stock_scrap"/>
+            <field name="binding_model_id" ref="stock.model_stock_scrap"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_wizard_transfer()</field>
+        </record>
+        
+        
+        
+        
+        <record id="model_quant_transfer_create" model="ir.actions.server">
+            <field name="name">Create transfer</field>
+            <field name="model_id" ref="stock.model_stock_quant"/>
+            <field name="binding_model_id" ref="stock.model_stock_quant"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_wizard_transfer()</field>
+        </record>
+        
+        </data>
+        </odoo>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="0">
+
+		<record id="module_category_syd_dis" model="ir.module.category">
+			<field name="name">DIS</field>
+			<field name="description">Permission to manage DIS app.</field>
+		</record>
+
+		<record id="group_user" model="res.groups">
+			<field name="name">User (for portal users)</field>
+			<field name="category_id" ref="module_category_syd_dis"/>
+			<field name="implied_ids" eval="[(6, 0, [ref('base.group_user')])]"/>
+		</record>
+
+		<record id="group_manager" model="res.groups">
+			<field name="name">Manager (can access any documents)</field>
+			<field name="category_id" ref="module_category_syd_dis" />
+			<field name="implied_ids" eval="[(4, ref('group_user'))]"/>
+		</record>
+
+		<record id="group_admin" model="res.groups">
+			<field name="name">Administrator (can access technical features too)</field>
+			<field name="category_id" ref="module_category_syd_dis" />
+			<field name="implied_ids" eval="[(4, ref('group_manager'))]"/>
+			<field name="users" eval="[(4, ref('base.user_root')),(4, ref('base.user_admin'))]"/>
+		</record>
+
+	</data>
+</odoo>

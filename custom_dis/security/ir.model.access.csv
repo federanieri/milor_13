@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_dis_meta_user,custom_dis.product.dis.meta,custom_dis.model_product_dis_meta,base.group_user,1,1,1,1
+access_product_dis_meta_portal,custom_dis.product.dis.meta,custom_dis.model_product_dis_meta,,1,0,0,0

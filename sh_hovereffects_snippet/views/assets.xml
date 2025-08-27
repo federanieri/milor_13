@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="sh_hovereffects_snippet_website_assets_frontend" inherit_id="website.assets_frontend">
+        
+        <xpath expr="." position="inside">
+ 			<link href="/sh_hovereffects_snippet/static/src/scss/hovereffect_snippet.scss" rel="stylesheet" type="text/css"></link>
+            <link href="/sh_hovereffects_snippet/static/src/scss/animate.css" rel="stylesheet" type="text/css"></link>
+        
+            <script src="/sh_hovereffects_snippet/static/src/js/wow_min.js"></script>
+        
+        </xpath>
+                       
+    </template>
+</odoo>

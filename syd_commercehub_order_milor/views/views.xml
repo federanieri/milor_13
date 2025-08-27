@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record id="table_commercehub_order_view_tree" model="ir.ui.view">
+			<field name="name">order_table.commercehub_order.tree</field>
+			<field name="model">order_table.commercehub_order</field>
+			<field name="arch" type="xml">
+				<tree class="o_sale_order"
+					  decoration-info="without_mto and state != 'cancelled'"
+					  decoration-bf="last_update_to_as2 and state != 'cancelled'"
+					  decoration-success="last_update_to_as2 and state != 'cancelled'"
+					  decoration-warning="as2_state=='warning' and state != 'cancelled'"
+					  decoration-danger="as2_state=='error' and state != 'cancelled'"
+					  decoration-muted="state=='cancelled'">
+
+					<field name="without_mto" invisible="1"/>
+					<field name="order_date" readonly="1"/>
+					<field name="commercehub_po" readonly="1"/>
+					<field name="commercehub_co" readonly="1"/>
+					<field name="state" readonly="1"/>
+					<field name="data_spedizione_group" readonly="1"/>
+					<field name="data_spedizione" readonly="1"/>
+					<field name="date_planned_group" readonly="1"/>
+					<field name="ms_po_name" readonly="1"/>
+					<button type="object" name="view_po" string=""
+							icon="fa-arrow-circle-o-right" attrs="{'invisible':[('ms_po_name','=',False)]}" />
+					<field name="vendor_name" string="Fornitore" readonly="1"/>
+					<field name="date_approve" string="Data Confirm PO" readonly="1"/>
+					<field name="date_planned_spa" readonly="1"/>
+					<field name="as2_state_reason"/>
+					<field name="custom_value" readonly="1"/>
+					<field name="product_name" readonly="1"/>
+					<field name="product_display_name" readonly="1"/>
+					<field name="qvc_code" readonly="1"/>
+					<field name="as2_state" invisible="1"/>
+					<field name="last_update_to_as2" invisible="1"/>
+					<field name="ms_so_name" readonly="1"/>
+					<field name="name" optional="hide" readonly="1"/>
+					<button type="object"  name="view_so" string=""
+							icon="fa-arrow-circle-o-right" attrs="{'invisible':[('ms_so_name','=',False)]}"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="table_commercehub_order_view_grid_act">
+			<field name="name">Table Commercehub</field>
+			<field name="res_model">order_table.commercehub_order</field>
+			<field name="view_mode">tree</field>
+		</record>
+
+		<menuitem id="menu_order_table_commercehub" name="Commercehub" parent="sale.sale_menu_root" sequence="5"/>
+		<menuitem action="table_commercehub_order_view_grid_act" id="menu_order_table_chub_action" parent="menu_order_table_commercehub" sequence="4"/>
+
+	</data>
+</odoo>

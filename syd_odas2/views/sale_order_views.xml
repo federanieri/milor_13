@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="sale_order_tree_view" model="ir.ui.view">
+        <field name="name">sale.order.tree</field>
+        <field name="model">sale.order</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Quotation" class="o_sale_order"
+                decoration-bf="last_update_to_as2"
+                decoration-muted="state=='cancel'"
+                decoration-success="last_update_to_as2"
+                decoration-warning="need_synch_to_as2 or as2_state=='warning'"
+                decoration-danger="as2_state=='error'"
+                >
+                <field name="message_needaction" invisible="1"/>
+<!--                <field name="commercehub_source_id" string="Source" readonly="1"/>-->
+                <field name="as2_stream_id" string="Stream" readonly="1"/>
+                <field name="name" string="Quotation Number" readonly="1"/>
+                <field name="has_packingslip" string="pdfs" readonly="1"/>
+                <field name="create_date" string="Create Date"/>
+                <field name="partner_id" readonly="1" />
+                <field name="user_id" optional="show"/>
+                <field name="team_id" optional="hide"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show" readonly="1"/>
+                <field name="amount_untaxed" sum="Total Tax Excluded" widget="monetary" optional="hide"/>
+                <field name="amount_tax" sum="Tax Total" widget="monetary" optional="hide"/>
+                <field name="amount_total" sum="Total Tax Included" widget="monetary" optional="show"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="state" optional="show"/>
+                <field name="invoice_status" optional="hide"/>
+                <field name="from_as2"/>
+                <field name="need_synch_to_as2" string="Confirming to AS2"/>
+                <field name="as2_state"/>
+                <field name="as2_state_reason"/>
+                <field name="activity_exception_decoration" widget="activity_exception"/>
+                <field name="last_update_to_as2" string="Confirmed to AS2" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sale_order_form_view" model="ir.ui.view">
+        <field name="name">sale.order.form.view.odas2</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="syd_product_milor.view_quotation_form_milor"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook//page[last()]" position="after">
+                <page name="commercehub" string="CommerceHub" groups="syd_odas2.group_admin" attrs="{'invisible': [('commercehub_sale_order_id','=',False),('from_as2','=',False)]}">
+                    <group name="technical" groups="base.group_no_one">
+                        <group>
+                            <field name="from_as2"/>
+                            <field name="last_update_from_as2"/>
+                        </group>
+                        <group>
+                            <field name="need_synch_to_as2" string="Confirming to AS2"/>
+                            <field name="last_update_to_as2" string="Confirmed to AS2" />
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                        	<field name="delivery_status" invisible="1"/>
+                        	<field name="cancel_request" attrs="{'readonly': [('delivery_status','=','delivered')]}"/>
+                        	<field name="cancel_request_processed" attrs="{'readonly': [('delivery_status','=','delivered')]}"/>
+                            <field name="commercehub_sale_order_id" readonly="0"/>
+                            <field name="commercehub_po" readonly="0"/>
+                            <field name="commercehub_co" readonly="0"/>
+                            <field name="as2_stream_id" readonly="0"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="as2_state" readonly="0"/>
+                            <field name="as2_state_reason" readonly="0"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//button[@name='action_view_invoice']" position="before">
+<!--                <button type="object"-->
+<!--                        string="Show Source AS2 SO"-->
+<!--                        name="action_show_source_as2_doc"-->
+<!--                        attrs="{'invisible': ['|',('from_as2','=',False),('commercehub_po','in',[False, ''])]}"-->
+<!--                        icon="fa-">-->
+<!--                </button>-->
+                <button type="object"
+                        string="Confirm to AS2 (resend)"
+                        name="action_mark_as2_confirm"
+                        confirm="Are you sure you want to resend confirmation to AS2?"
+                        attrs="{'invisible': ['|', '|', ('last_update_to_as2','=',False), ('from_as2','=',False), ('need_synch_to_as2','=',True)]}"
+                        icon="fa-handshake-o">
+                </button>
+                <button type="object"
+                        string="Confirm to AS2"
+                        name="action_mark_as2_confirm"
+                        attrs="{'invisible': ['|', '|', ('last_update_to_as2','!=',False), ('from_as2','=',False),('need_synch_to_as2','=',True)]}"
+                        icon="fa-handshake-o">
+                </button>
+                <button type="object"
+                        name="action_unmark_as2_confirm"
+                        attrs="{'invisible': ['|',('from_as2','=',False),('need_synch_to_as2','=',False)]}">
+                    <span class="fa-stack fa-lg"
+                          style="padding-top: 8px; margin-left:2px; margin-top:2px; font-size: 22px;">
+                        <i class="fa fa-stack-1x fa-handshake-o" style=""></i>
+                        <i class="fa fa-stack-1x fa-ban" style="color:#ff0000;"></i>
+                    </span>
+                    <span>Do not confirm to AS2</span>
+                </button>
+            </xpath>
+            <field name="origin" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </field>
+            <xpath  expr="//field[@name='order_line']/tree/field[@name='free_product']" position="before">
+                <field name="custom_value"/>
+                <field name="product_note"/>
+            </xpath>
+            <xpath  expr="//field[@name='order_line']/tree//field[last()]" position="after">
+                <field name="as2_metadata" groups="syd_odas2.group_admin"/>
+            </xpath>
+            <xpath  expr="//field[@name='order_line']/form//group" position="after">
+                <group>
+                    <field name="custom_value"/>
+                    <field name="product_note"/>
+                    <field name="as2_metadata" groups="syd_odas2.group_admin"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_order_search_form_view" model="ir.ui.view">
+        <field name="name">sale.order.search.form.view.odas2</field>
+        <field name="model">sale.order</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter" position="before">
+                <filter name="filter_from_as2" string="From AS2" domain="[('from_as2','=',True)]"/>
+                <filter name="to_be_confirmed" string="To Be Confirmed" domain="[('last_update_to_as2','=',False)]"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_sales_order_filter" model="ir.ui.view">
+        <field name="name">sale.order.search.filter</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="as2_stream_id" string="CommerceHub Stream"/>
+                <field name="commercehub_co" string="CommerceHub CO"/>
+                <field name="commercehub_po" string="CommerceHub PO"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="action_sale_order" model="ir.actions.act_window">
+        <field name="name">AS2 Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_id" ref="sale_order_tree_view"/>
+        <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
+        <field name="search_view_id" ref="sale_order_search_form_view"/>
+<!--        <field name="context">{'search_default_filter_from_as2':1}</field>-->
+        <field name="context">{'default_from_as2': True}</field>
+        <field name="domain">[('from_as2','=',True)]</field>
+    </record>
+
+</odoo>

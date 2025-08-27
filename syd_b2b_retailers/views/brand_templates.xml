@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="brand" name="Brand">
+        <t t-call="website.layout">
+            <div itemscope="itemscope" itemtype="http://schema.org/Brand" id="wrap">
+                <section class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="text-secondary mt16 mb16">Hello , <strong><span t-esc="request.env.user.name"/></strong></h3>
+                        </div>
+                    </div>
+                    <div class="row" t-if="not brands">
+                        <div class="col-md-12">
+                            <h5 class="text-primary text-center mt16 mb16">No Brands Available</h5>
+                        </div>
+                    </div>
+                </section>
+                <section class="s_three_columns pt32 pb32">
+                    <div class="container">
+                        <div class="row d-flex align-items-stretch">
+                            <t t-foreach="brands" t-as="brand">
+                                <div class="col-lg-4 s_col_no_bgcolor pt16 pb16">
+                                    <div class="card bg-white">
+                                        <a t-attf-href="/shop?brand={{brand.id}}"><img class="card-img-top" t-attf-src="/web/image/common.product.brand.ept/{{brand.id}}/logo" alt="Odoo - Sample 1 for three columns"/></a>
+                                        <div class="card-body">
+                                            <h3 class="card-title"><span t-field="brand.name"/></h3>
+                                            <p class="card-text"><span t-field="brand.description"/></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+</odoo>

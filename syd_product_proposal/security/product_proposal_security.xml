@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="group_proposal_product_code_visibility" model="res.groups">
+			<field name="name">Customer Product Code Visibility</field>
+		</record>
+	</data>
+</odoo>

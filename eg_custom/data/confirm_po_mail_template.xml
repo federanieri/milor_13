@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+        <record id="email_template_confirmed_vendor_po" model="mail.template">
+            <field name="name">Vendors: Mail Template Confirm Purchase Orders</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="email_from">${object.company_id.email |safe}</field>
+            <field name="email_to">${object.email_formatted | safe}</field>
+            <field name="subject">${object.name} : Nuovi Ordini disponibili sul portale</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="lang">${object.lang}</field>
+            <field name="body_html"><![CDATA[
+<p>
+	In allegato la lista dei nuovi ordini che troverete sul portale
+</p>
+<br/>
+]]>
+            </field>
+        </record>
+
+        <record id="email_template_for_purchase_rework" model="mail.template">
+            <field name="name">Rework</field>
+            <field name="model_id" ref="eg_custom.model_purchase_order"/>
+            <field name="email_from">${object.company_id.email |safe}</field>
+            <field name="email_to">${object.partner_id.email_formatted | safe}</field>
+            <field name="subject">Rework</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html"><![CDATA[
+<p>
+	Ciao "${object.partner_id.name}",  quest'ordine è da rifare
+</p>
+<br/>
+<br/>
+<br/>
+<center>
+                            <a href="${object.get_portal_url()}"
+                                target="_blank"
+                                style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">
+                                View Order
+                            </a>
+                        </center>
+]]>
+            </field>
+        </record>
+    </data>
+</odoo>

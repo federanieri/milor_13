@@ -1,0 +1,56 @@
+<odoo>
+    <data>
+          
+  <record model="ir.actions.server" id="menu_action_view_assign_ean">
+   <field name="name">Assign EAN</field>
+   <field name="model_id" ref="product.model_product_product" />
+   <field name="binding_model_id" ref="product.model_product_product" />
+   <field name="state">code</field>
+   <field name="code">
+if records:
+	for rec in records:
+		action=rec.assign_ean_auto()
+   </field>
+   </record>
+    
+     
+   <record model="ir.actions.server" id="menu_action_view_unassign_ean">
+   <field name="name">Unassign EAN</field>
+   <field name="model_id" ref="product.model_product_product" />
+   <field name="binding_model_id" ref="product.model_product_product" />
+   <field name="state">code</field>
+   <field name="code">
+if records:
+	for rec in records:
+		action=rec.delete_ean()
+   </field>
+   </record>
+   
+   
+  <record model="ir.actions.server" id="menu_action_view_assign_ean_mngt">
+   <field name="name">Force EAN</field>
+   <field name="model_id" ref="model_assign_ean" />
+   <field name="binding_model_id" ref="model_assign_ean" />
+   <field name="state">code</field>
+   <field name="code">
+if records:
+	for rec in records:
+		action=rec.action_force_ean()
+   </field>
+   </record>
+
+     
+<!--    <record model="ir.actions.server" id="menu_action_view_unassign_ean_mngt">
+   <field name="name">Unassign product</field>
+   <field name="model_id" ref="model_assign_ean" />
+   <field name="binding_model_id" ref="model_assign_ean" />
+   <field name="state">code</field>
+   <field name="code">
+if records:
+	for rec in records:
+		action=rec.delete_product()
+   </field>
+   </record>  -->
+          
+    </data>
+</odoo>

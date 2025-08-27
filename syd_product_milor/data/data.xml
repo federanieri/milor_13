@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!--
+             Precisions
+        -->
+        <record forcecreate="True" id="milor_dimension" model="decimal.precision">
+            <field name="name">Milor Dimension</field>
+            <field name="digits">2</field>
+        </record>
+        
+
+    </data>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="import_json_wizard_form" model="ir.ui.view">
+        <field name="name">import.json.wizard.form</field>
+        <field name="model">sale.order.import.json.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+               <group>
+                    <field name="json_file"/>
+               </group>
+               <footer>
+                    <button name="import_json_file" string="Import" type="object" class="btn-primary"/>
+                    <button special="cancel" string="Cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="import_json_file_action" model="ir.actions.act_window">
+        <field name="name">Import OdAS2 json File</field>
+        <field name="res_model">sale.order.import.json.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_action_import_xml_file" parent="syd_odas2.menu_technical" action="import_json_file_action" groups="base.group_no_one"/>
+
+</odoo>

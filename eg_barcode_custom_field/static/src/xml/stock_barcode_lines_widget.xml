@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="stock_barcode_lines_template">
+        <t t-jquery=".o_barcode_line.list-group-item.d-flex.flex-row.flex-nowrap .o_barcode_line_details.flex-grow-1.flex-column.flex-nowrap .o_barcode_line_title.pb-1"
+           t-operation="after">
+            <span class="o_barcode_scanner_qty text-monospace">
+                <span>Custom Value: </span>
+                <strong><span><t t-esc="line.custom_value or ''"/></span></strong>
+            </span>
+        </t>
+    </t>
+</templates>

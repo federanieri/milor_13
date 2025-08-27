@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="view_website_form_inherit_syd_b2b_retailers" model="ir.ui.view">
+            <field name="name">website.form.inherit.b2b.retailers</field>
+            <field name="model">website</field>
+            <field name="inherit_id" ref="website.view_website_form"/>
+            <field name="arch" type="xml">
+                <field name="default_lang_id" position="after">
+                    <field name="is_b2b_website"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

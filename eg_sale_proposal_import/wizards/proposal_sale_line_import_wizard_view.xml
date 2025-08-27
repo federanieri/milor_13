@@ -1,0 +1,38 @@
+<odoo>
+    <record model="ir.ui.view" id="proposal_sale_line_import_wizard_form_view">
+        <field name="name">proposal.sale.line.import.wizard.form</field>
+        <field name="model">proposal.sale.line.import.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <label string="Download Sample File" for="download_sample_file"/>
+                            <div>
+                                <button name="download_sample_file"
+                                        type="object" class="btn-link" icon="fa-download"/>
+                            </div>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="select_file" filename="file_name"/>
+                            <field name="file_name" invisible="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="import_proposal_sale_lines" string="Import Lines"
+                                type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_proposal_sale_line_import_wizard">
+        <field name="name">Import Proposal Sale Lines</field>
+        <field name="res_model">proposal.sale.line.import.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

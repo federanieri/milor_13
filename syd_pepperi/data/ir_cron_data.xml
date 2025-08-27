@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="ir_cron_sync_pepperi_contacts" model="ir.cron">
+            <field name="name">Pepperi: update Contacts status</field>
+            <field name="model_id" ref="base.model_res_partner" />
+            <field name="state">code</field>
+            <field name="code">model._cron_sync_pepperi_contacts(True, False)</field>
+            <field name="active" eval="False" />
+            <field name="user_id" ref="base.user_admin" />
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+        </record>
+        <record id="ir_cron_sync_pepperi_products" model="ir.cron">
+            <field name="name">Pepperi: update product status</field>
+            <field name="model_id" ref="product.model_product_product" />
+            <field name="state">code</field>
+            <field name="code">model._cron_sync_pepperi_products(True, False)</field>
+            <field name="active" eval="False" />
+            <field name="user_id" ref="base.user_admin" />
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+        </record>
+        <record id="ir_cron_sync_post_pepperi_products" model="ir.cron">
+            <field name="name">Pepperi: update product status to pepperi</field>
+            <field name="model_id" ref="product.model_product_product" />
+            <field name="state">code</field>
+            <field name="code">model._cron_sync_post_pepperi_products(True, False)</field>
+            <field name="active" eval="False" />
+            <field name="user_id" ref="base.user_admin" />
+            <field name="interval_number">10</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+        </record>
+        <record id="ir_cron_sync_pepperi_pricelist" model="ir.cron">
+            <field name="name">To Pepperi: update pricelist status</field>
+            <field name="model_id" ref="product.model_product_pricelist" />
+            <field name="state">code</field>
+            <field name="code">model._cron_sync_pepperi_pricelist(True, False)</field>
+            <field name="active" eval="False" />
+            <field name="user_id" ref="base.user_admin" />
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+        </record>
+        <record id="ir_cron_sync_pepperi_pricelist_item" model="ir.cron">
+            <field name="name">To Pepperi: update pricelist item status</field>
+            <field name="model_id" ref="product.model_product_pricelist_item" />
+            <field name="state">code</field>
+            <field name="code">model._cron_sync_pepperi_pricelist_item(True, False)</field>
+            <field name="active" eval="False" />
+            <field name="user_id" ref="base.user_admin" />
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+        </record>
+        <record id="ir_cron_sync_pepperi_order_transaction" model="ir.cron">
+            <field name="name">From Pepperi: update order transaction status</field>
+            <field name="model_id" ref="sale.model_sale_order" />
+            <field name="state">code</field>
+            <field name="code">model._cron_sync_pepperi_sale_order(True, False)</field>
+            <field name="active" eval="False" />
+            <field name="user_id" ref="base.user_admin" />
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+        </record>
+        <record id="ir_cron_sync_pepperi_product_stock" model="ir.cron">
+            <field name="name">To Pepperi: update stock: inventory status</field>
+            <field name="model_id" ref="product.model_product_product" />
+            <field name="state">code</field>
+            <field name="code">model._cron_sync_pepperi_stock(True, False)</field>
+            <field name="active" eval="False" />
+            <field name="user_id" ref="base.user_admin" />
+            <field name="interval_number">10</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+        </record>
+        <record id="ir_cron_sync_post_pepperi_sale_order" model="ir.cron">
+            <field name="name">To Pepperi: post order transaction pepperi status </field>
+            <field name="model_id" ref="sale.model_sale_order" />
+            <field name="state">code</field>
+            <field name="code">model._cron_sync_post_pepperi_sale_order(True, False)</field>
+            <field name="active" eval="False" />
+            <field name="user_id" ref="base.user_admin" />
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+        </record>
+    </data>
+</odoo>

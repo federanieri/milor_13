@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="purchase_order_form_view" model="ir.ui.view">
+        <field name="name">purchase.order.form.view.odas2</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/notebook/page[last()]" position="after">
+                <page name="commercehub" string="CommerceHub" groups="syd_odas2.group_admin" attrs="{'invisible': [('commercehub_sale_order_id','=',False)]}">
+                    <group>
+                        <group>
+                        	<field name="received_status" invisible="1"/>
+                        	<field name="cancel_request" attrs="{'readonly': [('received_status', '=', 'received')]}"/>
+                        	<field name="cancel_request_processed" attrs="{'readonly': [('received_status', '=', 'received')]}"/>
+                            <field name="commercehub_sale_order_id" readonly="1"/>
+<!--                            <field name="commercehub_source_id" readonly="1"/>-->
+                            <field name="commercehub_po" readonly="1"/>
+                            <field name="commercehub_co" readonly="1"/>
+                            <field name="as2_stream_id" readonly="1"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath  expr="//field[@name='order_line']/tree//field[last()]" position="after">
+                <field name="commercehub_sale_order_id" readonly="1"/>
+<!--                <field name="commercehub_source_id" readonly="1"/>-->
+                <field name="commercehub_po" readonly="1"/>
+                <field name="commercehub_co" readonly="1"/>
+                <field name="as2_stream_id" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_purchase_order_filter" model="ir.ui.view">
+        <field name="name">purchase.order.search.filter</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_view_search"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+<!--                <field name="commercehub_source_id" string="CommerceHub Stream"/>-->
+                <field name="as2_stream_id" string="CommerceHub Stream"/>
+            </field>
+        </field>
+    </record>
+
+
+</odoo>

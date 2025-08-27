@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright 2022 Nexapp S.r.l.
+  License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+ -->
+<odoo>
+    <record id="view_confirm_purchase_order_check" model="ir.ui.view">
+        <field name="name">view.confirm.purchase.order.check</field>
+        <field name="model">confirm.purchase.order</field>
+        <field name="arch" type="xml">
+            <form string="Confirm Order">
+                This order has lines with price 0, are you sure you want to continue?
+                <footer>
+                    <button string="Confirm Order" name="button_confirm_check" type="object"
+                            class="oe_highlight"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

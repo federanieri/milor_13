@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+    
+     <record id="table_template_order_view_tree" model="ir.ui.view">
+            <field name="name">order_table.template_forecast.tree</field>
+            <field name="model">order_table.template_forecast</field>
+            <field name="arch" type="xml">
+                <tree >
+                		<field name="name" />
+                	
+				    </tree>
+		    </field>
+    </record>
+		
+	<record id="table_template_order_view_form" model="ir.ui.view">
+            <field name="name">order_table.template_forecast.form</field>
+            <field name="model">order_table.template_forecast</field>
+            <field name="arch" type="xml">
+                <form string="Table">
+                
+                <sheet>
+                	<group>
+                		<field name="name" />
+                		<field name="base_pricelist_id" />
+                		<field name="internal_pricelist_id" />
+                		<field name="promo_pricelist_id" />
+                		<field name="stock_location_id" />
+                		<field name="other_location_id" />
+                		
+                	</group>
+                 <group>
+                 	<field name="report_sale_domain" widget="domain" options="{'model': 'report_sale_model', 'in_dialog': True}"/>
+                 	<field name="report_sale_domain_other" widget="domain" options="{'model': 'report_sale_model', 'in_dialog': True}"/>
+                 
+                	<field name="report_sale_model" invisible="1"/>
+                 
+                 </group>
+                 <group>
+                 	<field name="product_filter_domain" widget="domain" options="{'model': 'product_model_name', 'in_dialog': True}"/>
+                 	<field name="product_model_name" invisible="1"/>
+                 
+                 
+                 </group>
+                 <group>
+                 	<field name="company_id" />
+                 	<field name="other_company_id" />
+                 
+                 
+                 </group>
+                </sheet>
+                
+                </form>
+                </field>
+              </record>
+		
+	      <record id="table_order_view_tree" model="ir.ui.view">
+            <field name="name">order_table.forecast_order.tree</field>
+            <field name="model">order_table.forecast_order</field>
+            <field name="arch" type="xml">
+                <tree string="Products">
+                		<field name="name" />
+                	<field name="date" />
+                	<field name="state" />
+				    </tree>
+		    </field>
+    </record>
+    	  
+     <record id="table_order_view_form" model="ir.ui.view">
+            <field name="name">order_table.forecast_order.form</field>
+            <field name="model">order_table.forecast_order</field>
+            <field name="arch" type="xml">
+                <form string="Table">
+                
+                <header>
+                	<button  name="populate" string="Start" type="object" states="draft"/>
+                	<button  string="Create PO" type="object" name="create_po" states="confirmed"/>
+                	<button  string="Create SO" type="object" name="create_so" states="confirmed"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,confirmed,done" readonly="1"/>
+                    <button name="confirm" type="object" states="in_progress" string="Confirm" class="oe_highlight" />
+                 
+                </header>
+                <sheet>
+                <div class="oe_button_box" name="button_box">
+                        <button type="object"  name="action_view_po"
+                            class="oe_stat_button"
+                            icon="fa-pencil-square-o" attrs="{'invisible':[('po_count', '=', 0)]}">
+                            <field name="po_count" widget="statinfo" string="Purchase Orders"/>
+                            <field name='po_ids' invisible="1"/>
+                        </button>
+                        <button type="object"  name="action_view_so"
+                            class="oe_stat_button"
+                            icon="fa-pencil-square-o" attrs="{'invisible':[('so_count', '=', 0)]}">
+                            <field name="so_count" widget="statinfo" string="Sale Orders"/>
+                            <field name='so_ids' invisible="1"/>
+                        </button>
+                        <button type="object"  name="action_view_lines"
+                            class="oe_stat_button"
+                            icon="fa-pencil-square-o" attrs="{'invisible':[('line_count', '=', 0)]}">
+                            <field name="line_count" widget="statinfo" string="Lines"/>
+                            
+                        </button>
+                    </div>
+                <group>
+                	<field name="name" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                	<field name="date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                	
+                	<field name="template_id" />
+                	<field name="date_order_start" />
+                	<field name="date_order_end" />
+                </group>
+                
+                
+                <field name="forecast_order_line_ids" >
+                  <tree  editable="bottom" >
+                    <field name="sequence" widget="handle" />
+                    <field name="image_256" widget="image"  options="{'zoom': true, 'preview_image':'image_128'}" />
+                    <field name="product_id"/>
+                    <field name="product_brand_id" optional="show"/>
+                    <field name="product_tmpl_id" invisible="1" />
+                    
+                    <field name="qvc_code" optional="hide" />
+                    <field name="qvc_extension_code" optional="hide"/>
+                    <field name="milor_code" optional="hide"/>
+                    <field name="default_code" optional="hide"/>
+                    <field name="milor_extension_code" optional="hide"/>
+                    <field name="vendor_sku" optional="hide"/>    
+                    <field name="barcode" optional="hide"/>   
+                    <field name="supplier_ids" widget="many2_many_tags"/> 
+                    <field name="currency_base" invisible="1"/> 
+                    <field name="base_price" optional="hide"/> 
+                    <field name="currency_internal" invisible="1"/> 
+                    <field name="internal_price" optional="hide"/>                       
+                    <field name="currency_promo" invisible="1"/> 
+                    <field name="promo_price" optional="hide"/> 
+                    <field name="has_promo" optional="hide"/>
+                    <field name="stock" optional="show"/>
+                    <field name="other_stock" optional="show"/>
+                    
+                    <field name="total_sold" optional="show" />
+                    <field name="qty_sold" optional="show"/>
+                    <button name="action_view_other_sold" type="object" icon="fa-arrow-circle-o-right" string="Analytics" />
+                    <field name="incoming_qty" optional="show"/>
+                    <field name="to_order" optional="show"/> 
+                    <field name="partner_id" optional="hide"/>   
+                    <field name="to_send" optional="show"/>    
+                  	 <field name="currency_sold" invisible="1"/> 
+                  	 
+                  </tree>
+                   
+                </field>
+                
+                    </sheet>
+                    <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+        </record>
+	
+	<record model="ir.actions.act_window" id="table_order_view_grid_act">
+	        <field name="name">Table</field>
+	        <field name="res_model">order_table.forecast_order</field>
+	        <field name="view_mode">tree,form</field>
+
+   </record>
+   
+   <record model="ir.actions.act_window" id="table_order_template_act">
+	        <field name="name">Template Table</field>
+	        <field name="res_model">order_table.template_forecast</field>
+	        <field name="view_mode">tree,form</field>
+
+   </record>
+   
+   
+    <record id="table_order_line_view_tree" model="ir.ui.view">
+            <field name="name">order_table.forecast_order_line.tree</field>
+            <field name="model">order_table.forecast_order_line</field>
+            <field name="arch" type="xml">
+                <tree string="Products" editable="bottom" create="0" multi_edit="1">
+                	<field name="sequence" widget="handle" />
+                    <field name="image_256" widget="image"  options="{'zoom': true, 'preview_image':'image_128'}" />
+                    <field name="product_brand_id" />
+                    <field name="product_tmpl_id" invisible="1" />
+                    <field name="product_id" optional="show"/>
+                    <field name="qvc_code" optional="show" />
+                    <field name="qvc_extension_code" optional="show"/>
+                    <field name="milor_code" optional="hide"/>
+                    <field name="default_code" optional="hide"/>
+                    <field name="milor_extension_code" optional="hide"/>
+                    <field name="vendor_sku" optional="show"/>    
+                    <field name="barcode" optional="show"/>   
+                    <field name="supplier_ids" widget="many2_many_tags"/> 
+                    <field name="currency_base" invisible="1"/> 
+                    <field name="base_price" optional="show"/> 
+                    <field name="currency_internal" invisible="1"/> 
+                    <field name="internal_price" optional="hide"/>                       
+                    <field name="currency_promo" invisible="1"/> 
+                    <field name="promo_price" optional="hide"/> 
+                    <field name="has_promo" optional="show"/>
+                    <field name="stock" optional="show"/>
+                    <field name="other_stock" optional="show"/>
+                    <field name="currency_sold" invisible="1"/> 
+                    <field name="total_sold" optional="show"/>
+                    <field name="qty_sold" optional="show"/>
+                    <button name="action_view_other_sold" type="object" icon="fa-arrow-circle-o-right" string="Analytics" />
+                    <field name="incoming_qty" optional="show"/>
+                    <field name="to_order" /> 
+                    <field name="to_send" /> 
+                    <field name="partner_id" optional="hide"/>    
+                      
+				    </tree>
+		    </field>
+    </record>
+
+
+<menuitem 
+        id="menu_order_table_root"
+        name="Table"
+        parent="sale.sale_menu_root" sequence="5"/>	
+        
+         
+<menuitem action="table_order_view_grid_act"
+        id="menu_order_table_grid"
+        
+        parent="menu_order_table_root" sequence="4"/>	
+        
+        
+    <menuitem action="table_order_template_act"
+        id="menu_order_table_template_grid"
+        
+        parent="menu_order_table_root" sequence="4"/>	
+        
+        		
+		</data>
+</odoo>

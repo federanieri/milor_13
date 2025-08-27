@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+	<record model="ir.actions.server"
+		id="action_get_invoice">
+		<field name="name">Get Invoice</field>
+		<field name="model_id" ref="syd_os1.model_syd_os1_doc_os1" />
+		<field name="binding_model_id" ref="syd_os1.model_syd_os1_doc_os1" />
+		<field name="state">code</field>
+		<field name="code">
+if records:
+	action = records.getInvoice()
+		</field>
+	</record>
+	
+	<record model="ir.actions.server"
+		id="action_get_ddt">
+		<field name="name">Get DDT</field>
+		<field name="model_id" ref="syd_os1.model_syd_os1_doc_os1" />
+		<field name="binding_model_id" ref="syd_os1.model_syd_os1_doc_os1" />
+		<field name="state">code</field>
+		<field name="code">
+if records:
+	action = records.getDDTState()
+		</field>
+	</record>
+</odoo>

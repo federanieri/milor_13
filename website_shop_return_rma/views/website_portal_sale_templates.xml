@@ -1,0 +1,395 @@
+<odoo>
+
+    <template id="portal_return_my_home_menu_return_order" name="Portal layout : return order menu entries" inherit_id="portal.portal_breadcrumbs">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+             <li t-if="page_name == 'return' or returns" t-attf-class="breadcrumb-item #{'active ' if not returns else ''}">
+                Return Orders
+            </li>
+        </xpath>
+    </template>
+
+        <!-- <template id="portal_my_return" name="Portal My return: project entries" inherit_id="portal.portal_my_home" priority="40">
+            <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+                <t t-if="return_or_sale_count" t-call="portal.portal_docs_entry">
+                    <t t-set="title">Your Returns</t>
+                    <t t-set="url" t-value="'/my/returns'"/>
+                    <t t-set="count" t-value="return_count"/>
+                </t>
+            </xpath>
+        </template> -->
+
+    <template id="display_returns" name="Display Returns">
+        <t t-call="portal.portal_layout">
+        <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Return Order</t>
+            </t>
+            <table class="table table-hover o_my_status_table bg-white rounded">
+                <thead>
+                  <tr class="active">
+                    <th>Number</th>
+                    <th>Created Date</th>
+                    <th>Product</th>
+                    <th>Reason</th>
+                    <th>Stage</th>
+                  </tr>
+                </thead>
+                <t t-foreach="returns" t-as="ret">
+                    <tr>
+                        <td>
+                            <span t-field="ret.number"/>
+                        </td>
+                        <td>
+                            <span t-field="ret.create_date"/>
+                        </td>
+                        <td>
+                        	<t t-if="ret.product_id">
+                            <span t-field="ret.product_id.name"/>
+                            </t>
+                            <t t-if="not ret.product_id">
+                            <span t-field="ret.product_code"/>
+                            </t>
+                        </td>
+                        <td>
+                            <span t-field="ret.reason"/>
+                        </td>
+                         <td>
+                            <span t-field="ret.state"/>
+                        </td>
+                    </tr>
+                </t>
+            </table>
+<!--             <a class="btn btn-secondary  mr-3" title="New Return" href="/return/customer_form"> Return</a>
+ -->             </t>
+    </template>
+
+	<!-- inherit_id="sale.portal_order_page" -->
+    <!-- <template id="orders_followup_return_product" name="Sale order product return" priority="28" inherit_id="sale.sale_order_portal_content">
+        <xpath expr="//h2[hasclass('my-0')]/em" position="after">
+            <form action="/my/return" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <br/>
+                <a t-if="sale_order.state == 'sale'" id="add_to_cart" class="btn btn-primary float-right mr-3" 
+                data-placement="top" data-id = "ol" data-html="true" data-toggle="modal" data-target="#get_so"><font color="white">
+                Return</font></a>
+            </form>
+            
+            <div role="dialog" class="modal fade" tabindex="-1"
+            id="get_so">
+                <div class="modal-dialog modal-md">
+                    <form action="/return/product" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <li t-if="page_name == 'return' or sale_order and sale_order.state != 'sent'" 
+                        t-attf-class="breadcrumb-item #{'active ' if not sale_order else ''}">
+                            <div class="modal-content">
+                                <header class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" 
+                                    aria-hidden="true">&amp;times;</button>
+                                    <div align="center">
+                                        <strong>
+                                            <h3 class="modal-title" aling="center">Return Product</h3>
+                                        </strong>
+                                    </div>
+                                </header>
+                                <main class="modal-body">
+                                    <section>
+                                        <div class="row">
+                                            <div class="form-group col-xl-6">
+                                                <label class="col-form-label" for="name">Customer</label>
+                                                <input type="text" name="partner_name" class="form-control" 
+                                                    t-attf-value="#{sale_order.partner_id.name}"
+                                                    readonly="True" required="True"/>
+                                            </div>
+                                            <div class="form-group col-xl-6">
+                                                <label class="col-form-label" for="name">Sale Order</label>
+                                                <input type="text" name="order" class="form-control" 
+                                                    t-attf-value="#{sale_order.name}"
+                                                    readonly="True" required="True"/>
+                                            </div>
+                                            <div class="form-group col-xl-6" id="product">
+                                                <label class="col-form-label" for="name">Product to Return</label>
+                                                <div>
+                                                    <select name="line_id" class="form-control" required="required">
+                                                        <option value="">Select Product...</option>
+                                                        <t t-foreach="sale_order.order_line or []" t-as="line">
+                                                            <option t-att-value="line.id">
+                                                                <t t-esc="line.product_id.name" />
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-xl-6">
+                                                <label class="col-form-label" for="name">Return Quantity</label>
+                                                <input type="number" class="form-control" name="quantity" required="True"/>
+                                            </div>
+                                            <div class="form-group col-xl-12" id="return_type">
+                                                <label class="col-form-label" for="name">Return mode</label>
+                                                <div>
+                                                    <select name="return_type" class="form-control" required="True">
+                                                        <option value="">Select mode...</option>
+                                                        <option t-att-value="replacement">Replacement</option>
+                                                        <option t-att-value="refund">Refund</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                              <div class="form-group col-xl-4">
+                                                <label class="col-form-label" for="delivery_method">Delivery Method</label>
+                                                <input type="text" class="form-control" name="delivery_method"/>
+                                            </div>
+                                              <div class="form-group col-xl-4">
+                                                <label class="col-form-label" for="document_number">Document Number</label>
+                                                <input type="text" class="form-control" name="document_number"/>
+                                            </div>
+                                              <div class="form-group col-xl-4">
+                                                <label class="col-form-label" for="document_date">Document Date</label>
+                                                <input type="text" class="form-control" name="document_date"/>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="name">Return Reason</label>
+                                            <textarea class="form-control" rows="8" cols="66" name="reason" required="True"/>
+                                        </div>
+                                        <input type="hidden" name="partner_id" t-att-value="user_id.partner_id.id"/>
+                                        <input type="hidden" name="order_id" t-att-value="sale_order.id"/>
+                                    </section>
+                                </main>
+                                <footer class="modal-footer">
+                                    <button class="btn btn-success">Submit</button>
+                                    <button type="button" class="btn btn-link" data-dismiss="modal" style="padding: 0">Cancel</button>
+                            </footer>
+                            </div>
+                        </li>
+                    </form>
+                </div>
+            </div>
+            
+            
+
+        </xpath>
+    </template> -->
+<template id="customer_form_return" name="Form Return">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <br/><br/>
+                <div class="oe_structure"/>
+                <div class="container">
+                    <form action="/return/product_form" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <div class="row">
+                                            <div class="form-group col-xl-6" id="product">
+                                                 <label class="col-form-label" for="product_code">Product Code to Return (barcode)</label>
+                                                <input type="text" name="product_code" class="form-control" required="True"/>
+                                            </div>
+                                            <div class="form-group col-xl-6">
+                                                <label class="col-form-label" for="quantity">Return Quantity</label>
+                                                <input type="number" class="form-control" name="quantity" required="True"/>
+                                            </div>
+                                            <div class="form-group col-xl-12" id="return_type">
+                                                <label class="col-form-label" for="return_type">Return mode</label>
+                                                <div>
+                                                    <select name="return_type" class="form-control" required="True">
+                                                        <option value="">Select mode...</option>
+                                                        <option value="replacement">Replacement</option>
+                                                        <option value="refund">Refund</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="name">Return Reason</label>
+                                            <textarea class="form-control" rows="8" cols="66" name="reason" required="True"/>
+                                        </div>
+                                        
+                                    
+                                
+                                    <button class="btn btn-success">Submit</button>
+                            
+                        
+                    </form>
+                </div>
+            </div>
+        </t>
+    </template>
+        
+<template id="form_return" name="Form Return">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <br/><br/>
+                <div class="oe_structure"/>
+                <div class="container">
+                    <form action="/return/product_form" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <div class="row">
+                                            <div class="form-group col-xl-6 o_website_form_required">
+                                                <label class="col-form-label" for="name">Email</label>
+                                                <input type="text" name="email" class="form-control" 
+                                                   required="True"/>
+                                            </div>
+                                            <div class="form-group col-xl-6 o_website_form_required">
+                                                <label class="col-form-label" for="name">Sale Order Code</label>
+                                                <input type="text" name="order_code" class="form-control" required="True"/>
+                                            </div>
+                                            <div class="form-group col-xl-6 o_website_form_required" id="product">
+                                                 <label class="col-form-label" for="product_code">Product Code to Return (barcode)</label>
+                                                <input type="text" name="product_code" class="form-control" required="True"/>
+                                            </div>
+                                            <div class="form-group col-xl-6 o_website_form_required">
+                                                <label class="col-form-label" for="quantity">Return Quantity</label>
+                                                <input type="number" class="form-control" name="quantity" required="True"/>
+                                            </div>
+                                            <div class="form-group col-xl-12 o_website_form_required" id="return_type">
+                                                <label class="col-form-label" for="return_type">Return mode</label>
+                                                <div>
+                                                    <select name="return_type" class="form-control" required="True">
+                                                        <option value="">Select mode...</option>
+                                                        <option value="replacement">Replacement</option>
+                                                        <option value="refund">Refund</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group o_website_form_required">
+                                            <label class="col-form-label" for="name">Return Reason</label>
+                                            <textarea class="form-control" rows="8" cols="66" name="reason" required="True"/>
+                                        </div>
+                                        
+                                    <div class="row form-group form-field o_website_form_custom o_fake_not_editable o_website_form_required">
+            <div class="col-md-4 offset-lg-3 col-lg-5">
+              <label class="col-form-label o_fake_editable" for="accept">
+                Accetto la regolamentazione sulla Privacy e le Condizioni Generali relative al trattamento dei miei dati e acconsento a ricevere notizie e offerte da Milor.<br />
+              </label>
+            </div>
+            <div class="col-md-8 pt8 col-lg-1">
+              <input type="checkbox" value="Yes" class="o_website_form_input" name="accept" required="" />
+            </div>
+          </div>
+                                
+                                    <button class="btn btn-success">Submit</button>
+                            
+                        
+                    </form>
+                </div>
+            </div>
+        </t>
+    </template>
+    
+    
+    
+    <template id="successful_return_from_form" name="Success Return">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <br/><br/>
+                <div class="oe_structure"/>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="alert alert-info">
+                                <strong> Your return order  request created successfully.<br/>
+                                We will get back to you soon.<br/>
+                                    Thank you,<br/>
+                                    
+                                </strong>
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <img width="200" height="200" 
+                            src="/website_shop_return_rma/static/description/success.png" 
+                            class="img-square" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    
+    <template id="successful_return" name="Success Return">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <br/><br/>
+                <div class="oe_structure"/>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="alert alert-info">
+                                <strong> Your return order (<span t-esc="return_id.number"/>) request created successfully.<br/>
+                                We will get back to you soon.<br/>
+                                    Thank you,<br/>
+                                    <t t-esc="company"/>
+                                </strong>
+                            </div>
+                            <a class="btn btn-primary pull-left mb32" href="/my/home" >
+                                <span class="hidden-xs">Go Back</span>
+                                <span class="fa fa-long-arrow-left"/>
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <img width="200" height="200" 
+                            src="/website_shop_return_rma/static/description/success.png" 
+                            class="img-square" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    
+
+    
+    <template id="higher_quantity" name="Higher Quantity" >
+        <t t-call="website.layout">
+            <div id="wrap">
+                <br/><br/>
+                <div class="oe_structure"/>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="alert alert-danger">
+                                <strong> You enter higher quantity.<br/>
+                                    Thank you,<br/>
+                                    <t t-esc="company"/>
+                                </strong>
+                            </div>
+                            <a class="btn btn-primary pull-left mb32" 
+                            onclick="history.go(-1);" >
+                                <span class="hidden-xs">Go Back</span>
+                                <span class="fa fa-long-arrow-left"/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    
+
+    
+    <template id="validity_expire" name="Validity" >
+        <t t-call="website.layout">
+            <div id="wrap">
+                <br/><br/>
+                <div class="oe_structure"/>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="alert alert-danger">
+                                <strong> Your validity is expire.<br/>
+                                    Thank you,<br/>
+                                    <t t-esc="company"/>
+                                </strong>
+                            </div>
+                            <a class="btn btn-primary pull-left mb32" 
+                            onclick="history.go(-1);" >
+                                <span class="hidden-xs">Go Back</span>
+                                <span class="fa fa-long-arrow-left"/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

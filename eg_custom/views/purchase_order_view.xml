@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+        <record id="purchase_order_form_for_eg_custom" model="ir.ui.view">
+            <field name="name">purchase.order.form.for.eg.custom</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="syd_custom.view_rfq_order_milor_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_ref']" position="after">
+                    <field name="vendor_return_reason_id"/>
+                </xpath>
+                <xpath expr="//field[@name='service_po']" position="after">
+                    <field name="parola_chiave"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="purchase_order_form_for_eg_custom_rework" model="ir.ui.view">
+            <field name="name">purchase.order.form.for.eg.custom.rework</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button type="action" attrs="{'invisible': [('received_status', 'not in', ['received'])]}"
+                            name="%(action_purchase_return_wizard)d"
+                            string="Rework" class="oe_highlight"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

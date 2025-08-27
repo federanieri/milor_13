@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="na_wizard_sale_order_import_form" model="ir.ui.view">
+        <field name="name">syd_pepperi.na_wizard_sale_order_import.form</field>
+        <field name="model">syd_pepperi.wizard_import_sale_order</field>
+        <field name="arch" type="xml">
+            <form string="Import Sale Order">
+                <group>
+                    <field name="trans_id"/>
+                </group>
+                <footer>
+                    <button name="confirm" string="Import" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

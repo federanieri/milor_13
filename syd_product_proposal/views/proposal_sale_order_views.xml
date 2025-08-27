@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="proposal_sale_search_view" model="ir.ui.view">
+            <field name="name">Sale Proposal Search View</field>
+            <field name="model">proposal.sale.order</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Proposal Name">
+                    <field name="default_name"/>
+                </search>
+            </field>
+        </record>
+
+       <record id="view_sale_order_form_inherit_proposal_sale_order" model="ir.ui.view">
+            <field name="name">view.sale.order.form.inherit.proposal.sale.order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="groups_id" eval="[(4, ref('syd_product_proposal.group_proposal_product_code_visibility'), 0)]"/>
+            <field name="arch" type="xml">
+                <data>
+                	<xpath expr="//field[@name='order_line']"  position="before">
+                        <field name="from_proposal" invisible="1"/>
+                    </xpath>
+	        		<xpath expr="//field[@name='order_line']/tree/field[@name='name']"  position="after">
+                        <field name="customer_product_code" string="Customer Product Code" readonly="1" attrs="{'column_invisible':[('parent.from_proposal', '=', False)]}"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+
+	<!-- Top menu item -->
+	<menuitem id="proposal_sale_order_menu_root" name="Proposal" parent="sale.sale_menu_root" sequence="4" />
+
+	<record id="view_proposal_order_form" model="ir.ui.view">
+		<field name="name">proposal.sale.order.form</field>
+		<field name="model">proposal.sale.order</field>
+		<field name="arch" type="xml">
+			<form string="Sale Proposal">
+				<header>
+					<button name="action_draft" states="cancel" type="object" string="Set to Draft" />
+					<button name="action_proposal_send" string="Send by Email" type="object" states="draft,sent,confirmed" />
+					<button name="action_confirm" string="Confirm" type="object" states="draft,sent" />
+					<button name="populate_product" type="object" string="Populate" states="draft" />
+					<button name="action_cancel" type="object" string="Cancel" states="draft,sent" />
+					<field name="state" widget="statusbar" statusbar_visible="draft,sent,confirmed" />
+				</header>
+				<sheet>
+					<div class="oe_button_box" name="button_box">
+						<button name="preview_proposal_sale_order" type="object" class="oe_stat_button" icon="fa-globe icon">
+							<div class="o_field_widget o_stat_info">
+								<span class="o_stat_text">Customer</span>
+								<span class="o_stat_text">Preview</span>
+							</div>
+						</button>
+					</div>
+					<div class="oe_title">
+						<h1 style="color:#00A09D;">
+							<field name="default_name"/>
+						</h1>
+						<h3>
+							<field name="name" readonly="1"/>
+						</h3>
+					</div>
+					<group>
+						<field name="type" />
+						
+					</group>
+					
+					<group>
+						<group>
+							<field name="partner_id" widget="res_partner_many2one"
+								context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}"
+								options='{"always_reload": True}' />
+						</group>
+						<group>
+							<field name="date_order" />
+							<field name="company_id" invisible="1" />
+							<field name="pricelist_id" groups="product.group_product_pricelist"
+								options="{'no_open':True,'no_create': True}" />
+							<field name="date_deadline_from"/>
+	            			<field name="date_deadline_to"/>
+						</group>
+					</group>
+					<group string="Filters">
+					
+						<field name="filter_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                		<field name="model_name" invisible="1"/>
+          				<field name="filter_domain" widget="domain" options="{'model': 'model_name', 'in_dialog': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                	
+					</group>
+					<notebook>
+						<page string="Proposal Lines" name="proposal_order_lines">
+							<field name="porder_line" attrs="{'readonly': [('state', '=', 'confirmed')]}">
+								<tree string="Proposal Order Lines" editable="bottom">
+									<field name="sequence" widget="handle" />
+									<field name="product_id" options="{'no_open': True}" force_save="1"
+										context="{
+                                            'partner_id': parent.partner_id,
+                                            'quantity': qty_proposed,
+                                            'pricelist': parent.pricelist_id,
+                                            'company_id': parent.company_id,
+                                            'default_lst_price': price_proposed,
+                                            'default_description_sale': name
+                                        }"
+										domain="[('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]" />
+										<field name="image_256" widget="image" options="{'zoom': true, 'preview_image':'image_256'}"/>
+										
+										<field name="customer_product_code" string="Customer Product Code" groups="syd_product_proposal.group_proposal_product_code_visibility"/>
+										<field name="metal_id" optional="show"/>
+										<field name="metal_title" optional="show"/>
+										<field name="plating_id" optional="show"/>
+										<field name="length_cm" string="Lunghezza (cm)" optional="show"/>
+									
+										<field name="stl_attachment_id" attrs="{'column_invisible':[('parent.type_second_image', '!=', 'stl')]}" />
+									<field name="name" attrs="{'column_invisible':[('parent.type', '!=', 'mts')]}" />
+									<field name="description" string="Comments or changes"/>
+										<!-- attrs="{'column_invisible':[('parent.type', '!=', 'mto')]}" /> -->
+								
+									
+									<field name="qty_proposed" attrs="{'column_invisible':[('parent.type', '!=', 'mts')]}" />
+									<field name="product_uom" groups="uom.group_uom" attrs="{'column_invisible':[('parent.type', '!=', 'mts')]}"/>
+
+	                    			<widget name="qty_at_date_widget_proposal"/>
+									
+	                    			<field name="scheduled_date"  invisible="1"/>
+	                    			<field name="product_uom_category_id" invisible="1"/>
+	                    			<field name="display_qty_widget" invisible="1"/>
+									<field name="warehouse_id" invisible="1"/>
+	                    			<field name="free_qty_today" invisible="1"/>
+	                    			<field name="virtual_available_at_date" invisible="1"/>
+
+
+
+									<field name="price_proposed" />
+									<field name="price_total" widget="monetary" attrs="{'column_invisible':[('parent.type', '!=', 'mts')]}" />
+									<field name="qty_accepted"  />
+									<field name="product_uom" groups="uom.group_uom" attrs="{'column_invisible':[('parent.type', '!=', 'mto')]}"/>
+									
+									<field name="price_accepted" attrs="{'column_invisible':[('parent.type', '!=', 'mts')]}" />
+									<field name="price_total_accepted" widget="monetary"
+										attrs="{'column_invisible':[('parent.type', '!=', 'mts')]}" />
+									<field name="currency_id" invisible="1" />
+									<field name="company_id" invisible="1" />
+									<field name="state" invisible="1" />
+									<button name="open_pricelist_rules" type="object" string="Extra Price" />
+								</tree>
+								<form>
+									<group>
+										<field name="product_id" />
+										<field name="description" />
+										<field name="company_id" invisible="1" />
+									</group>
+
+								</form>
+							</field>
+							<group name="note_group" col="6">
+								<group colspan="4">
+									<field name="note" nolabel="1" placeholder="Terms and conditions..." />
+								</group>
+								<group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total"
+									attrs="{'invisible':[('type', '!=', 'mts')]}">
+									<div class="oe_inline o_td_label">
+										<label for="amount_total" />
+									</div>
+									<field name="amount_total" nolabel="1" widget='monetary' options="{'currency_field': 'currency_id'}" />
+									<div class="oe_inline o_td_label">
+										<label for="amount_total_accepted" />
+									</div>
+									<field name="amount_total_accepted" nolabel="1" widget='monetary'
+										options="{'currency_field': 'currency_id'}" />
+								</group>
+								<div class="oe_clear" />
+							</group>
+						</page>
+						<page string="Other Info" name="other_information">
+							<group>
+								<group name="sales_person" string="Sales">
+									<field name="accepted" />
+									<field name="user_id" />
+									<field name="team_id" kanban_view_ref="%(sales_team.crm_team_view_kanban)s" options="{'no_create': True}" />
+									<field name="company_id" options="{'no_create': True}" groups="base.group_multi_company" />
+								</group>
+							</group>
+							<group>
+								<field name="type_second_image" />
+							</group>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers" />
+					<field name="activity_ids" widget="mail_activity" />
+					<field name="message_ids" widget="mail_thread" />
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_proposal_sale_order_tree" model="ir.ui.view">
+		<field name="name">proposal.sale.order.tree</field>
+		<field name="model">proposal.sale.order</field>
+		<field name="priority">4</field>
+		<field name="arch" type="xml">
+			<tree string="Proposal" decoration-muted="state=='cancel'">
+				<field name="default_name" string="Proposal Name" readonly="1" />
+				<field name="name" string="Quotation Number" readonly="1" />
+				<field name="create_date" string="Create Date" />
+				<field name="partner_id" readonly="1" />
+				<field name="user_id" optional="show" />
+				<field name="team_id" optional="hide" />
+				<field name="company_id" groups="base.group_multi_company" optional="show" readonly="1" />
+				<field name="amount_total" sum="Total Tax Included" widget="monetary" optional="show" />
+				<field name="currency_id" invisible="1" />
+				<field name="state" optional="show" />
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_proposal_orders" model="ir.actions.act_window">
+		<field name="name">Sale Proposal</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">proposal.sale.order</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{}</field>
+	</record>
+
+	<menuitem id="proposal_sale_order_menu" name="Sale Proposal" parent="proposal_sale_order_menu_root"
+		action="action_proposal_orders" sequence="2" />
+</odoo>

@@ -1,0 +1,10 @@
+<odoo>
+    <data noupdate="1">
+        <record id="ir_attachment_import_sample_excel_proposal_sale_line" model="ir.attachment">
+            <field name="name">sample_sale_proposal_import.xlsx</field>
+            <field name="datas" type="base64"
+                   file="eg_sale_proposal_import/data/proposal_sale_line_sample.xlsx"/>
+            <field name="public">True</field>
+        </record>
+    </data>
+</odoo>

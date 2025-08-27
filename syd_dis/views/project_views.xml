@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="project_task_form_view" model="ir.ui.view">
+        <field name="name">project.task.form.view</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook//page[last()]" position="after">
+                <page name="txt_stl" string="TXT/STL" groups="syd_dis.group_manager" attrs="{'invisible': [('txt','=',False)]}">
+                    <group>
+                        <field name="txt"/>
+                        <field name="stl_file"/>
+                    </group>
+                </page>
+                <page name="dis_name" string="DIS">
+                    <group>
+                    	<group>
+	                        <field name="dis_name"/>
+                    	</group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_task_dis_form_view" model="ir.ui.view">
+        <field name="name">project.task.form.view</field>
+        <field name="model">project.task</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="txt_uploaded"/>
+                    </group>
+                    <group>
+                        <field name="txt_type"/>
+                        <field name="stl_file_downloaded"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <field name="txt"/>
+                        <field name="stl_file"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <field name="order_id"/>
+                        <field name="order_line_id"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="last_ftp_error"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="project_task_dis_list_view" model="ir.ui.view">
+        <field name="name">project.task.list.view</field>
+        <field name="model">project.task</field>
+        <field name="arch" type="xml">
+            <tree decoration-warning="txt_type == 'txt2' and (txt_uploaded and not stl_file_downloaded or not txt_uploaded and stl_file_downloaded)"
+                  decoration-success="txt_type == ('txt1' and txt_uploaded) or txt_type == 'txt2' and (txt_uploaded and stl_file_downloaded)"
+                  decoration-danger="not txt_uploaded and not stl_file_downloaded"
+                  decoration-bf="not txt_uploaded and not stl_file_downloaded"
+                  string="DIS Tasks">
+                <field name="name"/>
+                <field name="project_id" invisible="context.get('user_invisible', False)" optional="show"/>
+                <field name="partner_id" optional="hide"/>
+                <field name="order_id"/>
+                <field name="product_id"/>
+                <field name="txt_type"/>
+                <field name="txt_uploaded"/>
+                <field name="stl_file_downloaded"/>
+                <field name="last_ftp_error"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_project_task_dis_view" model="ir.actions.act_window">
+        <field name="name">Tasks</field>
+        <field name="res_model">project.task</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="project_task_dis_list_view"/>
+        <field name="domain">[('txt', '!=', False)]</field>
+<!--        <field name="context">{'search_default_my_tasks': 1}</field>-->
+<!--        <field name="search_view_id" ref="search_project_task_list_view"/>-->
+    </record>
+
+    <record id="action_project_task_dis_list_view" model="ir.actions.act_window.view">
+        <field name="sequence">1</field>
+        <field name="view_mode">tree</field>
+        <field name="act_window_id" ref="action_project_task_dis_view"/>
+        <field name="view_id" ref="project_task_dis_list_view"/>
+    </record>
+
+    <record id="action_project_task_form_view" model="ir.actions.act_window.view">
+        <field name="sequence">2</field>
+        <field name="view_mode">form</field>
+        <field name="act_window_id" ref="action_project_task_dis_view"/>
+        <field name="view_id" ref="project_task_dis_form_view"/>
+    </record>
+
+    <menuitem name="All TXT Tasks" id="menu_project_management" parent="project.menu_main_pm"
+        action="action_project_task_dis_view" sequence="3" groups="base.group_no_one,syd_dis.group_admin"/>
+
+</odoo>

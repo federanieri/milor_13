@@ -1,0 +1,104 @@
+<odoo>
+  <data>
+ 	
+ 
+ 	
+     <record model="ir.ui.view" id="syd_anomaly_anomaly_tree">
+      <field name="name">syd_anomaly.anomaly</field>
+      <field name="model">syd_anomaly.anomaly</field>
+      <field name="arch" type="xml">
+        <tree editable="bottom" >
+         
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+
+
+
+    <record model="ir.actions.act_window" id="syd_anomaly_anomaly_act">
+      <field name="name">Anomaly Type</field>
+      <field name="res_model">syd_anomaly.anomaly</field>
+      <field name="view_mode">tree</field>
+    </record>
+
+
+
+
+    <menuitem name="Anomaly Type" id="syd_anomaly_anomaly_act_menu" parent="stock.menu_warehouse_config"
+              action="syd_anomaly_anomaly_act"/>	
+        
+      <record model="ir.ui.view" id="syd_anomaly_anomaly_picking_form">
+      <field name="name">syd_anomaly.anomaly_picking</field>
+      <field name="model">syd_anomaly.anomaly_picking</field>
+      <field name="arch" type="xml">
+        <form  >
+         <sheet>
+         <group>
+          <field name="anomaly_id"/>
+          <field name="picking_id" invisible="1"/>
+          <field name="origin_purchase_id" invisible="1"/>
+          <field name="send_to_partner" />
+          <field name="origin_vendor_id" string="Send To" attrs="{'invisible':[('send_to_partner','=',False)]}"/>
+          
+          </group>
+         <field name="description"/>
+          </sheet>
+          <footer>
+                        <button string="Send"
+                                special="save" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+        </form>
+      </field>
+    </record>
+          
+      <record model="ir.actions.act_window" id="syd_anomaly_anomaly_picking_act">
+      <field name="name">Anomaly Notify</field>
+      <field name="res_model">syd_anomaly.anomaly_picking</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+      
+    
+      <record model="ir.ui.view" id="view_stock_location_anomaly">
+         <field name="name">stock.location.anomaly</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        
+        <field name="arch" type="xml">
+         <xpath  expr="//field[@name='comment']"  position="before">
+        		<group>
+        		<field name="anomaly"  />
+        		</group>
+        		
+        		
+        		
+        </xpath>
+       
+     	</field>
+    </record>
+     
+    
+     <record model="ir.ui.view" id="view_stock_picking_anomaly">
+         <field name="name">stock.picking.anomaly</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        
+        <field name="arch" type="xml">
+        	<xpath expr="//button[@name='action_cancel']" position="after">
+        		<field name="anomaly" invisible="1" />
+        		<field name="id" invisible="1" />
+                <button string="Notify Anomaly" name="%(syd_anomaly_anomaly_picking_act)d" type="action"  attrs="{'invisible': ['|',('id','=',False),('anomaly', '=', False)]}" context="{'default_picking_id':id}" />
+                
+            </xpath>
+       		
+			
+       		
+     	</field>
+    </record>
+     
+     
+    </data>
+</odoo>

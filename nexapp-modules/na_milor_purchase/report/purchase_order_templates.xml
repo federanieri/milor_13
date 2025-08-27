@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="na_report_purchaseorder_document_details" inherit_id="syd_custom.report_purchaseorder_document_details">
+        <xpath expr="//th[@name='th_placctura'][4]" position="replace">
+            <th name="th_placctura">
+                <strong>Bollo</strong>
+            </th>
+        </xpath>
+    </template>
+
+    <template id="na_report_purchaseorder_document" inherit_id="syd_custom.report_purchaseorder_document">
+        <xpath expr="//td[@name='td_commercehub_code']" position="after">
+            <td t-else="">
+                <span></span>
+            </td>
+        </xpath>
+    </template>
+</odoo>

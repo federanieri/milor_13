@@ -1,0 +1,61 @@
+<odoo>
+	<data noupdate="1">
+        <record id="email_template_order_cancelled" model="mail.template">
+            <field name="name">Purchase: Order Cancelled</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="email_from">${object.company_id.email |safe}</field>
+            <field name="subject">${object.partner_id.name} - Cancellazione Ordine - ${object.name} ${' - ' + str(object.commercehub_po) if object.commercehub_po else ' '}</field>            
+            <field name="auto_delete" eval="True"/>
+            <field name="lang">${object.lang}</field>
+            <field name="body_html" type="html">
+				<div style="margin: 0px; padding: 0px;">
+				    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+				        Gentile ${object.partner_id.name},
+				        <br /><br />
+				        L'ordine <strong>${object.name}</strong> è stato cancellato.
+				        <br/><br/>
+				        Saluti.			       
+				    </p>
+				</div>
+			</field>
+        </record>
+        
+        <record id="email_template_cancellazione_per_ordine" model="mail.template">
+            <field name="name">Cancellazione per ordine PO già evaso</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="email_from">${object.company_id.email |safe}</field>
+            <field name="subject"> </field>            
+            <field name="auto_delete" eval="True"/>
+            <field name="lang">${object.lang}</field>
+            <field name="body_html" type="html">
+				<div style="margin: 0px; padding: 0px;">
+				    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+				    </p>
+				</div>
+			</field>
+        </record>
+        
+        <record id="email_template_cancellazione_per_ordine_so" model="mail.template">
+            <field name="name">Cancellazione per ordine SO già evaso</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="email_from">${object.company_id.email |safe}</field>
+            <field name="subject"> </field>            
+            <field name="auto_delete" eval="True"/>
+            <field name="lang">${object.lang}</field>
+            <field name="body_html" type="html">
+				<div style="margin: 0px; padding: 0px;">
+				    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+				    </p>
+				</div>
+			</field>
+        </record>
+        
+        <record id="email_template_cancel_order_no_exist" model="mail.template">
+            <field name="name">Cancellazione per Ordine Inesistente</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="email_from">${object.company_id.email |safe}</field>
+            <field name="subject">Ordine Inesistente</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+	</data>
+</odoo>

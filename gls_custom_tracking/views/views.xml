@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+
+     <!-- GLS Tracking Barcode custom search-->
+
+     <record model="ir.ui.view" id="view_stock_custom_tracking">
+         <field name="name">stock.picking.custom_tracking</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='priority']" position="after">
+                    <field name="custom_tracking" invisible="1"/>
+                
+            </xpath>
+         </field>
+    </record>
+
+     <record model="ir.ui.view" id="view_picking_search_ref_milor">
+         <field name="name">stock.picking.internal_ref.search</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+           <xpath expr="//field[@name='name']" position="replace">
+            <field name="name" string="Transfer" filter_domain="['|','|','|', ('carrier_tracking_ref', '=', self),('custom_tracking', 'ilike', self),('name', 'ilike', self), ('origin', 'ilike', self)]"/>
+           </xpath>
+        </field>
+     </record>
+
+   <!-- Add 'Put in pack' button before move_line_ids_without_package for stock operations-->
+
+    <record model="ir.ui.view" id="put_in_pack_before">
+        <field name="name">stock.put_in_pack_before</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='move_line_ids_without_package']" position="before">
+                    <button class="oe_highlight" name="put_in_pack" type="object" string="Put in Pack" attrs="{'invisible': [('state', 'in', ('draft', 'done', 'cancel'))]}" groups="stock.group_tracking_lot"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="put_in_pack_before_moves">
+        <field name="name">stock.put_in_pack_before_moves</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='move_ids_without_package']" position="before">
+                    &#x2063;
+                    <button class="oe_highlight" name="put_in_pack" type="object" string="Put in Pack" attrs="{'invisible': [('state', 'in', ('draft', 'done', 'cancel'))]}" groups="stock.group_tracking_lot"/>
+                    &#x2063;
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    </data>
+</odoo>

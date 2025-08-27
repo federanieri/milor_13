@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_order_form_inherit_syd_ecommerce_agent">
+            <field name="name">sale.order.form.inherit.syd.agent</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="payment_term_id" position="after">
+                        <field name="agent_id" attrs="{'invisible': [('website_id', '=', False)]}"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_quotation_tree_inherit_syd_ecommerce_agent">
+            <field name="name">sale.order.tree.inherit.agent</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="partner_id" position="after">
+                        <field name="agent_id"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+    </data>
+</odoo>

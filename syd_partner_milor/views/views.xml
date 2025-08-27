@@ -1,0 +1,182 @@
+<odoo>
+  <data>
+   
+   
+   <record model="ir.ui.view" id="view_picking_milor_form">
+        <field name="name">stock.picking</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//field[@name='carrier_id']"  position="after">
+        		<field name="delivery_partner_id"  />
+        		
+        </xpath>
+     
+     	</field>
+    </record>
+   
+   <record model="ir.ui.view" id="view_delivery_carrier_form">
+        <field name="name">delivery.carrier</field>
+        <field name="model">delivery.carrier</field>
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//field[@name='active']"  position="after">
+        		<field name="os1_code"  />
+        		<field name="delivery_partner_id"  />
+        		<field name="os1_dp_code"  />
+        </xpath>
+     
+     	</field>
+    </record>
+ 		
+ 		
+   
+   <record model="ir.ui.view" id="view_account_payment_term_form">
+        <field name="name">account.payment.term</field>
+        <field name="model">account.payment.term</field>
+        <field name="inherit_id" ref="account.view_payment_term_form"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//field[@name='name']"  position="after">
+        		<field name="os1_code"  />
+        </xpath>
+     
+     	</field>
+    </record>
+ 	
+ 	
+ 	
+ 	
+ 	 <record model="ir.ui.view" id="view_partner_search">
+        <field name="name">res.partner</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//field[@name='user_id']"  position="after">
+        		<field name="fm_code"  />
+        </xpath>
+      
+     	</field>
+    </record>
+ 	
+ 	 <record model="ir.ui.view" id="view_currency_form_os1">
+         <field name="name">res.currency</field>
+        <field name="model">res.currency</field>
+        <field name="inherit_id" ref="base.view_currency_form"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//field[@name='active']"  position="after">
+        		<field name="os1_code"  />
+        </xpath>
+     
+     	</field>
+    </record>
+ 	
+ 	<record model="ir.ui.view" id="view_account_tax_os1">
+         <field name="name">account.tax</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_tree"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//field[@name='active']"  position="after">
+        		<field name="os1_code"  />
+        </xpath>
+     
+     	</field>
+    </record>
+     
+     <record model="ir.ui.view" id="view_account_tax_form_os1">
+         <field name="name">account.tax</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//field[@name='active']" position="after">
+        		<field name="os1_code"  />
+        </xpath>
+     
+     	</field>
+    </record>
+     
+     <record model="ir.ui.view" id="partner_tree_milor" >
+        <field name="name">res.partner.milor</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        
+        <field name="arch" type="xml">
+        
+	        <xpath expr="//field[@name='email']" position="after">
+	        		<field name="bank_ids" widget="many2many_tags" optional="show"/>
+	        </xpath>
+        
+     	</field>
+     </record>
+     
+     <record model="ir.ui.view" id="partner_form_milor" >
+        <field name="name">res.partner.milor</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        
+        <field name="arch" type="xml">
+        <xpath expr="//notebook//page[last()]" position="after">
+        <page string="Milor" name="milor">
+        	<group>
+        		<field name="filemaker_code" />
+        		<field name="fm_code" />
+        		<field name="fm_type" />
+        		<field name="fm_id" />
+        		<field name="fm_subtype_id" />
+        		<field name="salesman_partner_id" />
+        		<field name="salesman_partner_2_id" />
+        		<field name="salesman_parent_partner_id" />
+        		<field name="carrier_partner_id" />
+        		<field name="carrier_partner_2_id" />
+        		<field name="agent_pricelist_ids" widget="many2many_tags" />
+        		<field name="agent_product_brand_ids" widget="many2many_tags" />
+        		<field name="customer_rank" />
+        		<field name="supplier_rank" />
+        	</group>
+        </page>
+        
+        </xpath>
+        <xpath  expr="//field[@name='category_id']"  position="before">
+        		<field name="other_data" />
+        		<field name="phone2" />
+        		<field name="fax" />
+        		<field name="telex" />
+        </xpath>
+     </field>
+     </record>
+     
+     <record model="ir.ui.view" id="view_quotation_form_milor_pack">
+         <field name="name">sale.order.milor</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//field[@name='client_order_ref']"  position="after">
+        		<field name="salesman_partner_id"  />
+        		
+        			
+        		
+        </xpath>
+     
+     	</field>
+    </record>
+
+    <record model="ir.ui.view" id="view_picking_type_block_fmcode">
+         <field name="name">view.picking.type.block.fmcode</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form"/>
+        <field name="arch" type="xml">
+	        <xpath  expr="//field[@name='show_operations']"  position="after">
+        		<field name="block_empty_fmcode"/>
+        	</xpath>
+        </field>
+    </record>   
+     
+    </data>
+</odoo>

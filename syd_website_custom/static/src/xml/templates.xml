@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="cartProductSearchingBar" t-extend="website_sale.productsSearchBar.autocomplete">
+        <t t-jquery="h6" t-operation="replace">
+            <h6 t-attf-class="font-weight-bold #{description ? '' : 'mb-0'}" t-esc="product['name']"/>
+            <div t-if="product['default_code']">
+ 				<small style="color:#00000080;"><t t-esc="product['default_code']"/></small>
+			</div>
+        </t>
+    </t>
+</templates>

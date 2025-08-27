@@ -1,0 +1,17 @@
+<odoo>
+    <record model="ir.ui.view" id="stock_picking_form_view_for_eg_custom">
+        <field name="name">stock.picking.form.for.eg.custom</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form[1]/sheet[1]/notebook[1]/page[3]/field[@name='move_ids_without_package']/tree[1]/field[@name='quantity_done']"
+                   position="after">
+                <field name="free_use_qty"/>
+            </xpath>
+            <xpath expr="//page[@name='extra']/group/group[@name='other_infos']/field[@name='company_id']"
+                   position="after">
+                <field name="bulk_validate"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+		
+	
+		
+	      <record id="order_product_view_tree" model="ir.ui.view">
+            <field name="name">syd_orders_helper.forecast_order.tree</field>
+            <field name="model">syd_orders_helper.forecast_order</field>
+            <field name="arch" type="xml">
+                <tree string="Products">
+                		<field name="name" />
+                	<field name="date" />
+                	<field name="state" />
+				    </tree>
+				    </field>
+    </record>
+    	  
+     <record id="order_product_view_form" model="ir.ui.view">
+            <field name="name">syd_orders_helper.forecast_order.form</field>
+            <field name="model">syd_orders_helper.forecast_order</field>
+            <field name="arch" type="xml">
+                <form string="Products">
+                
+                <header>
+                	<button  name="populate" string="Start" type="object" states="draft"/>
+                	<button  string="Create Orders" type="object" name="create_order" states="confirmed"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,confirmed,done" readonly="1"/>
+                    <button name="confirm" type="object" states="in_progress" string="Confirm" class="oe_highlight" />
+                 
+                </header>
+                <sheet>
+                <div class="oe_button_box" name="button_box">
+                        <button type="object"  name="action_view_po"
+                            class="oe_stat_button"
+                            icon="fa-pencil-square-o" attrs="{'invisible':[('po_count', '=', 0)]}">
+                            <field name="po_count" widget="statinfo" string="Purchase Orders"/>
+                            <field name='po_ids' invisible="1"/>
+                        </button>
+                    </div>
+                <group>
+                	<field name="name" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                	<field name="date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                	<field name="under_stock" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                		<field name="user_id" invisible="1"/>
+                	<field name="filter_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                	<field name="model_name" invisible="1"/>
+          			<field name="filter_domain" widget="domain" options="{'model': 'model_name', 'in_dialog': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                	<field name="show" invisible="1" />
+                	
+                </group>
+                
+                <group>
+                	<field name="move_show" />
+                	<field name="move_type" attrs="{'invisible':[('move_show', '=', False)]}"/>
+                	<field name="month_number" attrs="{'invisible':[('move_show', '=', False)]}"/>
+                </group>
+                <field name="forecast_order_line_ids" attrs="{'invisible':[('show','=',False)]}" >
+                  <tree  editable="bottom" create="0">
+                    <field name="sequence" widget="handle" />
+                    <field name="image_256" widget="image"  options="{'zoom': true, 'preview_image':'image_128'}" />
+                    <field name="under_stock" invisible="1" />
+                    <field name="product_id"/>
+                    <field name="forecast" />
+                    <field name="stock" />
+                    <field name="pref_stock"/>
+                    
+                    <field name="tot_sold" />    
+                    <field name="sold" attrs="{'column_invisible': [('parent.move_show', '=', False)]}"/>
+                    <field name="to_order" /> 
+                    <field name="partner_id" attrs="{'column_invisible': [('parent.state', '!=', 'confirmed')]}"/>      
+                  </tree>
+                   
+                </field>
+                
+                    </sheet>
+                    <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+        </record>
+	
+	<record model="ir.actions.act_window" id="order_product_view_grid_act">
+	        <field name="name">Purchase Order Helper</field>
+	        <field name="res_model">syd_orders_helper.forecast_order</field>
+	        <field name="view_mode">tree,form</field>
+
+   </record>
+    	  
+		<menuitem action="order_product_view_grid_act"
+        id="menu_product_view_grid"
+        groups="purchase.group_purchase_manager"
+        parent="purchase.menu_procurement_management" sequence="4"/>		
+		</data>
+</odoo>

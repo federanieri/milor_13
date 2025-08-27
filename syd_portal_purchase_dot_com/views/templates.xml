@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="portal_table" name="My Portal Table">
+        <form id="po_list_form">
+        <input type="hidden" name="report_type" id="report_type" value="xls" />
+		<div t-attf-class="table-responsive border rounded border-top-0 #{classes if classes else ''}">
+            <table class="table rounded mb-0 bg-white o_portal_my_doc_table">
+                <t t-raw="0"/>
+            </table>
+        </div>
+        <div t-if="pager" class="o_portal_pager text-center">
+            <t t-call="portal.pager"/>
+        </div>
+		<t t-if="website.id == 1">
+        	<div class="row justify-content-center text-center d-print-none pt-1 pb-4">
+	            <div class="col-sm-auto mt8" >
+	                <button class="btn btn-block o_download_btn" title="Download" type="button" onclick="po_excel_submit()"><i class="fa fa-download"/>Download xls</button>                            
+	            </div>
+	            <div class="col-sm-auto mt8" >
+	                <button class="btn btn-block o_download_btn" title="Download PDF" type="button" onclick="po_pdf_submit()"><i class="fa fa-download"/>Download PDF</button>                            
+	            </div>
+		        <div class="col-sm-auto mt8" >
+	                <button class="btn btn-block o_download_btn" title="Download PDF Product" type="button" onclick="po_pdf_product_submit()"><i class="fa fa-download"/>Download PDF per Product</button>                            
+	            </div>
+	            <div class="col-sm-auto mt8" >
+	                <button class="btn btn-block o_download_btn" title="Download TXT" type="button" onclick="po_txt_submit()"><i class="fa fa-download"/> Download TXT</button>                            
+	            </div>  
+ 	            <div class="col-sm-auto mt8" >
+	                <button class="btn btn-block o_download_btn" title="Download STL" type="button" onclick="po_stl_submit()"><i class="fa fa-download"/> Download STL</button>                            
+	            </div>
+	            <div class="col-sm-auto mt8" >
+	                <button class="btn btn-block o_download_btn" title="Download Vendor Info" type="button" onclick="po_vendor_info_submit()"><i class="fa fa-download"/> Download all &amp; in carico</button>
+	            </div>     
+	            <div class="col-sm-auto mt8" >
+	                <button class="btn btn-block o_download_btn" title="Take in Charge" type="button" onclick="po_take_in_charge()">
+	                	<i class="fa fa-tasks"/>Take in Charge
+	                </button>                            
+	            </div>
+	           	<div class="col-sm-auto mt8" >
+	                <button class="btn btn-block o_download_btn" title="Spedito" type="button" onclick="po_spedito()"><i class="fa fa-tasks"/> Spedito</button>                            
+	            </div>
+	           	<div class="col-sm-auto mt8" >
+	                <button class="btn btn-block o_download_btn" title="Spedito in galvanica" type="button" onclick="po_spedito_galvanica()"><i class="fa fa-tasks"/> Spedito in Galvanica</button>                            
+	            </div>
+			</div>
+		</t>
+		</form>
+    </template>
+    
+	<template id="portal_my_home_purchase_extended" name="Portal My Home : purchase entry" inherit_id="syd_custom.portal_my_home_purchase">
+		
+		<xpath expr="(//thead/tr/th)[1]" position="before">
+		<t t-if="website.id == 1">
+			<th>
+				<input type="checkbox" onClick="toggle(this)"/>
+			</th>
+		</t>
+		</xpath>
+		<xpath expr="(//t[@t-foreach='orders']/tr[1]/td)[1]" position="before">
+		<t t-if="website.id == 1">
+            <td>
+				<input type="checkbox" t-attf-name="po_{{order.id}}" t-attf-id="po_{{order.id}}" t-attf-value="{{order.id}}" class="js_porder"/>                                	
+            </td>
+        </t>
+		</xpath>
+		<xpath expr="//t[@t-call='portal.portal_table']" position="attributes">
+			<attribute name="t-call">syd_portal_purchase_dot_com.portal_table</attribute>
+		
+		
+		</xpath>
+		
+	</template>
+	
+</odoo>

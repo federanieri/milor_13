@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_form_view" model="ir.ui.view">
+        <field name="name">res.config.settings.form.view.odas2</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="30"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside" >
+                <div class="app_settings_block" data-string="OdAS2" string="OdAS2" data-key="odas2" groups="syd_odas2.group_admin">
+                    <h2>Integrations</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <div class="content-group">
+                                    <label for="odas2_company_url"/>
+                                    <div class ="text-muted mb8">
+                                        This is the URL to your OdAS2 Gateway.
+                                    </div>
+                                    <div class="content-group">
+                                        <field name="odas2_company_url" style="width: 100%; font-size: inherit" />
+                                    </div>
+                                </div>
+                                <div class="content-group mt16">
+                                    <label for="odas2_company_test_url_regex"/>
+                                    <div class ="text-muted mb8">
+                                        This is regex pattern to check if odoo host is a test server (to trigger internal test flows).
+                                    </div>
+                                    <div class="content-group">
+                                        <field name="odas2_company_test_url_regex" style="width: 100%; font-size: inherit" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="odas2_company_access_token"/>
+                                <div class ="text-muted mb8">
+                                    This is the access token to interact with your OdAS2 Gateway.
+                                </div>
+                                <div class="content-group text-center">
+                                    <field name ="odas2_company_access_token" style="width: 100%; font-size: inherit" widget="CopyClipboardChar"
+                                           options='{"no_create_edit": True}' readonly="1" context="{'create': False, 'edit': False, 'delete': False}"
+                                    />
+                                </div>
+                                <button name="action_generate_new_token"
+                                        icon="fa-refresh" type="object"
+                                        string="Generate new token"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Message Delivery</span>
+                                <div class ="text-muted mb8">
+                                    AS2 Streams handles AS2 flows from/to your OdAS2 Gateway.
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <div class="mt8">
+                                            <button class="btn-link" style="padding-left: 9px" type="action" string="Configure Streams"
+                                                name="%(syd_odas2.action_odas2_stream)d" icon="fa-arrow-right"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Sale Order from AS2</span>
+                                <div class ="text-muted mb8">
+                                    When Purchase Order is in from AS2 then a Sale Order is generated.<br/>
+                                    Here are some defaults when a new Sale Order is triggered.
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="odas2_company_so_partner_id" string="Document Owner" class="col-lg-3 o_light_label"/>
+                                        <field name="odas2_company_so_partner_id"/>
+                                    </div>
+                                    <div class="row mt16">
+                                        <label for="odas2_company_so_user_id" string="Salesperson" class="col-lg-3 o_light_label"/>
+                                        <field name="odas2_company_so_user_id"/>
+                                    </div>
+                                    <div class="row mt16">
+                                        <label for="odas2_company_so_pricelist_id" string="Pricelist" class="col-lg-3 o_light_label"/>
+                                        <field name="odas2_company_so_pricelist_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Packing Slips from AS2</span>
+                                <div class ="text-muted mb8">
+                                    What to do when packing slips land from the AS2 gateway.<br/>
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="odas2_company_ps_mail_channel_id_when_orphan" string="Mail Channel" class="col-lg-3 o_light_label"/>
+                                        <field name="odas2_company_ps_mail_channel_id_when_orphan"/>
+                                        <div class ="col-lg-12 text-muted">
+                                            Mail Channel to notify when orphan Packing Slips (PDF is attached).
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Product From AS2</span>
+                                <div class ="text-muted mb8">
+                                    When updating local inventory.
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="odas2_company_pp_force_commercehub_code" string="Force CommerceHub Code" class="col-lg-3 o_light_label"/>
+                                        <field name="odas2_company_pp_force_commercehub_code"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'odas2'}</field>
+    </record>
+
+</odoo>

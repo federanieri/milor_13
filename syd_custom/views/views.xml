@@ -1,0 +1,923 @@
+<odoo>
+  <data>
+
+  
+   	
+  	<record model="ir.ui.view" id="product_pricelist_view_extend_add_pricelist">
+        <field name="name">product.pricelist.view.extend.add.pricelist</field>
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="product.product_pricelist_view"/>
+        <field name="arch" type="xml">
+	        <xpath  expr="//field[@name='currency_id']"  position="before">
+	        	<field name="retail_pricelist_id" domain="[('id','!=',id)]"/>
+	        </xpath>
+	    </field>
+  	</record>
+  
+   	 <record model="ir.ui.view" id="view_product_template_search_view_add_label">
+         <field name="name">product.template.search.view.add.label</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml"> 
+  		<xpath expr="//search" position="inside">
+            <separator/>
+            <field name="label_line_ids" string="Label Ecommerce" filter_domain="[('label_line_ids.label','ilike',self)]"/>
+     	</xpath>
+     	</field>
+     </record>
+  	 
+
+  	  
+      <record model="ir.ui.view" id="product_dis_tree">
+      <field name="name">product.dis.tree</field>
+      <field name="model">product.dis</field>
+      <field name="arch" type="xml">
+        <tree >
+          <field name="name"></field>
+			        		<field name="file_id"></field>
+			        		<field name="product_id"></field>
+			        		<field name="product_tmpl_id" ></field>
+			        		<field name="dis_type"></field>
+			        		<field name="dis_creation_date"></field>
+			        		<field name="dis_user"></field>
+			        		<field name="dis_material"></field>
+          
+        </tree>
+      </field>
+    </record>
+
+	<record model="ir.ui.view" id="product_dis_form">
+      <field name="name">product.dis.form</field>
+      <field name="model">product.dis</field>
+      <field name="arch" type="xml">
+        <form>
+        <sheet>
+        <group>
+          <field name="name"></field>
+			        		<field name="file_id"></field>
+			        		<field name="product_id"></field>
+			        		<field name="product_tmpl_id" ></field>
+			        		<field name="dis_type"></field>
+			        		<field name="dis_creation_date"></field>
+			        		<field name="dis_user"></field>
+			        		<field name="dis_material"></field>
+			 </group>
+          
+        </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="product_dis_act">
+      <field name="name">Dis</field>
+      <field name="res_model">product.dis</field>
+      <field name="view_mode">tree,form</field>
+    </record>        
+
+	<menuitem name="Dis" id="product_dis_menu" parent="sale.prod_config_main"
+              action="product_dis_act"/>
+              
+              
+  	 <record model="ir.ui.view" id="view_product_template_dis_form">
+         <field name="name">product.template.dis</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        
+        <field name="arch" type="xml">
+	        <xpath expr="//page[@name='inventory']" position="after">
+			        <page string="DIS">
+			        <field name="template_dis_ids">
+			        	<tree editable="bottom">
+			        		<field name="name"></field>
+			        		<field name="file_id"></field>
+			        		<field name="product_id"></field>
+			        		<field name="product_tmpl_id" invisible="1"></field>
+			        		<field name="dis_type"></field>
+			        		<field name="dis_creation_date"></field>
+			        		<field name="dis_user"></field>
+			        		<field name="dis_material"></field>
+			        	</tree>
+			        
+			        </field>
+			        </page>
+	        </xpath>
+	        <xpath expr="//field[@name='public_categ_ids']" position="before">
+	        	<div attrs="{'invisible': [('date_new_category', '=', False)]}" style="font-style: italic;"> 
+            		<label for="date_new_category" string="New Category Assignation Date:" style="font-size: 80% !important;font-weight: 400 !important;"/>
+	        		<field name="date_new_category" style="font-size: 80% !important;font-weight: 400 !important;"/>
+            	</div>
+	        </xpath>
+    	    <xpath expr="//field[@name='group_code']" position="before">
+	        	<field name="dotcom_qvc"/>
+	        </xpath>
+     	</field>
+     </record>
+  	 
+     <record model="ir.ui.view" id="view_res_company_form">
+         <field name="name">res.company.</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//group[@name='social_media']"  position="after">
+        		<group string="Service Product">
+        			<field name="default_service_product_id" />
+        			
+        			
+        		</group>
+        		<group string="Anomaly">
+        			<field name="price_anomaly_id" />
+        			<field name="price_anomaly_partner_id" />
+        			
+        		</group>
+        </xpath>
+     	</field>
+    </record>
+  	
+  	<record model="ir.ui.view" id="view_common_product_brand_form">
+         <field name="name">common.product.brand.ept</field>
+        <field name="model">common.product.brand.ept</field>
+        <field name="inherit_id" ref="common_connector_library.view_common_product_brand_form"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//field[@name='partner_id']"  position="after">
+        		
+        			<field name="barcode_text" />
+        			
+        			
+        		
+        </xpath>
+     	</field>
+    </record>
+  	
+  	
+  	<record model="ir.ui.view" id="view_stock_quant_form">
+        <field name="name">stock.quant</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree"/>
+        
+        <field name="arch" type="xml">
+		        <xpath expr="//field[@name='product_id']" position="before">
+	        		<field name="image_128" widget="image"  />	
+		  		</xpath>
+		  		<xpath expr="//field[@name='quantity']" position="after">
+	        		<field name="virtual_available"  />	
+		  		</xpath>
+     	</field>
+    </record>
+  	
+  	
+	<record model="ir.ui.view" id="view_stock_location_ext">
+         <field name="name">stock.location.ext</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        
+        <field name="arch" type="xml">
+	         <xpath  expr="//field[@name='partner_group']"  position="after">
+	        		
+	        		<field name="partner_and_brand_group" />
+	 
+	        		
+	        </xpath>
+        
+        
+        </field>
+    </record>
+        
+<record model="ir.ui.view" id="view_product_category_milor_cust_form">
+         <field name="name">product.category.milor</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//group[@name='first']"  position="before">
+        		<group string="Label and Barcode">
+        			<field name="no_print_label" />
+        			<field name="product_label_width" />
+        			<field name="product_label_height" />
+        			<field name="product_barcode_width" />
+        			<field name="product_barcode_height" />
+        		</group>
+        </xpath>
+     	</field>
+    </record>
+		
+	<record model="ir.ui.view" id="view_partner_milor">
+         <field name="name">res.partner.milor</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="product.view_partner_property_form"/>
+        <field name="arch" type="xml">
+	        <xpath  expr="//field[@name='property_product_pricelist']"  position="after">
+        		<field name="product_brand_ids" widget="many2many_tags" />
+        		<field name="group_picking" />
+        	</xpath>
+        </field>
+    </record>
+
+      <record model="ir.ui.view" id="view_stock_milor_form">
+          <field name="name">stock.picking.milor</field>
+          <field name="model">stock.picking</field>
+          <field name="inherit_id" ref="stock.view_picking_form"/>
+          <field name="arch" type="xml">
+              <xpath  expr="//field[@name='scheduled_date']"  position="after">
+                  <field name="date_deadline_from"  />
+                  <field name="date_deadline_to"  />
+                  <field name="date_printed"  />
+                  <field name="user_printed_id"  />
+              </xpath>
+              <xpath expr="//field[@name='location_dest_id']"  position="after">
+                  <field name="vendor_date_ddt" attrs="{'invisible':[('picking_type_code', 'not in', ('incoming', 'internal'))]}" />
+                  <field name="vendor_number_ddt"	attrs="{'invisible':[('picking_type_code', 'not in', ('incoming', 'internal'))]}" />
+              </xpath>
+              <xpath expr="//field[@name='move_ids_without_package']"  position="before">
+
+                  <button class="oe_highlight" name="assign_box" type="object" string="Assign Box and Accessory" attrs="{'invisible': [('state', 'in', ('draft', 'done', 'cancel'))]}" />
+              </xpath>
+              <xpath expr="//form[1]/sheet[1]/notebook[1]/page[3]/field[@name='move_ids_without_package']/tree[1]/field[@name='product_id']" position="after">
+                  <field name="sale_currency_id" invisible="1"/>
+                  <field name="sale_price" widget="monetary" options="{'currency_field': 'sale_currency_id'}" sum="Total"/>
+                  <field name="picking_id" invisible="1"/>
+                  <field name="purchase_currency_id" invisible="1"/>
+                  <field name="origin_purchase_id" invisible="1"/>
+                  <field name="purchase_price_inserted"  widget="monetary" attrs="{'column_invisible':[('parent.picking_type_code', '!=', 'incoming')]}" options="{'currency_field': 'purchase_currency_id'}"/>
+		  <field name="purchase_price"  widget="monetary" attrs="{'column_invisible':[('parent.picking_type_code', '!=', 'incoming')]}" options="{'currency_field': 'purchase_currency_id'}"/>
+              </xpath>
+          </field>
+      </record>
+	 
+	<record model="ir.ui.view" id="view_stock_vpicktree">
+         <field name="name">stock.picking.milor</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        
+        <field name="arch" type="xml">
+	        <xpath  expr="//field[@name='name']"  position="before">
+	        		
+	        			        	<field name="product_brand_id"  />	
+
+	        		
+	        </xpath>
+	    
+	        <xpath  expr="//field[@name='location_dest_id']"  position="after">
+	        		<field name="origin_date_done"  />	
+	        		
+	        		
+	        </xpath>
+	        <xpath  expr="//field[@name='state']"  position="after">
+	        <field name="date_printed"  />	
+	        		<field name="amount_total"  />	
+	        		<field name="quantity_total"  />	
+	        </xpath>
+        
+     	</field>
+    </record>
+	
+	<record model="ir.ui.view" id="view_rfq_order_milor_form">
+         <field name="name">purchase.order.milor</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//field[@name='product_id']"  position="before">
+        		<field name="id" invisible="1" />
+        		<field name="sample" />
+        		<field name="image_256" widget="image" options="{'zoom': true, 'preview_image':'image_128'}" />			
+        </xpath>
+        <xpath  expr="//field[@name='product_id']"  position="after">
+        		<field name="product_of_service_id" attrs="{'column_invisible': [('parent.service_po', '=', False)]}" />
+        		<field name="image_pos_256" widget="image" options="{'zoom': true, 'preview_image':'image_128'}"  attrs="{'column_invisible': [('parent.service_po', '=', False)]}" />			
+        </xpath>
+        
+        <xpath  expr="//field[@name='company_id']"  position="after">
+        		<group string="Statistiche fornitore">
+        		<field name="order_product_amount"/>
+        		<field name="pending_product_amount"/>
+        		<field name="product_availability"/>	
+        		<field name="product_virtual_availability"/>
+        		
+        		</group>
+        		
+        </xpath>
+        <xpath  expr="//field[@name='partner_ref']"  position="after">
+        		<field name="service_po" />
+        		<field name="parent_po_id" attrs="{'invisible':[('service_po','=',False)]}"/>
+        		
+        </xpath>
+        <xpath  expr="//field[@name='partner_id']"  position="before">
+ 			<field name="product_id" invisible="1" />
+            
+        		
+        </xpath>
+         <xpath expr="//field[@name='partner_id']" position="attributes">
+		    <attribute name="domain">[["supplier_rank","&gt;",0],'|', ['company_id', '=', False], ['company_id', '=', company_id]]</attribute>
+		  </xpath>
+     	<xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+		    <page name="child_po" string="Child PO" attrs="{'invisible':[('child_po_ids','=',False)]}">
+		      <field name="child_po_ids" readonly="1">
+		      	
+		      
+		      </field>
+		    </page>
+  		</xpath>
+		<xpath  expr="//field[@name='service_po']"  position="before">
+ 			<field name="purchase_order_type"/>
+ 			<field name="purchase_typology"/>
+        </xpath>
+     	</field>
+    </record>
+    
+    <record model="ir.ui.view" id="view_po_stock_order_milor_form">
+         <field name="name">purchase.order.milor</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase_stock.purchase_order_view_form_inherit"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//field[@name='dest_address_id']"  position="attributes">
+        		<attribute name="attrs"></attribute>	
+        </xpath>
+       
+       
+     	</field>
+    </record>
+    
+		
+	<record model="ir.ui.view" id="view_rfq_order_milor_tree">
+         <field name="name">purchase.order.milor</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//field[@name='name']"  position="before">
+        		
+        		<field name="image_256" widget="image"  options="{'zoom': true, 'preview_image':'image_128'}" />
+        			
+        		
+        </xpath>
+        <xpath  expr="//field[@name='partner_id']"  position="after">
+        		
+        		<field name="order_product_amount"/>
+        		<field name="pending_product_amount"/>
+        		<field name="product_availability"/>	
+        		<field name="product_virtual_availability"/>
+        		
+        		
+        </xpath>
+     	</field>
+    </record>
+       
+       
+       
+        
+       
+       
+     <record model="ir.ui.view" id="view_pruchase_order_milor_tree">
+         <field name="name">purchase.order.milor</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_view_tree"/>
+        
+        <field name="arch" type="xml">
+         <xpath  expr="//field[@name='name']"  position="before">
+        		
+        		<field name="image_256" widget="image" options="{'zoom': true, 'preview_image':'image_128'}"  />
+        			
+        		
+        </xpath>
+        <xpath expr="//field[@name='date_order']"  position="attributes">
+        	<attribute name="string">Data richiesta</attribute>
+        </xpath>
+        <xpath  expr="//field[@name='partner_id']"  position="after">
+        		
+        		<field name="order_product_amount"/>
+        		<field name="pending_product_amount"/>
+        		<field name="product_availability"/>	
+        		<field name="product_virtual_availability"/>
+        		
+        		
+        </xpath>
+     	</field>
+    </record>
+
+      <record model="ir.ui.view" id="view_stock_picking_milor_kanban">
+          <field name="name">stock.picking.milor</field>
+          <field name="model">stock.picking</field>
+          <field name="inherit_id" ref="stock.stock_picking_kanban"/>
+          <field name="arch" type="xml">
+              <xpath  expr="//field[@name='date']"  position="after">
+                  <field name="image_128" />
+                  <field name="confirmable"/>
+                  <field name="activity_state"/>
+                  <field name="id" />
+              </xpath>
+              <xpath  expr="//kanban[1]"  position="attributes">
+                  <attribute name="default_group_by">picking_assignation_id</attribute>
+              </xpath>
+              <xpath expr="//div[hasclass('o_kanban_record_headings')]" position="after">
+                  <button style="padding: 0px 10px;" class="btn btn-link fa fa-desktop d-none d-lg-block" name="open_picking" type="object"/>
+                  <button style="padding: 0px 10px;" class="btn btn-link fa fa-barcode d-lg-none" name="open_picking_client_action" type="object"/>
+              </xpath>
+              <xpath  expr="//kanban[1]/templates[1]/t[1]/div[1]/div[1]"  position="after">
+                  <div class="o_kanban_record_body">
+                      <div class="o_kanban_image">
+                          <img t-att-src="kanban_image('stock.picking', 'image_128', record.id.raw_value)" alt="Product" class="o_image_64_contain"/>
+                      </div>
+                      <div t-if="record.confirmable.raw_value">
+                          <span style="background-color: green;border-radius: 2px;padding: 2px;color: white;">MTS</span>
+                      </div>
+                      <div t-if="!record.confirmable.raw_value">
+                          <span style="background-color: red;border-radius: 2px;padding: 2px;color: white;">MTO</span>
+                      </div>
+                  </div>
+              </xpath>
+          </field>
+      </record>
+    
+    <record id="stock_barcode.picking_view_kanban_inherit_barcode" model="ir.ui.view">
+    
+    	<field name="active">False</field>
+    </record>  
+   
+    <record id="stock.action_picking_tree_all" model="ir.actions.act_window">
+           
+            <field name="res_model">stock.picking</field>
+          	<field name="context">{'search_default_available':True}</field>
+            <field name="view_mode">tree,kanban,form,calendar</field>
+    </record> 
+    
+    <record id="stock.stock_picking_type_menu" model="ir.ui.menu">
+    	<field name="sequence">1</field>
+    </record>
+   <menuitem
+            action="stock.action_picking_tree_all"
+            id="transfer_menu_home"
+            parent="stock.menu_stock_root" sequence="0"
+            name="Transfer"/> 
+       
+       
+  
+            
+                    
+     <record model="ir.ui.view" id="view_picking_search_milor">
+         <field name="name">stock.picking.internal.search</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>                
+        <field name="arch" type="xml">
+           <xpath expr="//field[@name='name']" position="replace">
+            <field name="name" string="Transfer" filter_domain="['|','|', ('carrier_tracking_ref', '=', self),('name', 'ilike', self), ('origin', 'ilike', self)]"/>
+           </xpath>
+        </field>
+     </record>
+                      
+    <record model="ir.ui.view" id="view_quotation_form_milor">
+         <field name="name">sale.order.milor</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        
+        <field name="arch" type="xml">
+        <xpath expr="//field[@name='partner_shipping_id']" position="attributes">
+    	<attribute name="domain">[('parent_id','=',partner_id)]</attribute>
+  		</xpath>
+        <xpath  expr="//field[@name='order_line']/tree/field[@name='product_id']"  position="before">
+        		<field name="id" invisible="1" />
+        		<field name="image_256" widget="image" options="{'zoom': true, 'preview_image':'image_128'}" attrs="{'invisible':[('id','=',False)]}"/>
+        			
+        		
+        </xpath>
+         <xpath  expr="//field[@name='pricelist_id']" position="after">
+        		<field name="partner_pricelist_id" />
+        </xpath>
+        <xpath  expr="//field[@name='payment_term_id']" position="after">
+        		<field name="partner_payment_term_id" />
+        </xpath>
+     	<xpath  expr="//group[@name='sale_shipping']"   position="after">
+        		<group string="Delivery Deadline">
+	        		<field name="date_deadline_from" />
+	        		<field name="date_deadline_to" />
+        		</group>	
+        		<group>
+        			<field name="split_by_brand" />
+        		</group>
+        </xpath>
+        <xpath  expr="//button[@name='action_confirm']"   position="after">
+                <button name="confirm_without_action" id="confirm_without_action" string="Confirm (No Other Action)" class="btn-primary" type="object" attrs="{'invisible': [('state', 'not in', ['draft','sent'])]}"/>
+        </xpath>
+         <xpath expr="//field[@name='partner_id']" position="attributes">
+		    <attribute name="domain">[["customer_rank","&gt;",0],'|', ['company_id', '=', False], ['company_id', '=', company_id]]</attribute>
+		  </xpath>
+		  
+		  
+     	</field>
+    </record>
+	 <record id="syd_quality_check_view_milor_form" model="ir.ui.view">
+        <field name="name">syd_quality.check.view.form</field>
+        <field name="model">syd_quality.check</field>
+        <field name="inherit_id" ref="syd_quality.syd_quality_check_view_form"/>
+        <field name="arch" type="xml">
+         <xpath  expr="//field[@name='user_id']"  position="after">
+         		<field name="date_deadline_from" />
+	        		<field name="date_deadline_to" />
+        </xpath>
+     	</field>
+    </record>
+        
+	<record model="ir.ui.view" id="view_quotation_tree_quotation_milor">
+        <field name="name">sale.order.milor</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//field[@name='name']"  position="before">
+        		
+        		<field name="image_256" widget="image" options="{'zoom': true, 'preview_image':'image_128'}" />
+        		<field name="product_brand_id"  />		
+        		
+        </xpath>
+        <xpath  expr="//field[@name='partner_id']"  position="after">
+        		
+        		<field name="confirmed_not_payed"/>
+       		<field name="invoiced_not_payed"/>
+        		<field name="dued_not_payed"/>	 
+        		<field name="commercial_warning" invisible="1" />
+        		<field name="inventory_warning" invisible="1" />
+        </xpath>
+        
+           <xpath expr="//tree" position="attributes">
+       		 <attribute name="decoration-danger">commercial_warning==True</attribute>
+       		  <attribute name="decoration-warning">inventory_warning==True</attribute>
+       </xpath>
+     	</field>
+    </record>
+    
+    <record model="ir.ui.view" id="view_quotation_tree_order_milor">
+         <field name="name">sale.order.milor</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//field[@name='name']"  position="before">
+        		
+        		<field name="image_256" widget="image" options="{'zoom': true, 'preview_image':'image_128'}" />
+        		<field name="source_id" />
+        		
+        </xpath>
+        <xpath expr="//field[@name='partner_id']"  position="after">
+        		
+        		<field name="confirmed_not_payed"/>
+       		<field name="invoiced_not_payed"/>
+        		<field name="dued_not_payed"/>	 
+        		<field name="commercial_warning" invisible="1" />
+        		
+        </xpath>
+        <xpath expr="//tree" position="attributes">
+       		 <attribute name="decoration-danger">commercial_warning==True</attribute>
+       		
+       </xpath>
+     	</field>
+    </record>
+    
+    <record id="view_product_template_form_last_cost_update" model="ir.ui.view">
+        <field name="name">view.product.template.form.last.cost.update</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='standard_price_uom']" position="inside">
+            	<div attrs="{'invisible': [('last_cost_update', '=', False)]}" style="font-style: italic;"> 
+            		<label for="last_cost_update" string="Last Cost Update:" style="font-size: 80% !important;font-weight: 400 !important;"/>
+            		<field id="last_cost_update" name="last_cost_update" readonly="1" style="font-size: 80% !important;font-weight: 400 !important;"/>
+            	</div>
+	        </xpath>
+        </field>
+    </record> 
+    
+    <record id="view_product_product_form_last_cost_update" model="ir.ui.view">
+        <field name="name">view.product.product.form.last.cost.update</field>
+        <field name="model">product.product</field>
+        <field name="priority">600</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='update_cost_price']" position="inside">
+            	<div attrs="{'invisible': [('last_cost_update', '=', False)]}" style="font-style: italic;"> 
+            		<label for="last_cost_update" string="Last Cost Update:" style="font-size: 80% !important;font-weight: 400 !important;"/>
+            		<field id="last_cost_update" name="last_cost_update" readonly="1" style="font-size: 80% !important;font-weight: 400 !important;"/>
+            	</div>
+	        </xpath>
+        </field>
+    </record>   
+    
+   	<record id="view_product_product_property_form_last_cost_update" model="ir.ui.view">
+        <field name="name">view.product.product.property.form.last.cost.update</field>
+        <field name="model">product.product</field>
+        <field name="priority">600</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='standard_price_uom']" position="inside">
+            	<div attrs="{'invisible': [('last_cost_update', '=', False)]}" style="font-style: italic;"> 
+            		<label for="last_cost_update" string="Last Cost Update:" style="font-size: 80% !important;font-weight: 400 !important;"/>
+            		<field id="last_cost_update" name="last_cost_update" readonly="1" style="font-size: 80% !important;font-weight: 400 !important;"/>
+            	</div>
+	        </xpath>
+	        <xpath expr="//notebook" position="inside">
+            	<page name="commercehub_tab" string="CommerceHub Personalized">
+            		<group string="Note Personalized" colspan="4">	
+            			<field name="note_personalized" nolabel="1"/>
+            		</group>
+            	</page>
+	        </xpath>
+        </field>
+    </record>
+    
+    <record id="view_product_product_property_form_fields" model="ir.ui.view">
+        <field name="name">view.product.product.property.form.fields</field>
+        <field name="model">product.product</field>
+        <field name="priority">700</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+   	        <xpath expr="//field[@name='group_code']" position="before">
+	        	<field name="dotcom_qvc"/>
+	        </xpath>
+	        <xpath expr="//field[@name='stamp_id']" position="before">
+	        	<field name="conferma_acq_auto"/>
+	        </xpath>
+        </field>
+    </record>
+
+    <record id="view_product_supplier_info_form_extend" model="ir.ui.view">
+        <field name="name">view.product.supplier.info.form.extend</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="priority">30</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="note_vendor"/>
+            </field>
+        </field>
+    </record>
+    
+   	<record id="account_move_view_form_extend" model="ir.ui.view">
+        <field name="name">account.move.view.form.extend</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@id='other_tab']/group/group[@name='payments_info_group']/field[@name='invoice_partner_bank_id']" position="after">
+                <field name="payment_gateway"/>
+            </xpath>
+        </field>
+    </record>
+    
+    <record id="account_move_view_tree_extend" model="ir.ui.view">
+        <field name="name">account.move.view.tree.extend</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="payment_gateway"/>
+            </xpath>
+            <xpath expr="//field[@name='invoice_date_due']" position="before">
+                <field name="customer_country"/>
+                <field name="customer_region"/>
+            </xpath>            
+        </field>
+    </record>
+    
+<!--     <record id="product_template_view_inherit_shopify" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.shopify</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook//page[last()]" position="after">
+                <page name="shopify" string="Shopify">
+                    <group>
+                        <group>
+                        	<field name="tag_ids" widget="many2many_tags" string="Shopify Tags"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+     -->
+     
+     
+   	<record id="product_template_fuori_collezione" model="ir.ui.view">
+	    <field name="name">product.template.fuori.collezione</field>
+	    <field name="model">product.template</field>
+	    <field name="groups_id" eval="[(4, ref('syd_custom.group_fuori_collezione'), 0)]"/>
+	    <field name="inherit_id" ref="syd_product_milor.view_product_template_milor_form"/>
+	    <field name="arch" type="xml">
+			<xpath expr="//field[@name='out_of_collection']" position="attributes">
+				<attribute name="readonly">False</attribute>
+			</xpath>
+	    </field>
+   	</record>
+
+   	<record id="product_template_fuori_collezione_estensione" model="ir.ui.view">
+	    <field name="name">product.template.fuori.collezione.estensione</field>
+	    <field name="model">product.product</field>
+	    <field name="groups_id" eval="[(4, ref('syd_custom.group_fuori_collezione'), 0)]"/>
+	    <field name="inherit_id" ref="syd_product_milor.view_product_product_milor_form"/>
+	    <field name="arch" type="xml">
+			<xpath expr="//field[@name='out_of_collection_variant']" position="attributes">
+				<attribute name="readonly">False</attribute>
+			</xpath>
+	    </field>
+   	</record>
+   	    
+	<record id="view_line_purchase_order_inherit" model="ir.ui.view">
+	    <field name="name">purchase.order.line.inherit.view</field>
+	    <field name="model">purchase.order</field>
+	    <field name="inherit_id" ref="purchase.purchase_order_form"/>
+	    <field name="arch" type="xml">
+		    <xpath  expr="//field[@name='product_of_service_id']"  position="after">
+	    		<field name="product_metallo"/>
+	    		<field name="product_taglia"/>
+	    		<field name="product_pietra"/>
+	    		<field name="product_placcatura"/>
+		    </xpath>
+	   	</field>
+	</record>
+
+   	<record id="product_attribute_custom_view" model="ir.ui.view">
+	    <field name="name">product.attribute.custom.view</field>
+	    <field name="model">product.attribute</field>
+	    <field name="inherit_id" ref="product.product_attribute_view_form"/>
+	    <field name="arch" type="xml">
+			<xpath expr="//group[@name='main_fields']" position="after">
+				<group>
+					<group>
+						<field name="po_column"/>
+					</group>
+				</group>
+			</xpath>
+	    </field>
+   	</record>
+
+    <record id="product_template_view_inherit_tags" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.tags</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook//page[last()]" position="after">
+                <page name="product_tags" string="Tags">
+                    <group>
+                        <group>
+                        	<field name="tag_product_ids" widget="many2many_tags" string="Product Tags"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    
+    
+    <record id="view_line_purchase_order_inherit_qty_done" model="ir.ui.view">
+	    <field name="name">purchase.order.line.inherit.view.qty.done</field>
+	    <field name="model">purchase.order</field>
+	    <field name="inherit_id" ref="purchase.purchase_order_form"/>
+	    <field name="arch" type="xml">
+		    <xpath  expr="//field[@name='product_virtual_availability']"  position="after">
+	    		<field name="qty_total_received" attrs="{'invisible': [('state', 'in', ('draft', 'sent', 'to approve'))]}"/>
+		    </xpath>
+	   	</field>
+	</record>
+	
+  	<record id="purchase_order_view_form_inherit_date_planned" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit.date.planned</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='planning']/div//field[@name='date_planned']" position="after">
+           		<span class="oe_read_only" attrs="{'invisible': [('date_planned', '=', False)]}"> - 
+                       <field name="received_status"/>
+                   </span>
+            </xpath>
+            <xpath expr="//group[@name='planning']" position="inside">
+        		<label for="delay_days" attrs="{'invisible': ['|',('received_status', 'not in', ('to_receive','partial')),('state','in',('draft','sent'))]}"/>
+                <div attrs="{'invisible': ['|',('received_status', 'not in', ('to_receive','partial')),('state','in',('draft','sent'))]}">
+        			<field name="delay_days"/>
+        		</div>
+       		</xpath>
+   	    </field>
+ 	</record>
+ 	
+ 	<record model="ir.ui.view" id="view_sale_order_product_cost">
+         <field name="name">sale.order.product.cost</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='order_line']/tree" position="inside">
+           		<field name="product_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+            </xpath>
+            <xpath expr="//group[@name='sale_total']" position="before">
+            	<group colspan="2" class="oe_subtotal_footer" style="float: left !important;">
+	           		<field name="total_cost" widget="monetary" sum="Total Cost" options="{'currency_field': 'currency_id'}"/>
+            	</group>
+            </xpath>
+		</field>
+    </record> 
+    
+    <record id="delivery_order_form_view_confirm_buttons" model="ir.ui.view">
+        <field name="name">delivery.order.form.view.confirm.buttons</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="groups_id" eval="[(4, ref('syd_custom.group_double_checking_do_visibility'), 0)]"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//button[@name='action_cancel']" position="attributes">
+            	<attribute name="confirm">Sei sicuro di voler Annullare l'ordine?</attribute>
+            </xpath>
+        </field>
+    </record>
+    
+    <record id="delivery_order_form_view_confirm_buttons_admin" model="ir.ui.view">
+        <field name="name">delivery.order.form.view.confirm.buttons.admin</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//button[@name='action_cancel']" position="attributes">
+        		<attribute name="groups">syd_custom.group_double_checking_do_visibility, syd_custom.group_administrator_visibility</attribute>
+            </xpath>
+        </field>
+    </record>
+
+   <record id="sale_order_form_view_confirm_buttons" model="ir.ui.view">
+        <field name="name">sale.order.form.view.confirm.buttons</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="groups_id" eval="[(4, ref('syd_custom.group_double_checking_so_visibility'), 0)]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_cancel']" position="attributes">
+             	<attribute name="confirm">Sei sicuro di voler Annullare l'ordine?</attribute>
+            </xpath>
+        </field>
+    </record>
+   
+   <record id="sale_order_form_view_confirm_buttons_admin" model="ir.ui.view">
+        <field name="name">sale.order.form.view.confirm.buttons.admin</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_cancel']" position="attributes">
+            	<attribute name="groups">syd_custom.group_double_checking_so_visibility, syd_custom.group_administrator_visibility</attribute>
+            </xpath>
+        </field>
+    </record>
+   
+    <record id="purchase_order_form_view_confirm_buttons" model="ir.ui.view">
+        <field name="name">purchase.order.form.view.confirm.buttons</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="groups_id" eval="[(4, ref('syd_custom.group_double_checking_po_visibility'), 0)]"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//button[@name='button_cancel']" position="attributes">
+             	<attribute name="confirm">Sei sicuro di voler Annullare l'ordine?</attribute>
+            </xpath>
+        </field>
+    </record>
+   	    
+    <record id="purchase_order_form_view_confirm_buttons_admin" model="ir.ui.view">
+        <field name="name">purchase.order.form.view.confirm.buttons.admin</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//button[@name='button_cancel']" position="attributes">
+            	<attribute name="groups">syd_custom.group_double_checking_po_visibility, syd_custom.group_administrator_visibility</attribute>
+            </xpath>
+        </field>
+    </record>
+    </data>
+
+    <record id="res_config_settings_top_view_form1" model="ir.ui.view">
+        <field name="name">res.config.settings.view.top.form.inherit.account</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="40" />
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@data-key='stock']" position="inside">
+                <h2>Gls Contrassegno</h2>
+                <div class="row mt16 o_settings_container" >
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="show_gls_contrassegno"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="show_gls_contrassegno"/>
+                            <div class="text-muted">
+                                Set automatically GLS CONTRASSEGNO on orders with Cash On Delivery(Cod)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="modify_payment_terms_in_res_partner" model="ir.ui.view">
+        <field name="name">res.partner.payment.terms.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="priority">3</field>
+        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group/field[@name='property_payment_term_id']" position="replace">
+                <field string="Payment Terms" name="property_payment_term_id" groups="account.group_account_invoice"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,21 @@
+<odoo>
+  <data>
+ 	
+ 
+ 	
+   <record model="ir.ui.view" id="view_product_category_descriptions_form">
+         <field name="name">product.public.category.descriptions</field>
+        <field name="model">product.public.category</field>
+        <field name="inherit_id" ref="website_sale.product_public_category_form_view"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//field[@name='website_id']"  position="after">
+        		<field name="category_ids" widget="many2many_tags" />
+        		<button name="fill_category" type="object" string="Fill category" />
+        </xpath>
+     	</field>
+    </record>
+     
+     
+    </data>
+</odoo>

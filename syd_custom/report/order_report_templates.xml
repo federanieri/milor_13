@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="report_saleorder_barcode" inherit_id="sale.report_saleorder_document">     
+   <xpath expr="//div[@id='informations']" position="before">
+           <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', doc.name, 600, 100)" alt="Barcode"
+                                  style="width:300px;height:50px"/>
+                                  
+                                  
+           
+        </xpath>
+        <xpath expr="//td[@name='td_name']" position="before">
+        		<td>
+        			 <span t-field="line.product_id.image_128" t-options-widget="&quot;image&quot;"/><br/>
+        		</td>
+        		
+        </xpath>
+        <xpath expr="//th[@name='th_description']" position="before">
+        	<th>
+        	
+        	
+        	</th>
+        	
+        </xpath>
+    </template>
+    <template id="report_purchaseorder_barcode" inherit_id="purchase.report_purchaseorder_document">
+        <xpath expr="//div[@id='informations']" position="inside">
+            <div t-if="o.date_planned" class="col-3 bm-2">
+                <strong>Consigment Date:</strong>
+                <p t-field="o.date_planned" class="m-0"/>
+            </div>
+        </xpath>
+        <xpath expr="//div[@id='informations']" position="before">
+            <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.name, 600, 100)" alt="Barcode"
+                 style="width:300px;height:50px"/>
+            <h4 t-if="o.parent_po_id">Ordine collegato: #<span t-field="o.parent_po_id.name"/></h4>
+            <img t-if="o.parent_po_id" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.parent_po_id.name, 600, 100)" alt="Barcode"
+                 style="width:300px;height:50px"/>
+        </xpath>
+        <xpath expr="//td[@id='product']" position="before">
+            <td><img t-attf-src="data:image/*;base64,{{line.product_id.image_128}}"/></td>
+        </xpath>
+        <xpath expr="//span[@t-field='line.name']" position="after">
+            <span t-field="line.product_id.milor_code" />
+        </xpath>
+        <xpath expr="//th[@name='th_description']" position="before">
+            <th></th>
+        </xpath>
+        <xpath expr="//th[@name='th_description']" position="after">
+            <th t-if="o.parent_po_id">
+                Product of Service
+            </th>
+            <th t-if="o.parent_po_id">
+            </th>
+        </xpath>
+        <xpath expr="//td[@id='product']" position="after">
+            <td t-if="o.parent_po_id">
+                <span t-field="line.product_of_service_id.display_name" /> <span t-field="line.product_of_service_id.milor_code" />
+            </td>
+            <td t-if="o.parent_po_id">
+                <img t-attf-src="data:image/*;base64,{{line.product_of_service_id.image_128}}"/>
+            </td>
+        </xpath>
+        <xpath expr="//p[@t-field='o.notes']" position="before">
+            <t t-raw="o.category_summary"/>
+        </xpath>
+    </template>
+
+
+
+
+     <template id="report_delivery_document" inherit_id="stock.report_delivery_document">     
+   		<xpath expr="//span[@t-field='move.description_picking']" position="replace">
+           
+        </xpath>
+        <xpath expr="//span[@t-field='move_line.move_id.description_picking']" position="replace">
+           
+        </xpath>
+        <xpath expr="//th[@name='th_sm_quantity']" position="after">
+        	<th name="th_sm_quantity"><strong>Price</strong></th>
+           
+        </xpath>
+        <xpath expr="//tr[@t-foreach='lines']" position="inside">
+        	<td>
+                                    <span t-field="move.sale_price"/>
+                                    <span t-field="move.sale_currency_id.symbol"/>
+                                </td>
+           
+        </xpath>
+        <xpath expr="//table[@name='stock_move_line_table']" position="replace">
+        				
+           
+        </xpath>
+         <xpath expr="//table[@name='stock_move_table']" position="attributes">
+         
+         	<attribute name="t-if"></attribute>
+        				
+           
+        </xpath>
+         <xpath expr="//div[@name='div_origin']" position="after">
+         		<div t-if="o.owner_id" class="col-auto" name="div_owner">
+                            <strong>Owner:</strong>
+                            <p t-field="o.owner_id.name"/>
+                        </div>
+         		<div t-if="o.total_goods" class="col-auto" name="div_total">
+                            <strong>Totale Merce:</strong>
+                            <p t-field="o.total_goods"/>
+                        </div>
+         
+         </xpath>
+        <xpath expr="//div[@t-esc='partner']" position="after">
+        
+         	 <span t-field="partner.commercial_partner_id.fm_code" ></span>
+         	 <br />
+         	         </xpath>
+      <!--  <xpath expr="//p[@t-field='o.note']" position="after">
+        
+         	  <t t-raw="o.category_summary"/>
+         	 
+         	         </xpath> -->
+    </template>
+    
+    
+    
+    <template id="report_delivery_document_without_price">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)" />
+                <t t-set="partner" t-value="o.partner_id or (o.move_lines and o.move_lines[0].partner_id) or False"/>
+                <t t-if="partner" name="partner_header">
+                    <t t-set="address">
+                        <div t-esc="partner"
+                        t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True}'>
+                        
+                        	
+                        </div>
+                         <span t-field="partner.commercial_partner_id.fm_code"/>
+                   </t>
+                   
+                   
+                </t>
+
+                <div class="page">
+                    <h2>
+                        <span t-field="o.name"/>
+                    </h2>
+                    <div class="row mt32 mb32">
+                        <div t-if="o.origin" class="col-auto" name="div_origin">
+                            <strong>Order:</strong>
+                            <p t-field="o.origin"/>
+                        </div>
+         		<div t-if="o.owner_id" class="col-auto" name="div_owner">
+                            <strong>Owner:</strong>
+                            <p t-field="o.owner_id.name"/>
+                        </div>
+         				<div t-if="o.total_goods" class="col-auto" name="div_total">
+                            <strong>Totale Merce:</strong>
+                            <p t-field="o.total_goods"/>
+                        </div>
+         
+         
+                        <div t-if="o.state" class="col-auto" name="div_sched_date">
+                            <strong>Shipping Date:</strong>
+                            <t t-if="o.state == 'done'">
+                                <p t-field="o.date_done" t-options='{"widget": "date"}'/>
+                            </t>
+                            <t t-if="o.state != 'done'">
+                                <p t-field="o.scheduled_date" t-options='{"widget": "date"}'/>
+                           </t>
+                        </div>
+                    </div>
+                    <table class="table table-sm" name="stock_move_table">
+                        <thead>
+                            <tr>
+                                <th name="th_sm_product"><strong>Product</strong></th>
+                                <th name="th_sm_quantity"><strong>Quantity</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty)"/>
+                            <tr t-foreach="lines" t-as="move">
+                                <td>
+                                    <span t-field="move.product_id"/>
+                                   
+                                </td>
+                                <td>
+                                    <span t-field="move.product_uom_qty"/>
+                                    <span t-field="move.product_uom"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                   
+                    <t t-raw="o.category_summary"/>
+                </div>
+            </t>
+         </t>
+    </template>
+
+    <template id="report_deliveryslip_without_price">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="syd_custom.report_delivery_document_without_price" t-lang="o.partner_id.lang"/>
+        </t>
+    </template>
+    
+    
+</odoo>

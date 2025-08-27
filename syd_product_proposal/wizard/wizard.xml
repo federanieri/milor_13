@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="order_creation_helper" model="ir.ui.view">
+            <field name="name">syd_product_proposal.wizard_order.form</field>
+            <field name="model">syd_product_proposal.wizard_order</field>
+            <field name="arch" type="xml">
+                <form string="Order Creation Helper">
+                    <group >
+                    	<field name="customer_id" />
+                    	<field name="product_ids" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button name="create_order"  string="Create Order" type="object" class="btn-primary"/>
+                       
+                        
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_order_creation_helper" model="ir.actions.act_window">
+            <field name="name">Order Creation Helper</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">syd_product_proposal.wizard_order</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+      
+	<record id="order_creation_helper" model="ir.ui.view">
+            <field name="name">syd_product_proposal.wizard_order.form</field>
+            <field name="model">syd_product_proposal.wizard_order</field>
+            <field name="arch" type="xml">
+                <form string="Proposal Creation Helper">
+                    <group >
+                    	<field name="customer_id" />
+                    	<field name="product_ids" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button name="create_order"  string="Create Proposal" type="object" class="btn-primary"/>
+                       
+                        
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_order_creation_helper" model="ir.actions.act_window">
+            <field name="name">Proposal Creation Helper</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">syd_product_proposal.wizard_order</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+</odoo>

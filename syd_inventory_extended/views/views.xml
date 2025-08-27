@@ -1,0 +1,489 @@
+<odoo>
+  <data>
+  
+  <record model="ir.ui.view" id="view_picking_type_form_step">
+         <field name="name">view_picking_type_form.step</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form"/>
+        <field name="arch" type="xml">
+	        <xpath  expr="//field[@name='default_location_src_id']"  position="before">
+        		<field name="validation_control"  />
+        		<field name="dropship_steps"  attrs="{'invisible':[('code','!=','incoming')]}"/>
+        	</xpath>
+        </field>
+    </record>
+  	
+  	<record model="ir.ui.view" id="view_order_point_auto">
+         <field name="name">stock.warehouse.orderpoint</field>
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_form"/>
+        <field name="arch" type="xml">
+	        <xpath  expr="//field[@name='product_id']"  position="before">
+        		<field name="auto_orderpoint"  />
+        	</xpath>
+        </field>
+    </record>
+  
+  	<record model="ir.ui.view" id="view_partner_nogroup">
+         <field name="name">res.partner.no_group</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="product.view_partner_property_form"/>
+        <field name="arch" type="xml">
+	        <xpath  expr="//field[@name='property_product_pricelist']"  position="after">
+        		<field name="no_group_picking"  />
+        	</xpath>
+        </field>
+    </record>
+ 	
+ 	 <record model="ir.ui.view" id="view_res_company_locations_form">
+         <field name="name">res.company.locations</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//group[@name='social_media']"  position="after">
+        		<group string="Locations">
+        			<field name="default_return_location_id" />
+        			<field name="default_scrap_location_id" />
+        			
+        		</group>
+        </xpath>
+     	</field>
+    </record>
+ 		
+	<record model="ir.ui.view" id="stock_picking_assignation_tree">
+      <field name="name">stock.picking_assignation</field>
+      <field name="model">stock.picking_assignation</field>
+      <field name="arch" type="xml">
+        <tree >
+         <field name="sequence" widget="handle" />
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+<record model="ir.ui.view" id="stock_picking_assignation_form">
+      <field name="name">stock.picking_assignation</field>
+      <field name="model">stock.picking_assignation</field>
+      <field name="arch" type="xml">
+        <form >
+        <sheet>
+        	<header>
+        		<button name="align_pickings" type="object" string="Align Pickings"></button>
+        	</header>
+        	<group>
+	          <field name="name"/>
+	          
+	           <field name="model_name" invisible="1"/>
+	         <field name="filter_domain" widget="domain" options="{'model': 'model_name', 'in_dialog': True}"/>
+	           <field name="user_ids" widget="many2many_tags"/>
+	           <field name="batch_user_id"/>
+          </group>
+        
+          
+        </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="stock_picking_assignation_act">
+      <field name="name">Stock Picking Assignation</field>
+      <field name="res_model">stock.picking_assignation</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+
+    <menuitem name="Stock Picking Assignation" id="stock_picking_assignation_act_menu" parent="stock.menu_warehouse_config"
+              action="stock_picking_assignation_act"/>	
+		
+ 
+ 	
+     
+      <record model="ir.ui.view" id="view_stock_rule_form_ext">
+        <field name="name">stock.rule.form</field>
+        <field name="model">stock.rule</field>
+        <field name="inherit_id" ref="stock.view_stock_rule_form"/>
+        
+        <field name="arch" type="xml">
+	        <xpath  expr="//field[@name='propagate_warehouse_id']"  position="after">
+	        			<field name="propagate_contact_id" />
+	        </xpath>
+     	</field>
+     </record>
+    
+         <record model="ir.ui.view" id="view_stock_location_ext">
+         <field name="name">stock.location.ext</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        
+        <field name="arch" type="xml">
+         <xpath  expr="//field[@name='comment']"  position="before">
+        		<group>
+        		<field name="auto_backorder"  />
+        		<field name="picking_accepted"  />
+        		<field name="scrap_on_backorder"  />
+        		<field name="partner_group" />
+        		<field name="group_same_origin" />
+        		<field name="no_group" />
+        		<field name="only_in_pack" />
+        		<field name="with_corrier_validate" />
+        		<field name="show_for_reserve" />
+        		<field name="cannot_put_in_pack" />
+        		<field name="not_bypass_reservation_for_scrap" />
+        		</group>	
+        		
+        </xpath>
+         <xpath  expr="//field[@name='return_location']"  position="after">
+         		<field name="stock_ubication" />
+      	</xpath>
+     	</field>
+    </record>
+     <record model="ir.ui.view" id="stock_scrap_form_view_ext">
+         <field name="name">stock.scrap.ext</field>
+        <field name="model">stock.scrap</field>
+        <field name="inherit_id" ref="stock.stock_scrap_form_view"/>
+        
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='owner_id']" position="after">
+        		<field name="partner_id"  />
+            </xpath>
+       		
+     	</field>
+    </record>
+    
+    <record model="ir.ui.view" id="stock_scrap_tree_view_ext">
+         <field name="name">stock.scrap.ext</field>
+        <field name="model">stock.scrap</field>
+        <field name="inherit_id" ref="stock.stock_scrap_tree_view"/>
+        
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='scrap_qty']" position="after">
+        		<field name="partner_id"  />
+        		<field name="origin"  />
+            </xpath>
+       		
+     	</field>
+    </record>
+    
+    
+     <record model="ir.ui.view" id="view_stock_picking_ext">
+         <field name="name">stock.picking.ext</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        
+        <field name="arch" type="xml">
+        	<xpath expr="//button[@name='button_validate'][hasclass('oe_highlight')]" position="after">
+        		<field name="picking_accepted" invisible="1" />
+        		<field name="id" invisible="1" />
+                <button string="Accept Picking" name="accept_picking" type="object" class="oe_highlight" attrs="{'invisible': ['|',('id','=',False),('picking_accepted', '=', True)]}" />
+                <field name="cannot_put_in_pack" invisible="1" />
+            </xpath>
+       		<xpath expr="//form[1]/sheet[1]/notebook[1]/page[1]/button[@name='put_in_pack']" position="attributes">
+			    <attribute name="attrs">{'invisible': ['|',('cannot_put_in_pack','=',True),('state', 'in', ('draft', 'done', 'cancel'))]}</attribute>
+			  </xpath>
+			  <xpath expr="//form[1]/sheet[1]/notebook[1]/page[2]/button[@name='put_in_pack']" position="attributes">
+			    <attribute name="attrs">{'invisible': ['|',('cannot_put_in_pack','=',True),('state', 'in', ('draft', 'done', 'cancel'))]}</attribute>
+			  </xpath>
+			  <xpath expr="//form[1]/sheet[1]/notebook[1]/page[3]/button[@name='put_in_pack']" position="attributes">
+			    <attribute name="attrs">{'invisible': ['|',('cannot_put_in_pack','=',True),('state', 'in', ('draft', 'done', 'cancel'))]}</attribute>
+			  </xpath>
+			  <xpath expr="//field[@name='owner_id']" position="attributes">
+					<attribute name="attrs"></attribute>
+       			</xpath>
+       			
+       			<xpath expr="//div[@name='button_box']" position="after">
+					<field name="product_status" invisible="1" />
+					<div attrs="{'invisible':[('product_status','!=','partial')]}">
+						<span style="background-color:red;color:white;padding:2px;">Not all products are reserved </span>
+					</div>
+       			</xpath>
+       			
+       			<xpath expr="//div[@name='button_box']" position="inside">
+       			<button name="action_see_move_line_package" class="oe_stat_button" icon="fa-arrows-v" type="object" help="View and edit package movement" attrs="{'invisible': [('state','!=','assigned')]}">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_text">Edit Move Packages</span>
+                            </div>
+                        </button>
+       			</xpath>
+     	</field>
+    </record>
+    
+   
+    
+     <record model="ir.ui.view" id="view_purchase_order_scrap_form">
+         <field name="name">purchase.order</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//div[@name='button_box']"  position="inside">
+        		
+        			<field name="has_scrap" invisible="1" />
+                        <button name="action_see_move_scrap" string="Scraps" type="object"
+                            class="oe_stat_button" icon="fa-arrows-v"
+                            attrs="{'invisible': [('has_scrap', '=', False)]}"/>
+        		
+        </xpath>
+     	</field>
+    </record>
+    
+   <record model="ir.ui.view" id="view_purchase_order_total_picking_form">
+         <field name="name">purchase.order</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase_stock.purchase_order_view_form_inherit"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//div[hasclass('oe_button_box')]/button[@name='action_view_picking']"  position="replace">
+        		<field name="picking_count" invisible="1" />
+        		<button type="object" name="action_view_total_picking" class="oe_stat_button" icon="fa-truck" attrs="{'invisible':[('picking_count','=',0)]}">
+                    <field name="total_picking_count" widget="statinfo" help="Total Transfer"/>
+                    <field name="total_picking_ids" invisible="1"/>
+                    <span>Total Transfer</span>
+                </button>
+        		
+        </xpath>
+     	</field>
+    </record>
+    
+     <record model="ir.ui.view" id="view_sale_order_total_picking_form">
+         <field name="name">sale.order</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/>
+        
+        <field name="arch" type="xml">
+        <xpath  expr="//button[@name='action_view_delivery']"  position="replace">
+        		<field name="delivery_count" invisible="1" />
+        		<button type="object" name="action_view_total_picking" class="oe_stat_button" icon="fa-truck" attrs="{'invisible':[('delivery_count','=',0)]}">
+                    <field name="total_picking_count" widget="statinfo" string="Total Transfer" help="Total Transfer"/>
+                    <field name="total_picking_ids" invisible="1"/>
+                     <span>Total Transfer</span>
+                </button>
+        		
+        </xpath>
+     	</field>
+    </record> 
+    
+    
+    
+     <record model="ir.ui.view" id="view_sale_order_inv_ext_form">
+         <field name="name">sale.order</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        
+        <field name="arch" type="xml">
+       <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='qty_delivered']"  position="before">
+        		
+        			<field name="qty_reserved" attrs="{'column_invisible': [('parent.state', 'not in', ['sale', 'done'])]}"/>
+        		
+        </xpath>
+        <xpath expr="//button[@name='action_view_invoice']" position="before">
+                   <field name="has_packages" invisible="1" />
+                    <button type="object"
+                        name="action_see_packages"
+                        class="oe_stat_button"
+                        icon="fa-cubes"
+                        attrs="{'invisible': [('has_packages', '=', False)]}" groups="base.group_user"
+                        string="Package"
+                        >
+                        
+                    </button>
+                </xpath>
+     	</field>
+    </record>
+    
+    
+    <record model="ir.ui.view" id="view_stock_quant_package_ext_form">
+         <field name="name">stock.quant.package</field>
+        <field name="model">stock.quant.package</field>
+        <field name="inherit_id" ref="stock.view_quant_package_form"/>
+        
+        <field name="arch" type="xml">
+       <xpath expr="//field[@name='quant_ids']"  position="replace">
+       <notebook>
+       	<page string="Validated Content">
+        		<field name="stock_quant_packing_list_ids" readonly="1">
+        			<tree>
+        					<field name="origin" />
+        					<field name="packing_product_id" />
+                            <field name="lot_id" groups="stock.group_production_lot"/>
+                            <field name="qty" />
+
+                            <field name="product_uom_id" groups="uom.group_uom"/>
+        			</tree>
+        		</field>
+        </page>
+        <page string="Temporary Content">
+        		 <field name="stock_quant_not_confirmed_move_ids">
+                        <tree>
+                        	<field name="origin" />
+                            <field name="product_id"/>
+                            <field name="lot_id" groups="stock.group_production_lot"/>
+                            <field name="qty_done"/>
+                            <field name="product_uom_id" groups="uom.group_uom"/>
+                        </tree>
+                    </field>
+        
+        </page>	 
+        </notebook>		
+        </xpath>
+        <xpath expr="//button[@name='unpack']"  position="replace">	
+        			<field name="state" invisible="1"/>                    
+        			<button name="close_pack" string="Close Pack" type="object" states="open"/>
+        			<button name="open_pack" string="Open Pack" type="object" states="closed"/>
+        	</xpath>
+     	</field>
+    </record>
+    
+    
+    <record model="ir.ui.view" id="view_stock_vpicktree_ext">
+         <field name="name">stock.picking.ext</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        
+        <field name="arch" type="xml">
+	       
+	         <xpath  expr="//field[@name='partner_id']"  position="replace">
+	        		
+	        		
+	        		
+	        </xpath> 
+	         <xpath  expr="//field[@name='location_id']"  position="before">
+	        		
+	        		<field name="origin_purchase_id"  />
+	        		<field name="origin_vendor_id"  />	
+	        		
+	        </xpath> 
+	        <xpath  expr="//field[@name='location_dest_id']"  position="after">
+	        		
+	        		 <field name="origin_sale_id"  />
+	        		<field name="origin_customer_id"  /> 
+	        		
+	        		
+	        </xpath>
+        
+     	</field>
+    </record>
+    
+    
+     <record model="ir.ui.view" id="view_stock_picking_ext_kanban">
+         <field name="name">stock.picking.ext</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.stock_picking_kanban"/>
+        
+        <field name="arch" type="xml">
+         <xpath  expr="//field[@name='date']"  position="after">
+        		
+        			  <field name="origin"/>
+                      <field name="origin_purchase_id" />
+                     <field name="origin_vendor_id"/>
+                      <field name="origin_sale_id" />
+                       <field name="origin_customer_id"/> 
+                      <field name="origin_date_done"/>
+        		
+        </xpath>
+        <xpath expr="//t[@t-esc='record.partner_id.value']" position="replace">
+          
+          
+           
+        </xpath>
+        <xpath  expr="//kanban[1]/templates[1]/t[1]/div[1]/div[1]"  position="after">
+        		
+        	
+                                     <div t-if="record.origin_purchase_id.value">
+                                        <field name="origin_purchase_id"/>
+                                    </div>
+                                    
+                                     <div t-if="record.origin_vendor_id.value">
+                                        <field name="origin_vendor_id"/>
+                                    </div>
+                                   
+                                     <div t-if="record.origin_sale_id.value">
+                                        <field name="origin_sale_id"/>
+                                    </div>
+                                   
+                                    <div t-if="record.origin_customer_id.value">
+                                        <field name="origin_customer_id"/>
+                                    </div>
+                                   <div t-if="record.origin_date_done.value">
+                                        <field name="origin_date_done" help="Data completed previous transfer"/>
+                                    </div> 
+                                     
+                                    
+                            
+        		
+        </xpath> 
+     	</field>
+    </record>
+    
+     <record model="ir.ui.view" id="product_form_view_procurement_free_button">
+            <field name="name">product.product.procurement_free</field>
+            <field name="model">product.product</field>
+            <field name="groups_id" eval="[(4, ref('stock.group_stock_user'))]"/>
+            <field name="inherit_id" ref="stock.product_form_view_procurement_button"/>
+            <field name="arch" type="xml">
+		     <button name="action_open_quants" position="after">
+		                        <button class="oe_stat_button"
+		                               name="action_open_quants"
+		                               icon="fa-cubes"
+		                               type="object" attrs="{'invisible':[('type', '!=', 'product')]}">
+		                               <div class="o_field_widget o_stat_info">
+		                                    <span class="o_stat_value">
+		                                        <field name="free_qty" widget="statinfo" nolabel="1" class="mr4"/>
+		                                        <field name="uom_name"/>
+		                                    </span>
+		                                    <span class="o_stat_text">Free to Use</span>
+		                               </div>
+		                        </button>
+		                        </button>
+              </field>
+           </record>
+           
+     <record id="view_move_line_tree" model="ir.ui.view">
+        <field name="name">stock.move.line.tree</field>
+        <field name="model">stock.move.line</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" string="Move Lines" default_order="date" multi_edit="1">
+               
+               
+                <field name="product_id" readonly="1"/>
+                <field name="picking_id" invisible="1"/>
+                <field name="package_id" invisible="1" />
+                <field name="result_package_id"  />
+                <field name="qty_done" string="Quantity Done" readonly="1"/>
+                <field name="product_uom_id" invisible="1" options="{'no_open': True, 'no_create': True}" string="Unit of Measure" groups="uom.group_uom"/>
+                <field name="lot_id" groups="stock.group_production_lot"/>
+                <field name="location_id" invisible="1"/>
+                <field name="location_dest_id" invisible="1"/>
+                <field name="state" invisible="1"/>
+                <field name="company_id" groups="base.group_multi_company" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record model="ir.actions.act_window" id="action_see_move_line">
+      <field name="name">Move Line Package</field>
+      <field name="res_model">stock.move.line</field>
+      <field name="view_mode">tree</field>
+      <field name="context">{'create':0, 'edit':1}</field>
+      
+      <field name="view_id" ref="view_move_line_tree" />
+    </record>
+    
+    <record model="ir.ui.menu" id="sale.menu_sale_order">
+    		<field name="groups_id" eval="[(4, ref('syd_inventory_extended.group_sale_viewer'))]"/>
+    </record>
+    <record model="ir.ui.menu" id="sale.menu_sale_quotations">
+    		<field name="groups_id" eval="[(4, ref('syd_inventory_extended.group_sale_viewer'))]"/>
+    </record>
+    
+    <record model="ir.ui.menu" id="purchase.menu_purchase_root">
+    		<field name="groups_id" eval="[(4, ref('syd_inventory_extended.group_purchase_viewer'))]"/>
+    </record>
+    
+    
+    </data>
+</odoo>

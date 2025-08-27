@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="view_quotation_form_os1">
+			<field name="name">sale.order.os1.form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+
+			<field name="arch" type="xml">
+				<xpath expr="//header[1]"
+					position="inside">
+					<field name="has_doc_os1" invisible="1" />
+					<button name="createDocumentOS1" type="object"
+						string="Create DOC OS1" class="oe_highlight"
+						attrs="{'invisible': ['|','|','|',('state','!=','sale'),('proFormaType','=',False),('has_doc_os1','=',True)]}" />
+				</xpath>
+
+				<xpath expr="//button[@name='preview_sale_order']"
+					position="after">
+					<field name="proFormaType" invisible="1" />
+					<button class="oe_stat_button" name="setProFormaType"
+						string="Pro Forma" type="object" icon="fa-square-o"
+						attrs="{'invisible' : [('proFormaType','=',True)]}" />
+					<button class="oe_stat_button" name="setProFormaType"
+						string="Pro Forma" type="object" icon="fa-check-square-o"
+						attrs="{'invisible' : [('proFormaType','=',False)]}" />
+				</xpath>
+
+				<xpath expr="//notebook[1]" position="inside">
+					<page string="Document OS1 list OS1">
+						<field name="doc_os1_ids" />
+					</page>
+				</xpath>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_view_order_tree_os1">
+			<field name="name">sale.order.os1.form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_tree" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="after">
+					<field name="doc_os1_ids" widget="many2many_tags" />
+				</xpath>
+			</field>
+		</record>
+
+
+
+		<record model="ir.ui.view" id="view_return_form_os1">
+			<field name="name">return.order.os1.form</field>
+			<field name="model">return.order</field>
+			<field name="inherit_id"
+				ref="website_shop_return_rma.product_return_form_view" />
+
+			<field name="arch" type="xml">
+				<xpath expr="//button[@name='refund_done']" position="replace">
+					<button name="createDocumentOS1" type="object"
+						string="Create DOC OS1" class="oe_highlight"
+						attrs="{'invisible' : ['|',('state','not in',('approve','refund')),('return_type','!=','refund')]}" />
+					<field name="doc_os1_state" invisible="1" />
+					<button name="refund_done" type="object" string="Refund"
+						class="btn-primary"
+						attrs="{'invisible' : ['|',('doc_os1_state','not in',('done')),('return_type','!=','refund')]}"
+						groups="base.group_user" />
+
+				</xpath>
+
+
+
+				<xpath expr="//notebook[1]" position="inside">
+					<page string="Document OS1 list OS1"
+						attrs="{'invisible' : [('return_type','!=','refund')]}">
+						<field name="doc_os1_ids" />
+					</page>
+				</xpath>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_view_return_tree_os1">
+			<field name="name">return.order.os1.tree</field>
+			<field name="model">return.order</field>
+			<field name="inherit_id"
+				ref="website_shop_return_rma.product_return_form_view_tree_view" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='number']" position="after">
+					<field name="doc_os1_ids" widget="many2many_tags" />
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</odoo>

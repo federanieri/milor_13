@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright 2022 Mastini Alberto - Nexapp S.r.l.
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+ -->
+<odoo>
+    <data noupdate="1">
+        <record id="mail_template_send_bl" model="mail.template">
+            <field name="name">Mail template send bl</field>
+            <field name="model_id" ref="stock.model_stock_picking"/> 
+            <field name="subject">Bon de Livraison - Commande ${object.origin_sale_id.name}</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html" type="html">
+                <html>
+                    <table border="0" cellpadding="0" cellspacing="0"
+                           style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;">
+                        <tbody>
+                            <tr>
+                                <td align="center">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="590"
+                                           style="padding: 24px; background-color: white; color: #454748; border-collapse:separate;">
+                                        <tbody>
+                                            <tr>
+                                                <td align="center" style="min-width: 590px;">
+                                                    <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                                                           style="background-color: white; padding: 0; border-collapse:separate;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td valign="middle" align="left">
+                                                                    <h4>Bon de Livraison - Commande
+                                                                        ${object.origin_sale_id.name}
+                                                                    </h4>
+                                                                </td>
+                                                                <td valign="middle" align="right">
+                                                                    <img style="padding: 0px; margin: 0px; height: 48px;"
+                                                                         src="/logo.png?company=1" alt="Nexapp S.r.l."/>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2" style="text-align:center;">
+                                                                    <hr width="100%"
+                                                                        style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:4px 0px 32px 0px;"/>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="middle">
+                                                    <span style="font-size: 20px;">Vous trouverez ci-joint le fichier
+                                                        .bl relatif à la commande ${object.origin_sale_id.name}
+                                                    </span>
+                                                    <br/>
+                                                    <br/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </html>
+            </field>
+        </record>
+    </data>
+</odoo>

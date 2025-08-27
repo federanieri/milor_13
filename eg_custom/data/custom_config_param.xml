@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="company_one_milor_spa" model="ir.config_parameter">
+            <field name="key">eg_custom.milor_spa_id</field>
+            <field name="value">1</field>
+        </record>
+        <record id="company_two_milor_group" model="ir.config_parameter">
+            <field name="key">eg_custom.milor_group_id</field>
+            <field name="value">2</field>
+        </record>
+    </data>
+</odoo>

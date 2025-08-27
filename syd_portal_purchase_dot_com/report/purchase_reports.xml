@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report 
+            string="Production Orders" 
+            id="action_report_purchase_production_order" 
+            model="purchase.order" 
+            report_type="qweb-pdf"
+            name="syd_portal_purchase_dot_com.report_poproductionorder" 
+            file="syd_portal_purchase_dot_com.report_poproductionorder"
+            print_report_name="
+                (object.state in ('draft', 'sent') and 'Request for Quotation - %s' % (object.name) or
+                'Purchase Order - %s' % (object.name))"
+        />
+
+        
+    </data>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="na_product_season_tree" model="ir.ui.view">
+            <field name="name">na.product.season</field>
+            <field name="model">product.season</field>
+            <field name="inherit_id" ref="syd_product_milor.product_season_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="is_promo_website"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

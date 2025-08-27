@@ -1,0 +1,9 @@
+<odoo>
+	<data>
+	  <template id="report_assets_common_custom_fonts" name="qweb_fonts less backend assets" inherit_id="web.report_assets_common">
+	    <xpath expr="." position="inside">
+	      <link href="/syd_product_report/static/src/css/style.css" rel="stylesheet"/>
+	    </xpath>
+	  </template>
+	</data>
+</odoo>

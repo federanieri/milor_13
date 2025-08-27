@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product_variant_grid" name="Product Variant Grid" inherit_id="website_sale.product" customize_show="True">
+        <xpath expr="//div[@id='product_details']//t[@t-placeholder='select']" position="after">
+<!--             <p t-if="product.product_add_mode == 'matrix'"><a t-att-data-template_id='product.id' class="btn btn-secondary mt16 o_product_variant_grid" href="#" role="button"><i class="mr4 fa fa-th"/> Variant Grid</a></p>
+ -->        
+ 				 <p t-if="len(product.product_variant_ids) > 1"><a t-att-data-template_id='product.id' class="btn btn-secondary mt16 o_product_variant_grid" href="#" role="button"><i class="mr4 fa fa-th"/> Variant Grid</a></p>
+ 				
+ </xpath>
+    </template>
+</odoo>

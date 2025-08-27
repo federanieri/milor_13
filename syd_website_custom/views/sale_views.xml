@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_tree_view_sku" model="ir.ui.view">
+        <field name="name">view.sale.order.tree.view.sku</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+	        <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']"  position="before">
+	        	<field name="create_uid" invisible="1"/>
+	        	<field name="product_brand_id" options="{'no_create': True}" optional="show" />
+	        </xpath>
+        </field>
+    </record>
+    
+</odoo>

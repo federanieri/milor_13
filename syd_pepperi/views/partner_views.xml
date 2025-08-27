@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_partner_form_inherit_pepperi" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.pepperi</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook//page[last()]" position="after">
+                <page name="pepperi" string="Pepperi">
+                    <group>
+                        <group>
+                            <field name="to_pepperi" />
+                            <field name="last_update_to_pepperi" readonly="1" />
+                            <field name="need_synch_to_pepperi" readonly="1" />
+                            <field name="pepperi_payment_terms"/>
+                            <field name="pepperi_agent"/>
+                            <field name="pepperi_iban"/>
+                        </group>
+                        <group>
+                            <field name="from_pepperi" />
+                            <field name="last_update_from_pepperi" readonly="1" />
+                            <field name="pepperi_country"/>
+                            <field name="pepperi_pricelist"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="pepperi_contacts_action" model="ir.actions.act_window">
+        <field name="name">Contacts</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form,kanban,activity</field>
+        <field name="search_view_id" ref="base.view_res_partner_filter" />
+        <field name="domain">['|', ('to_pepperi', '=', True), ('from_pepperi', '=', True)]</field> 
+    </record>
+
+    <menuitem
+        id="partner_menu"
+        name="Contacts"
+        parent="pepperi_menu_root"
+        action="pepperi_contacts_action"
+        sequence="50"/>
+</odoo>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="server_action_for_enable_massive_validation" model="ir.actions.server">
+            <field name="name">Validate Transfers</field>
+            <field name="model_id" ref="eg_custom.model_stock_picking"/>
+            <field name="binding_model_id" ref="eg_custom.model_stock_picking"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_mass_validation()</field>
+        </record>
+
+        <record id="server_action_for_set_return_quantity" model="ir.actions.server">
+            <field name="name">Set Return Quantity</field>
+            <field name="model_id" ref="eg_custom.model_account_move"/>
+            <field name="binding_model_id" ref="eg_custom.model_account_move"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.set_return_quantity()</field>
+        </record>
+
+        <record id="server_action_do_print_report_picking_complete_new" model="ir.actions.server">
+            <field name="name">Complete Picking Operation</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.do_print_report_picking_complete_new()</field>
+        </record>
+    </data>
+</odoo>

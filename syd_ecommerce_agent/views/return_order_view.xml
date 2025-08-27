@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_return_order_sheet_inherit_add_agent">
+            <field name="name">return.order.sheet.inherit.add.agent</field>
+            <field name="model">return.order.sheet</field>
+            <field name="inherit_id" ref="syd_commercial_return.return_sheet_form_view"/>
+            <field name="arch" type="xml">
+	            <xpath expr="//sheet/group[@id='contact_info_return']" position='inside'>
+	               	<group>
+	                      <field name="salesman_partner_id" domain="[('is_agent','=',True)]"/> 
+	               	</group>
+				</xpath>
+            </field>
+        </record>
+	</data>
+</odoo>

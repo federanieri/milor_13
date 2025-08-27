@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<odoo>
+	 <record id="view_payment_terms" model="ir.ui.view">
+        <field name="name">account.payment.term</field>
+        <field name="model">account.payment.term</field>
+        <field name="inherit_id" ref="account.view_payment_term_form"/>
+        <field name="arch" type="xml">
+		 	<xpath expr="//field[@name='name']" position="after">
+		 		<field name="pepperi_name" />
+		 	</xpath>
+	 	</field>
+	 </record>
+	
+		
+    <record id="view_order_form_inherit_pepperi" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.pepperi</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook//page[last()]" position="after">
+                <page name="pepperi" string="Pepperi">
+                    <group>
+                        <group>
+                            <field name="to_pepperi" invisible="1" />
+                            <field name="last_update_to_pepperi" readonly="1"/>
+                            <field name="need_synch_to_pepperi" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="from_pepperi"/>
+                            <field name="last_update_from_pepperi" readonly="1"/>
+                            <field name="pepperi_flag"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <!--  Added by Nayan (Field Need Box)  -->
+            <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                <field name="need_box"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="pepperi_sale_order_action" model="ir.actions.act_window">
+        <field name="name">Pepperi Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_id" ref="sale.view_quotation_tree_with_onboarding"/>
+        <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
+        <field name="search_view_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+        <field name="context">{'search_default_my_quotation': 1}</field>
+        <field name="domain">['|', ('to_pepperi', '=', True), ('from_pepperi', '=', True)]</field>
+    </record>
+
+    <menuitem
+        id="sale_order_menu"
+        name="Sale Order"
+        parent="pepperi_menu_root"
+        action="pepperi_sale_order_action"
+        sequence="60"/>
+</odoo>

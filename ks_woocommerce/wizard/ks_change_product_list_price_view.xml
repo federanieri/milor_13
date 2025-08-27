@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ks_change_product_price_form_view" model="ir.ui.view">
+            <field name="name">Change Product List Price</field>
+            <field name="model">ks.change.product.price</field>
+            <field name="arch" type="xml">
+                <form string="Change Product List Price">
+                    <separator string="Change Price"/>
+                    <group>
+                        <group>
+                            <field name="ks_instance_id" string="Intance"/>
+                            <field name="ks_price_list_id" string="Pricelist"/>
+                        </group>
+                        <group>
+                            <field name="ks_currency_id" string="Currency"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="ks_changelist_ids" nolabel="1">
+                            <tree create="0" editable="bottom">
+                                <field name="ks_change_price_id" invisible="1"/>
+                                <field name="ks_pricelist_item_id" invisible="1"/>
+                                <field name="ks_product_tmpl_id" string="Product Template" readonly="1"/>
+                                <field name="ks_product_id" string="Product" readonly="1"/>
+                                <field name="ks_old_price" readonly="1"/>
+                                <field name="ks_new_price"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button name="ks_change_price" string="_Apply" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="ks_action_change_product_price" model="ir.actions.act_window">
+            <field name="name">Change Product List Price</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ks.change.product.price</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="ks_change_product_price_form_view"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

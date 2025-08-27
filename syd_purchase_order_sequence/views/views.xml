@@ -1,0 +1,125 @@
+<odoo>
+  <data>
+ 		
+ 		
+ 		<record model="ir.ui.view" id="view_mrp_bom_sequence_form">
+         <field name="name">mrp.bom.sequence</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        
+        <field name="arch" type="xml">
+        
+       
+         <xpath   expr="//form[1]/sheet[1]/notebook[1]" position="inside" >
+	           <page string="Sequence">
+	           
+	           
+	                <field name="supplier_info_sequence_ids" context="{'default_bom_id':active_id}">
+	                	<tree editable="bottom">
+	                		<field name="sequence" widget="handle"></field>
+	                		<field name="bom_id" invisible="1"></field>
+	                		<field name="purchase_product_id"></field>
+	                		<field name="product_uom" ></field>
+	                		<field name="partner_id" ></field>
+	                		
+	                		<field name="price" ></field>
+	                		<field name="qty_per_unit" ></field>
+	                		<field name="send_to_other_vendor" ></field>
+	                		<field name="dest_address_id" ></field>
+	                	</tree>
+	                
+	                </field>
+	            </page>
+	            
+ 		 </xpath>
+ 		  <xpath expr="//form[1]/sheet[1]/notebook[1]/page[1]/field[@name='bom_line_ids']/tree[1]/field[@name='product_uom_id']" position="after">
+ 		  <field name="bom_id" invisible="1"/>
+		    <field name="delivery_to_partner_id" domain="[('id','in',parent.subcontractor_ids)]" attrs="{'column_invisible':[('parent.type','!=','subcontract')]}"/>
+		  </xpath>
+        </field>
+    </record>
+ 	
+<record model="ir.ui.view" id="view_product_template_sequence_form">
+         <field name="name">product.template.sequence</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        
+        <field name="arch" type="xml">
+        
+       
+         <xpath  expr="//page[@name='purchase']"  position="after">
+	           <page string="Sequence">
+                    
+                    
+	                <field name="template_supplier_info_sequence_ids" context="{'default_product_tmpl_id': context.get('product_tmpl_id', active_id)}">
+	                	<tree editable="bottom" >
+	                		<field name="sequence" widget="handle"></field>
+	                		<field name="bom_id" domain="[('product_tmpl_id','=',product_tmpl_id)]"></field>
+	                		<field name="product_tmpl_id" invisible="1"></field>
+	                		<field name="product_id" domain="[('product_tmpl_id','=',product_tmpl_id)]"></field>
+	                		<field name="purchase_product_id"></field>
+	                		<field name="product_uom" ></field>
+	                		<field name="partner_id" ></field>
+	                		
+	                		<field name="price" ></field>
+	                		<field name="qty_per_unit" ></field>
+	                		<field name="send_to_other_vendor" ></field>
+	                		<field name="dest_address_id" ></field>
+	                	</tree>
+	                
+	                </field>
+	            </page>
+	           	
+              
+             
+            </xpath>
+        </field>
+    </record>
+    
+<record model="ir.ui.view" id="view_purchase_order_sequence_form">
+         <field name="name">purchase.order.sequence</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>        
+        <field name="arch" type="xml">
+        
+       
+         <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+	           <page string="Sequence" attrs="{'invisible':[('supplier_info_sequence_count','=',0)]}">
+	           		<field name="po_product_tmpl_id" invisible="1" />
+	           		<field name="supplier_info_sequence_count" invisible="1" />
+	           		
+	                <field name="supplier_info_sequence_ids" context="{'default_product_tmpl_id':po_product_tmpl_id}">
+	                	<tree editable="bottom">
+	                		<field name="sequence" widget="handle"></field>
+	                		<field name="product_tmpl_id" invisible="1"></field>
+	                		<field name="product_id" domain="[('product_tmpl_id','=',product_tmpl_id)]"></field>
+	                		<field name="purchase_product_id"></field>
+	                		<field name="product_uom" ></field>
+	                		<field name="partner_id" ></field>
+	                		
+	                		<field name="price" ></field>
+	                		<field name="qty_per_unit" ></field>
+	                		<field name="send_to_other_vendor" ></field>
+	                		<field name="dest_address_id" ></field>
+	                	</tree>
+	                
+	                </field>
+	            </page>
+	           	
+            	
+             
+            </xpath>
+            <xpath  expr="//button[@name='action_rfq_send']"  position="before">
+        			<field name="child_po_count" invisible="1" />
+        			
+        			<button name="action_launch_sequence" type="object" string="Create Other POs" attrs="{'invisible':['|',('child_po_count','>',0),('supplier_info_sequence_count','=',0)]}"/>
+        		
+        </xpath>
+          <xpath expr="//form[1]/sheet[1]/notebook[1]/page[1]/field[@name='order_line']/tree[1]/field[@name='qty_received']" position="attributes">
+		    <attribute name="attrs">{"readonly": ["|",["product_type","in",["consu","product"]],["qty_received_method","!=","manual"]], "column_invisible": [["parent.state","not in",["purchase","done"]]]}</attribute>
+		  </xpath>
+        </field>
+    </record>
+        
+    </data>
+</odoo>

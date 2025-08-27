@@ -1,0 +1,236 @@
+<odoo>
+	<data>
+		<template id="report_pdf_products_picking_template" name="PDF Products Vendor Template">
+			<t t-call="web.basic_layout">
+           		<div class="oe_structure"/>
+           		<div t-attf-class="header" t-att-style="report_header_style">
+	            	<t t-set="company" t-value="doc.company_id"/>
+		            <div class="row">
+	               		<img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo" style="max-height: 128px;"/>
+		         		<div class="col-12 arial-black align-center" style="padding-top:3rem;width:70%;">
+			         		<h5 style="font-weight:bold;" t-esc="doc.name"></h5>
+			         		<h7 style="font-weight:bold;" t-if="line.commercehub_po">
+			         			CommerceHub PO: <span t-esc="line.commercehub_po"/>
+			         		</h7><br/>	         		
+		         		</div>
+		            </div>
+		        </div>
+				<t t-call="syd_product_report.table_products_info_picking"/>
+			</t>
+		</template>
+		
+		<template id="table_products_info_picking" name="Table Products Info Picking">
+			<table class="table table-sm arial-text" style="width:100%;">
+	            <tbody>
+	                <tr style="border:0;">
+	                	<hr style="border-top: 2px solid #dddada;"/>
+	                	<td style="border:0;border-bottom:2px solid #dddada;border-right: 1rem solid white;">
+		                	<span style="color:gray;">Milor Code</span>
+	                		<div style="margin-top:6px;">
+	                			<span class="arial-black" t-esc="product_id.default_code"/>
+	                		</div>
+	                	</td>
+						<td style="width:60%;border:0;border-bottom:2px solid #dddada;border-right: 1rem solid white;" >
+               				<span style="color:gray;">Descrizione</span>
+                			<div style="margin-top:6px;">
+		                		<span class="arial-black" t-esc="product_id.product_tmpl_id.name"/>
+                			</div>
+	                	</td>
+	                	<td style="width:20%;border:0;border-bottom:2px solid #dddada;border-right: 1rem solid white;" >
+               				<span style="color:gray;">Personalizzazione</span>
+                			<div style="margin-top:6px;">
+		                		<span class="arial-black" t-if="line.custom_value" t-esc="line.custom_value"/>
+                			</div>
+	                	</td>
+	                </tr>
+               	</tbody>
+              </table>
+			  <table class="table table-sm arial-text pt-0" style="width:100%;">
+			  	<tbody>
+	                <tr style="border:0;">
+	                	<td style="width:25%;border:0;border-bottom:2px solid #dddada;border-right: 1rem solid white;" >
+	                		<span style="color:gray;">Metal</span>
+	                		<div style="margin-top:6px;">
+		                		<span class="arial-black" t-if="product_id.product_tmpl_id.metal_id" t-esc="product_id.product_tmpl_id.metal_id.name"/>
+	                		</div>
+	                		
+	                	</td>
+						<td style="width:25%;border:0;border-bottom:2px solid #dddada;border-right: 1rem solid white;" >
+	                		<span style="color:gray;">Titolo</span>
+	                		<div style="margin-top:6px;">
+		                		<span class="arial-black" t-if="product_id.product_tmpl_id.metal_title" t-esc="product_id.product_tmpl_id.metal_title"/>
+	                		</div>
+	                		
+	                	</td>
+	                	<td style="width:50%;border:0;border-bottom:2px solid #dddada;border-right: 1rem solid white;" >
+	                		<span style="color:gray;">Bolli</span>
+	                		<div style="margin-top:6px;">
+	                			<span class="arial-black" t-if="product_id.product_tmpl_id.stamp_id" t-esc="product_id.product_tmpl_id.stamp_id.name"/>
+	                		</div>
+	                	</td>
+	                </tr>
+               	</tbody>
+               </table>
+               <table class="table table-sm arial-text pt-0" style="width:100%">
+		  		<tbody>
+	                <tr style="border:0;">
+	                	<td style="width:25%;border:0;border-bottom:2px solid #dddada;border-right: 1rem solid white;" >
+	                		<span style="color:gray;">Color</span>
+	                		<div style="margin-top:6px;">
+	                			<span class="arial-black" t-if="product_id.plating_id.name" t-esc="product_id.plating_id.name"/>
+	                			<span t-else="" class="arial-black"><br/></span>
+	                		</div>
+	                		
+	                	</td>
+						<td style="width:25%;border:0;border-bottom:2px solid #dddada;border-right: 1rem solid white;" >
+	                		<span style="color:gray;">Plating Title</span>
+	                		<div style="margin-top:6px;">
+		                		<span class="arial-black" t-if="product_id.plating_title" t-esc="product_id.plating_title"/>
+							</div>
+	                		
+	                	</td>
+	                	<td style="width:25%;border:0;border-bottom:2px solid #dddada;border-right: 1rem solid white;" >
+	                		<span style="color:gray;">Thickness</span>
+	                		<div style="margin-top:6px;">
+	                			<span class="arial-black" t-if="product_id.product_tmpl_id.stone_thickness" t-esc="product_id.product_tmpl_id.stone_thickness"/>
+	                		</div>
+	                		
+	                	</td>
+	                	<td style="width:25%;border:0;border-bottom:2px solid #dddada;border-right: 1rem solid white;" >
+	                		<span style="color:gray;">Plating Note</span>
+	                		<div style="margin-top:6px;">
+	                			<span class="arial-black" t-if="product_id.plating_note" t-esc="product_id.plating_note"/>
+                			</div>
+	                		
+	                	</td>
+	                </tr>
+                </tbody>
+               </table>
+           	   <table class="table table-sm arial-text pt-0" style="width:100%">
+			  	<tbody>
+	                <tr style="border:0;">
+	                	<td style="width:17%;border:0;border-bottom:2px solid #dddada;border-right: 1rem solid white;" >
+		                	<span style="color:gray;">Size</span>
+	                		<div style="margin-top:6px;">
+	                			<t t-set="size" t-value="product_id.product_template_attribute_value_ids.filtered(lambda x: 'SIZE' in x.attribute_id.with_context(lang=u'en_US').name.upper())"/>
+		                		<span class="arial-black" t-if="product_id.size" t-esc="product_id.size"></span>
+		                		<span class="arial-black" t-else="size" t-esc="size.name"></span>
+	                		</div>
+	                		
+	                	</td>
+						<td style="width:17%;border:0;border-bottom:2px solid #dddada;border-right: 1rem solid white;">
+	                		<span style="color:gray;">Length (inch)</span>
+	                		<div style="margin-top:6px;">
+		                		<span class="arial-black" t-if="product_id.length_inch" t-esc="product_id.length_inch"></span>
+	                		</div>
+	                		
+	                	</td>
+	                	<td style="width:17%;border:0;border-bottom:2px solid #dddada;border-right: 1rem solid white;" >
+	                		<span style="color:gray;">Extender (inch)</span>
+	                		<div style="margin-top:6px;">
+		                		<span class="arial-black" t-if="product_id.extension_inch" t-esc="product_id.extension_inch"></span>
+	                		</div>
+	                		
+	                	</td>
+	                	<td style="width:17%;border:0;border-bottom:2px solid #dddada;border-right: 1rem solid white;" >
+		                	<span style="color:gray;">Length (cm)</span>
+	                		<div style="margin-top:6px;">
+		                		<span class="arial-black" t-if="product_id.length_cm" t-esc="product_id.length_cm"></span>
+	                		</div>
+	                		
+	                	</td>
+	                	<td style="width:17%;border:0;border-bottom:2px solid #dddada;border-right: 1rem solid white;" >
+		                	<span style="color:gray;">Extender (cm)</span>
+	                		<div style="margin-top:6px;">
+		                		<span class="arial-black" t-if="product_id.extension_cm" t-esc="product_id.extension_cm"></span>
+	                		</div>
+	                		
+	                	</td>
+	                	<td style="width:15%;border:0;border-bottom:2px solid #dddada;border-right: 1rem solid white;" >
+		                	<span style="color:gray;">Weight</span>
+	                		<div style="margin-top:6px;">
+		                		<span class="arial-black" t-if="product_id.weight_gr" t-esc="product_id.weight_gr"></span>
+	                		</div>
+	                		
+	                	</td>
+	                </tr>
+	              </tbody>
+                </table>
+                <table class="table table-sm arial-text pt-0" style="width:100%">
+			  	  <tbody>
+	                <tr style="border:0;">
+	                	<td style="width:25%;border:0;border-bottom:2px solid #dddada;border-right: 1rem solid white;" >
+	                		<span style="color:gray;">Stone</span>
+	                		<div style="margin-top:6px;">
+		                		<span class="arial-black">
+		                			<t  t-if="product_id.stone_ids" t-esc="', '.join([stone.name for stone in product_id.stone_ids])"/>
+				                	<t t-else=""><br/></t>
+		                		</span>
+	                		</div>
+	                	</td>
+	                	<td style="width:25%;border:0;border-bottom:2px solid #dddada;border-right: 1rem solid white;" >
+	                		<span style="color:gray;">Codice Completo QVC</span>
+	                		<div style="margin-top:6px;">
+		                		<span class="arial-black">
+		                			<t  t-if="product_id.qvc_complete_code" t-esc="product_id.qvc_complete_code"/>
+				                	<t t-else=""><br/></t>
+		                		</span>
+	                		</div>
+	                	</td>
+						<td style="width:50%;border:0;border-bottom:2px solid #dddada;border-right: 1rem solid white;" >
+		                	<span style="color:gray;">Other</span>
+	                		<div style="margin-top:6px;">
+		                		<span class="arial-black">
+		                			 <t t-if="product_id.other_info" t-esc="product_id.other_info"/>
+				                	 <t t-else=""><br/></t>
+		                		</span>
+	                		</div>
+	                		
+	                	</td>
+	                </tr>
+	                <br/>
+	                <tr>
+	                	<td style="border:0;" colspan="3">
+	                		<div class="text-center">
+		 	                   <img t-if="product_id.image_256" t-att-src="image_data_uri(product_id.image_256)" alt="Product"/>
+	                		</div>
+	                	</td>
+	                </tr>
+	               </tbody>
+                </table>
+                <table class="table table-sm arial-text pt-0" style="width:50%">
+			  	  <tbody>
+	                <tr style="border:0;">
+	                	<td style="width:25%;border:0;border-bottom:2px solid #dddada;border-right: 1rem solid white;" >
+		                	<span style="color:gray;">Price</span>
+	                		<div style="margin-top:6px;">
+		                		<span class="arial-black" t-if="product_id.product_tmpl_id.metal_cost_gr" t-esc="product_id.product_tmpl_id.metal_cost_gr"/>
+	                		</div>
+	                		
+	                	</td>
+						<td style="width:25%;border:0;border-bottom:2px solid #dddada;border-right: 1rem solid white;" >
+	                		<span style="color:gray;">Codice Article Supplier</span>
+	                		<div style="margin-top:6px;">
+		                		<span class="arial-black" t-if="product_id.product_tmpl_id.milor_code" t-esc="product_id.product_tmpl_id.milor_code"/>
+	                		</div>
+	                		
+	                	</td>
+	                </tr>
+	                </tbody>
+	          </table>
+	        <br/>
+		</template>
+		
+	    <template id="report_pdf_products_picking" name="PDF Products Vendor Picking">
+		    <t t-call="web.html_container">
+		    	<t t-foreach="docs" t-as="doc">		 		    	
+		    		<t t-foreach="doc.move_ids_without_package" t-as="line">
+		    			<t t-set="product_id" t-value="line.product_id"/>
+		            	<t t-if="product_id" t-call="syd_product_report.report_pdf_products_picking_template"/>
+		            </t>
+		    	</t>
+	       </t>
+	    </template>
+		
+	</data>
+</odoo>

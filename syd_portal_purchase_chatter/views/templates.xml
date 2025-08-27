@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  
+
+    <template id="portal_purchase_chatter" name="portal_purchase_chatter" inherit_id="purchase.portal_my_purchase_order" priority="25">
+    <xpath expr="//div[hasclass('oe_structure')]" position="replace">
+    
+      <div id="purchase_order_communication" class="mt-4">
+                        <h2>Message and History</h2>
+                        <t t-call="portal.message_thread">
+                            <t t-set="object" t-value="order"/>
+                        </t>
+                    </div>
+    </xpath>
+  </template>
+  
+  
+<!--   <template id="portal_my_home_menu_rfq" name="Portal layout : purchase menu entries" inherit_id="portal.portal_breadcrumbs" priority="25">
+    <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+      <li t-if="page_name == 'rfq' or purchase_order" t-attf-class="breadcrumb-item #{'active ' if not purchase_order else ''}">
+        <a t-if="purchase_order" t-attf-href="/my/rfq?{{ keep_query() }}">Request for quotation</a>
+        <t t-else="">Request for quotations</t>
+      </li>
+      <li t-if="purchase_order" class="breadcrumb-item active">
+        <t t-esc="purchase_order.name"/>
+      </li>
+    </xpath>
+  </template> -->
+  
+  
+   <template id="portal_my_home_rfq" name="Portal My Home : purchase entry" inherit_id="portal.portal_my_home" priority="25">
+    <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+        <t t-if="rfq_count" t-call="portal.portal_docs_entry">
+            <t t-set="title">Request for quotations</t>
+            <t t-set="url" t-value="'/my/rfq'"/>
+            <t t-set="count" t-value="rfq_count"/>
+        </t>
+    </xpath>
+  </template>
+  
+  
+  <template id="portal_my_rfq_extend" name="Portal My Home : purchase entry" inherit_id="purchase.portal_my_purchase_orders" priority="25">
+    <xpath expr="//t[@t-set='title']" position="replace">
+     
+          <t t-if="page_name=='purchase'">
+            <t  t-set="title">Purchase Orders</t>
+         </t>
+         <t t-else="">
+          	 <t  t-set="title">Request for quotations</t>
+        </t>
+        
+    </xpath>
+  </template>
+  
+  <!--  <template id="portal_my_purchase_order" inherit_id="purchase.portal_my_purchase_order" name="Portal: My Purchase Order">
+     <xpath expr="//div[hasclass('card-header')]" position="inside">
+     	<div class="row">
+     	<div class="offset-lg-9 col-lg-3">
+                     <a class="btn btn-secondary btn-block o_download_btn" t-att-href="order.get_portal_url(report_type='pdf', download=True)" title="Download"><i class="fa fa-download"/> Download</a>
+                            </div>
+     	</div>
+     </xpath>
+   </template> -->
+   
+	<template id="portal_searchbar_add_custom_filter" inherit_id="portal.portal_searchbar" name="Portal Add Filter By Status">
+   		<xpath expr="//div[@id='o_portal_navbar_content']" position="inside">
+            <form t-if="extra_searchbar_inputs" class="form-inline o_portal_extra_search_panel ml-lg-4">
+                <div class="input-group input-group-sm w-100">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"/>
+                        <div class="dropdown-menu" role="menu">
+                            <t t-foreach='extra_searchbar_inputs' t-as='input'>
+                                <a t-att-href="'#' + extra_searchbar_inputs[input]['input']"
+                                    t-attf-class="dropdown-item#{extra_search_in == extra_searchbar_inputs[input]['input'] and ' active' or ''}">
+                                    <span t-raw="extra_searchbar_inputs[input]['label']"/>
+                                </a>
+                            </t>
+                        </div>
+                    </div>
+                    <input type="text" class="form-control form-control-sm" placeholder="Search" t-att-value='extra_search' name="extra_search"/>
+                    <span class="input-group-append">
+                        <button class="btn btn-secondary extra-search-submit" type="button">
+                            <span class="fa fa-search"/>
+                        </button>
+                    </span>
+                </div>
+            </form>
+            <div t-if="status_filters" class="form-inline ml-lg-2">
+                <span class="small mr-1 navbar-text">Filter By Status:</span>
+                <div class="btn-group">
+                    <button id="portal_status_filters" data-toggle="dropdown" class="btn btn-secondary btn-sm dropdown-toggle">
+                        <t t-esc="status_filters.get(status,status_filters.get('all')).get('label', 'All')"/>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="portal_status_filters">
+                        <t t-foreach="status_filters" t-as="option">
+                            <a t-att-href="default_url + '?' + keep_query('*', status=option)"
+                               t-attf-class="dropdown-item#{status == option and ' active' or ''}">
+                                <span t-esc="status_filters[option].get('label')"/>
+                            </a>
+                        </t>
+                    </div>
+                </div>
+            </div>
+            <form t-if="number_input" class="form-inline o_portal_search_panel ml-lg-4">
+                 <div class="input-group input-group-sm" style="width: 95px !important;">
+                     <input min="0" type="number" class="form-control form-control-sm text-center" placeholder="Limit items" t-att-value='limit_num' name="limit_num"/>
+                 </div>
+             </form>
+         </xpath>
+     </template>
+     
+</odoo>

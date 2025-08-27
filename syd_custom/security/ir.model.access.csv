@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_shopify_product_image_ept_user,shopify.product.image.ept.user,shopify_ept.model_shopify_product_image_ept,base.group_user,1,1,1,1
+access_product_dis_user,syd_custom.product.dis,syd_custom.model_product_dis,base.group_user,1,1,1,1
+access_product_dis_portal,syd_custom.product.dis,syd_custom.model_product_dis,,1,0,0,0
+access_product_tags,syd_custom.product_tags,syd_custom.model_product_tags,base.group_user,1,1,1,1 
+access_related_products_line,syd_custom.related_products_line,model_related_products_line,base.group_user,1,1,1,1

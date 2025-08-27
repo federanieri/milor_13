@@ -1,0 +1,18 @@
+<odoo>
+  <data>
+      <record model="ir.ui.view" id="product_pricelist_item_form_milor_view">
+        <field name="name">product.pricelist.item.form_milor</field>
+        <field name="model">product.pricelist.item</field>
+        <field name="inherit_id" ref="product.product_pricelist_item_form_view"/>
+        
+        <field name="arch" type="xml">
+	        <xpath  expr="//group[@name='pricelist_rule_target']"  position="after">
+            <group attrs="{'invisible':[('applied_on', '!=', '00_filter')]}">
+              <field name="model_id" invisible="1"/>
+              <field name="domain" widget="domain" options="{'model': 'model_id'}" attrs="{'required':[('applied_on', '=', '00_filter')]}"/>
+            </group>
+	        </xpath>
+        </field>
+     </record>
+    </data>
+</odoo>

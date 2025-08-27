@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_syd_os1_os1_account,access_syd_os1_os1_account,model_syd_os1_os1_account,,1,1,1,1
+access_syd_os1_os1_error_os1,access_syd_os1_os1_error_os1,model_syd_os1_os1_error_os1,,1,1,1,1
+access_syd_os1_doc_os1_line,access_syd_os1_doc_os1_line,model_syd_os1_doc_os1_line,,1,1,1,1
+access_syd_os1_doc_os1_invoice_done,access_syd_os1_doc_os1_invoice_done,model_syd_os1_doc_os1_invoice_done,,1,1,1,1
+access_syd_os1_doc_os1,access_syd_os1_doc_os1,model_syd_os1_doc_os1,,1,1,1,1
+access_syd_os1_reason_reference_os1,access_syd_os1_reason_reference_os1,model_syd_os1_reason_reference_os1,,1,1,1,1

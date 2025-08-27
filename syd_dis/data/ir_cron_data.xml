@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ir_cron_project_task_upload_txt" model="ir.cron">
+        <field name="name">DIS: Upload TXT to FTP Server</field>
+        <field name="model_id" ref="project.model_project_task" />
+        <field name="state">code</field>
+        <field name="code">model._cron_upload_txt()</field>
+        <field name="active" eval="False" />
+        <field name="user_id" ref="base.user_admin" />
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+    </record>
+
+    <record id="ir_cron_project_task_download_stl" model="ir.cron">
+        <field name="name">DIS: Download STL from FTP Server</field>
+        <field name="model_id" ref="project.model_project_task" />
+        <field name="state">code</field>
+        <field name="code">model._cron_download_stl()</field>
+        <field name="active" eval="False" />
+        <field name="user_id" ref="base.user_admin" />
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+    </record>
+
+</odoo>

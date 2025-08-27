@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+                string="Summary Picking Operations"
+                id="action_report_picking_summary"
+                model="stock.picking"
+                report_type="qweb-pdf"
+                name="syd_custom.report_picking_summary"
+                file="syd_custom.report_picking_summary"
+                print_report_name="'Summary Picking Operations - %s - %s' % (object.partner_id.name or '', object.name)"
+        />
+
+        <!-- Added new in eg_custom -->
+        <!--        <report-->
+        <!--                string="Complete Picking Operations (Old)"-->
+        <!--                id="action_report_picking_complete"-->
+        <!--                model="stock.picking"-->
+        <!--                report_type="qweb-pdf"-->
+        <!--                name="syd_custom.report_picking_complete"-->
+        <!--                file="syd_custom.report_picking_complete"-->
+        <!--                print_report_name="'Complete Picking Operations - %s - %s' % (object.partner_id.name or '', object.name)"-->
+        <!--        />-->
+
+        <!-- INFO: overwrites Stock default ZPL report on product.product. -->
+        <report
+            id="stock.label_barcode_product_product"
+            model="product.product"
+            string="Product Barcode (ZPL)"
+            report_type="qweb-text"
+            name="syd_custom.report_productbarcode_zpl"
+            file="syd_custom.report_productbarcode_zpl"
+            print_report_name="'Products barcode'"
+        />
+
+		 <report
+            id="llabel_barcode_product_product_no_price"
+            model="product.product"
+            string="Product Barcode No Price (ZPL)"
+            report_type="qweb-text"
+            name="syd_custom.report_product_productbarcode_without_price_zpl"
+            file="syd_custom.report_product_productbarcode_without_price_zpl"
+            print_report_name="'Products barcode No Price'"
+        />
+        
+         <report
+            id="label_barcode_product_product_no_description"
+           model="product.product"
+            string="Product Barcode No Description (ZPL)"
+            report_type="qweb-text"
+            name="syd_custom.report_product_productbarcode_without_description_zpl"
+            file="syd_custom.report_product_productbarcode_without_description_zpl"
+            print_report_name="'Products barcode No Descriptio'"
+        />
+
+        <report
+            id="label_barcode_product_product_no_description_no_price"
+            model="product.product"
+            string="Product Barcode No Description No Price(ZPL)"
+            report_type="qweb-text"
+            name="syd_custom.report_product_productbarcode_without_description_price_zpl"
+            file="syd_custom.report_product_productbarcode_without_description_price_zpl"
+            print_report_name="'Products barcode No Description Price'"
+        />
+
+        <report
+                id="report_product_product_product_barcode"
+                string="Product Barcode (PDF)"
+                model="product.product"
+                report_type="qweb-pdf"
+                name="syd_custom.report_productbarcode"
+                file="syd_custom.report_productbarcode"
+                print_report_name="'Products barcode'"
+        />
+
+        <!-- INFO: overwrites Stock default ZPL report on product.template. -->
+        <report
+            id="stock.label_barcode_product_template"
+            model="product.template"
+            string="Product Barcode (ZPL)"
+            report_type="qweb-text"
+            name="syd_custom.report_producttemplatebarcode_zpl"
+            file="syd_custom.report_producttemplatebarcode_zpl"
+            print_report_name="'Products barcode'"
+        />
+
+
+
+        <report
+                id="report_product_template_product_barcode"
+                string="Product Barcode (PDF)"
+                model="product.template"
+                report_type="qweb-pdf"
+                name="syd_custom.report_producttemplatebarcode"
+                file="syd_custom.report_producttemplatebarcode"
+                print_report_name="'Products barcode'"
+        />
+
+        <!-- INFO: enables ZPL product barcode on product.pricelist.item. -->
+        <report
+            id="report_product_plist_product_barcode_zpl"
+            string="Product Barcode (ZPL)"
+            model="product.pricelist.item"
+            report_type="qweb-text"
+            name="syd_custom.report_productpricelistbarcode_zpl"
+            file="syd_custom.report_productpricelistbarcode_zpl"
+            print_report_name="'Products barcode - %s' % (object.name)"
+        />
+
+        <report
+                id="report_product_plist_product_barcode"
+                string="Product Barcode (PDF)"
+                model="product.pricelist.item"
+                report_type="qweb-pdf"
+                name="syd_custom.report_productpricelistbarcode"
+                file="syd_custom.report_productpricelistbarcode"
+                print_report_name="'Products barcode - %s' % (object.name)"
+        />
+
+        <!-- INFO: enables ZPL product barcode on sale.order. -->
+        <report
+            id="report_product_sale_product_barcode_zpl"
+            string="Product Barcode (ZPL)"
+            model="sale.order"
+            report_type="qweb-text"
+            name="syd_custom.report_so_productbarcode_zpl"
+            file="syd_custom.report_so_productbarcode_zpl"
+            print_report_name="'Products barcode - %s' % (object.name)"
+        />
+
+        <report
+                id="report_product_sale_product_barcode"
+                string="Product Barcode (PDF)"
+                model="sale.order"
+                report_type="qweb-pdf"
+                name="syd_custom.report_so_productbarcode"
+                file="syd_custom.report_so_productbarcode"
+                print_report_name="'Products barcode - %s' % (object.name)"
+        />
+
+        <!-- INFO: enables ZPL products barcode on purchase.order. -->
+        <report
+                id="report_product_purchase_product_barcode_zpl"
+                string="Product Barcode (ZPL)"
+                model="purchase.order"
+                report_type="qweb-text"
+                name="syd_custom.report_po_productbarcode_zpl"
+                file="syd_custom.report_po_productbarcode_zpl"
+                print_report_name="'Products barcode - %s' % (object.name)"
+        />
+
+        <!-- INFO: enables ZPL products barcode on purchase.order. -->
+        <report
+                id="report_product_purchase_product_barcode_zpl_sup"
+                string="Product Barcode for Supplier (ZPL)"
+                model="purchase.order"
+                report_type="qweb-text"
+                name="syd_custom.report_po_productbarcode_zpl_sup"
+                file="syd_custom.report_po_productbarcode_zpl_sup"
+                print_report_name="'Products barcode - %s' % (object.name)"
+        />
+
+        <report
+                id="report_product_purchase_product_barcode"
+                string="Product Barcode (PDF)"
+                model="purchase.order"
+                report_type="qweb-pdf"
+                name="syd_custom.report_po_productbarcode"
+                file="syd_custom.report_po_productbarcode"
+                print_report_name="'Products barcode - %s' % (object.name)"
+        />
+
+        <!-- INFO: enables ZPL products barcode on stock.picking. -->
+        <report
+            id="report_product_picking_product_barcode_zpl"
+            string="Product Barcode (ZPL)"
+            model="stock.picking"
+            report_type="qweb-text"
+            name="syd_custom.report_picking_productbarcode_zpl"
+            file="syd_custom.report_picking_productbarcode_zpl"
+            print_report_name="'Products barcode - %s' % (object.name)"
+        />
+        <report
+            id="label_barcode_product_template_no_price"
+            model="stock.picking"
+            string="Product Barcode No Price (ZPL)"
+            report_type="qweb-text"
+            name="syd_custom.report_picking_productbarcode_without_price_zpl"
+            file="syd_custom.report_picking_productbarcode_without_price_zpl"
+            print_report_name="'Products barcode No Price - %s' % (object.name)"
+        />
+        
+         <report
+            id="label_barcode_product_template_no_description"
+            model="stock.picking"
+            string="Product Barcode No Description (ZPL)"
+            report_type="qweb-text"
+            name="syd_custom.report_picking_productbarcode_without_description_zpl"
+            file="syd_custom.report_picking_productbarcode_without_description_zpl"
+            print_report_name="'Products barcode No Descriptio - %s' % (object.name)"
+        />
+
+        <report
+            id="label_barcode_product_template_no_description_no_price"
+            model="stock.picking"
+            string="Product Barcode No Description No Price(ZPL)"
+            report_type="qweb-text"
+            name="syd_custom.report_picking_productbarcode_without_description_price_zpl"
+            file="syd_custom.report_picking_productbarcode_without_description_price_zpl"
+            print_report_name="'Products barcode No Description Price - %s' % (object.name)"
+        />
+
+        <report
+                id="label_product_picking_qvc_code_zpl"
+                model="stock.picking"
+                string="Products QVC Code (ZPL)"
+                report_type="qweb-text"
+                name="syd_custom.report_product_picking_qvc_code_zpl"
+                file="syd_custom.report_product_picking_qvc_code_zpl"
+                print_report_name="'Products QVC Code - %s' % (object.name)"
+        />
+
+        <report
+                id="label_product_picking_qvc_code_zpl_small"
+                model="stock.picking"
+                string="Products QVC Code (ZPL, small)"
+                report_type="qweb-text"
+                name="syd_custom.report_product_picking_qvc_code_zpl_small"
+                file="syd_custom.report_product_picking_qvc_code_zpl_small"
+                print_report_name="'Products QVC Code - %s' % (object.name)"
+        />
+
+        <report
+                id="label_product_picking_qvc_code_zpl_small"
+                model="product.product"
+                string="Products QVC Code (ZPL, small)"
+                report_type="qweb-text"
+                name="syd_custom.report_product_product_qvc_code_zpl_small"
+                file="syd_custom.report_product_product_qvc_code_zpl_small"
+                print_report_name="'Products QVC Code - %s' % (object.name)"
+        />
+
+        <report
+                id="report_product_picking_product_barcode"
+                string="Product Barcode (PDF)"
+                model="stock.picking"
+                report_type="qweb-pdf"
+                name="syd_custom.report_picking_productbarcode"
+                file="syd_custom.report_picking_productbarcode"
+                print_report_name="'Products barcode - %s' % (object.name)"
+        />
+
+        <!-- INFO: enables ZPL products barcode on stock.picking. -->
+        <report
+            id="report_picking_label_barcode_zpl"
+            string="Picking Label (ZPL)"
+            model="stock.picking"
+            report_type="qweb-text"
+            name="syd_custom.report_picking_label_zpl"
+            file="syd_custom.report_picking_label_zpl"
+            print_report_name="'Picking Label ZPL - %s' % (object.name)"
+        />
+
+        <report
+                id="report_picking_label_barcode"
+                string="Picking Label (PDF)"
+                model="stock.picking"
+                report_type="qweb-pdf"
+                name="syd_custom.report_picking_label"
+                file="syd_custom.report_picking_label"
+                print_report_name="'Products Label PDF - %s' % (object.name)"
+        />
+
+        <!-- INFO: enables ZPL products barcode on sale.order. -->
+         <report
+            id="report_product_sale_product_milor_zpl"
+            string="Product Milor Print (ZPL)"
+            model="sale.order"
+            report_type="qweb-text"
+            name="syd_custom.report_so_productmilorprint_zpl"
+            file="syd_custom.report_so_productmilorprint_zpl"
+            print_report_name="'Products barcode - %s' % (object.name)"
+        />
+
+        <report
+                id="report_product_sale_product_milor"
+                string="Product Milor Print (PDF)"
+                model="sale.order"
+                report_type="qweb-pdf"
+                name="syd_custom.report_so_productmilorprint"
+                file="syd_custom.report_so_productmilorprint"
+                print_report_name="'Products barcode - %s' % (object.name)"
+        />
+
+        <!-- INFO: enables ZPL products barcode on purchase.order. -->
+		<report
+            id="report_product_purchase_product_milor"
+            string="Product Milor Print (ZPL)"
+            model="purchase.order"
+            report_type="qweb-text"
+            name="syd_custom.report_po_productmilorprint_zpl"
+            file="syd_custom.report_po_productmilorprint_zpl"
+            print_report_name="'Products barcode - %s' % (object.name)"
+        />
+
+        <report
+                id="report_product_purchase_product_milor"
+                string="Product Milor Print (PDF)"
+                model="purchase.order"
+                report_type="qweb-pdf"
+                name="syd_custom.report_po_productmilorprint"
+                file="syd_custom.report_po_productmilorprint"
+                print_report_name="'Products barcode - %s' % (object.name)"
+        />
+
+        <!-- INFO: enables ZPL products barcode on product.product. -->
+        <report
+            id="report_product_productprint"
+            string="Product Milor Print (ZPL)"
+            model="product.product"
+            report_type="qweb-text"
+            name="syd_custom.report_productprint_zpl"
+            file="syd_custom.report_productprint_zpl"
+            print_report_name="'Products print - %s' % (object.name)"
+        />
+
+        <report
+                id="report_product_productprint"
+                string="Product Milor Print (PDF)"
+                model="product.product"
+                report_type="qweb-pdf"
+                name="syd_custom.report_productprint"
+                file="syd_custom.report_productprint"
+                print_report_name="'Products print - %s' % (object.name)"
+        />
+
+        <!-- INFO: enables ZPL products barcode on product.template. -->
+        <report
+            id="report_product_templateprint"
+            string="Product Milor Print (ZPL)"
+            model="product.template"
+            report_type="qweb-text"
+            name="syd_custom.report_producttemplateprint_zpl"
+            file="syd_custom.report_producttemplateprint_zpl"
+            print_report_name="'Products print - %s' % (object.name)"
+        />
+
+        <report
+                id="report_product_templateprint"
+                string="Product Milor Print (PDF)"
+                model="product.template"
+                report_type="qweb-pdf"
+                name="syd_custom.report_producttemplateprint"
+                file="syd_custom.report_producttemplateprint"
+                print_report_name="'Products print - %s' % (object.name)"
+        />
+
+
+        <report
+                string="Packing List Without Price"
+                id="action_report_delivery_without_price"
+                model="stock.picking"
+                report_type="qweb-pdf"
+                name="syd_custom.report_deliveryslip_without_price"
+                file="syd_custom.report_deliveryslip_without_price"
+                print_report_name="'Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)"
+        />
+
+        <report
+                id="abel_milor_plateau_product_template"
+                model="product.template"
+                string="Product Milor Plateau (PDF)"
+                report_type="qweb-pdf"
+                name="syd_custom.report_product_milor_plateau"
+                file="syd_custom.report_product_milor_plateau"
+                print_report_name="'Products Milor Plateau - %s' % (object.name)"
+        />
+
+        <report
+                id="abel_milor_plateau_product_product"
+                model="product.product"
+                string="Product Milor Plateau (PDF)"
+                report_type="qweb-pdf"
+                name="syd_custom.report_product_product_milor_plateau"
+                file="syd_custom.report_product_product_milor_plateau"
+                print_report_name="'Products Milor Plateau - %s' % (object.name)"
+        />
+
+    </data>
+</odoo>

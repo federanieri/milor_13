@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <menuitem id="menu_root" name="OdAS2" web_icon="syd_odas2,static/description/icon.png" sequence="102"/>
+        <menuitem id="menu_sale_orders" name="Sale Orders" parent="menu_root" groups="sales_team.group_sale_salesman"/>
+            <menuitem id="sale_order_menu" name="Sale Order" parent="menu_sale_orders" action="action_sale_order"/>
+        <menuitem id="menu_products" name="Products" parent="menu_root" groups="sales_team.group_sale_salesman"/>
+            <menuitem id="menu_product_product" name="Product Variants" parent="menu_products" action="action_product_product"/>
+        <menuitem id="menu_technical" name="Technical" parent="menu_root" groups="group_admin"/>
+            <menuitem id="menu_odas2_message_queue" name="AS2 Message Queue" parent="menu_technical" action="action_odas2_message_queue"/>
+        <menuitem id="menu_config_settings" name="Configuration" parent="menu_root" groups="group_admin"/>
+            <menuitem id="menu_general_settings" name="Settings" parent="menu_config_settings" action="action_config_settings"/>
+
+</odoo>

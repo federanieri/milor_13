@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<!-- PICKING LIST -->
+
+		<record id="view_syd_os1_doc_os1_filter" model="ir.ui.view">
+			<field name="name">syd_os1.doc_os1.select</field>
+			<field name="model">syd_os1.doc_os1</field>
+			<field name="arch" type="xml">
+				<search string="Search Invoice">
+					<field name="name" string="Name"
+						filter_domain="['|','|','|','|','|',('name','ilike',self),('crma_ids','ilike',self),('partner_id','child_of',self),('partner_id','ilike',self),('fmCodePartner', 'ilike', self),('sale_order_ids', 'ilike', self)]" />
+					<field name="name" string="Name DOC OS1" />
+					<field name="crma_ids" />
+					<field name="partner_id" />
+					<field name="fmCodePartner" />
+					<field name="sale_order_ids" />
+				</search>
+			</field>
+		</record>
+
+		<record id="doc_os1_tree_view" model="ir.ui.view">
+			<field name="name">doc_os1_tree</field>
+			<field name="model">syd_os1.doc_os1</field>
+			<field name="arch" type="xml">
+				<tree string="Document OS1">
+					<field name="name" />
+					<field name="sale_order_ids" widget="many2many_tags" />
+					<field name="crma_ids" widget="many2many_tags" />
+					<field name="state" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="doc_os1_tree_view_sales" model="ir.ui.view">
+			<field name="name">doc_os1_tree</field>
+			<field name="model">syd_os1.doc_os1</field>
+			<field name="arch" type="xml">
+				<tree string="Document OS1">
+					<field name="fmCodePartner" />
+					<field name="partner_id" />
+					<field name="type_doc_os1_internal" />
+					<field name="name" />
+					<field name="create_date" string="Ultima modifica" />
+					<field name="Brand" />
+					<field name="sale_order_ids" widget="many2many_tags" />
+					<field name="crma_ids" widget="many2many_tags" />
+					<field name="differentPayment" />
+					<field name="differentPaymentCustomer" />
+					<field name="totalProductsInEuros" />
+					<field name="NumberOfPiecesProduced" />
+					<field name="Annotazioni" />
+					<field name="agent_id" />
+					<field name="state" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="doc_os1_form_view" model="ir.ui.view">
+			<field name="name">doc_os1_form</field>
+			<field name="model">syd_os1.doc_os1</field>
+			<field name="arch" type="xml">
+				<form string="Document OS1">
+					<header>
+						<button name="setValidate" type="object" string="Valida"
+							class="oe_highlight"
+							attrs="{'invisible': [('state','!=','draft')]}" />
+						<button name="setDraft" type="object" string="Set to draft"
+							class="oe_highlight"
+							attrs="{'invisible': [('state','!=','validate')]}" />
+						<button name="setDone" type="object" string="send to OS1"
+							class="oe_highlight"
+							attrs="{'invisible': [('state','!=','validate')]}" />
+						<button name="forceDone" type="object" string="Force Done"
+							class="oe_highlight"
+							attrs="{'invisible': [('state','!=','validate')]}"
+							groups="syd_os1.group_user_os1" />
+						<button name="setDone" type="object"
+							string="Send back to os1" class="oe_highlight"
+							attrs="{'invisible': [('state','!=','done')]}"
+							confirm="Sure to resend the OS1 document?" />
+						<field name="state" widget="statusbar" />
+					</header>
+					<sheet>
+						<group>
+							<field name="name" readonly="1" />
+							<field name="messageSendOS1Error"
+								attrs="{'invisible': ['|',('messageSendOS1Error','=',''),('messageSendOS1Error','=',False)]}" />
+							<field name="flagInvoiceNotImported" readonly="1"
+								attrs="{'invisible': [('flagInvoiceNotImported','=',False)]}" />
+							<field name="totalProductsInEuros" />
+							<field name="NumberOfPiecesProduced" />
+							<field name="Annotazioni" />
+							<field name="Brand" />
+							<field name="type_doc_os1" />
+							<field name="type_doc_os1_internal" readonly="1" />
+							<field name="key_returned"
+								attrs="{'invisible': [('state','not in',['done','invoiced','paid'])]}" />
+						</group>
+						<notebook>
+							<page string="lines">
+								<field name="doc_os1_line_ids"
+									attrs="{'readonly': [('state','!=','draft')]}">
+									<tree string="Document OS1 line" editable="bottom">
+										<field name="sequence" widget="handle" />
+										<field name="is_invoiced" groups="base.group_system"
+											readonly="1" />
+										<field name="name" />
+										<field name="IdIva" />
+										<field name="document_os1_id" />
+										<field name="product_id" />
+										<field name="Brand" />
+										<field name="quantity" />
+										<field name="price_unit" />
+										<field name="price_htc" />
+										<field name="row_type" />
+										<field name="Annotazioni" />
+										<field name="sale_order_line_id" />
+										<field name="sale_order_id" />
+										<field name="crma_id" />
+										<field name="AnnoRif" />
+										<field name="NumeroRif" />
+										<field name="sezionale" />
+										<field name="full_date" />
+										<field name="IdCausaleRif" />
+									</tree>
+								</field>
+							</page>
+							<page string="Info Testata Docrumento OS1">
+								<group>
+									<field name="AspettoBeni"
+										attrs="{'readonly': [('state','!=','draft')]}" />
+									<field name="IdCliente" />
+									<field name="IdDestinazione"
+										attrs="{'readonly': [('state','!=','draft')]}" />
+									<field name="IdDivisa" readonly="1" />
+									<field name="sconto_t1" readonly="1" />
+									<field name="SpeseTrasporto" readonly="1" />
+									<field name="IdAgente1" readonly="1" />
+									<field name="IdAgente2" readonly="1" />
+									<field name="IdPagamento" readonly="1" />
+									<field name="flagdifferentPayment" invisible="1" />
+									<field name="differentPayment" readonly="1"
+										attrs="{'invisible': [('flagdifferentPayment','=',False)]}" />
+									<field name="PriceList" readonly="1" />
+									<field name="flagdifferentPriceList" invisible="1" />
+									<field name="differentPriceList" readonly="1"
+										attrs="{'invisible': [('flagdifferentPriceList','=',False)]}" />
+									<field name="TotNumeroColli" readonly="1" />
+									<field name="TotPesoLordo" readonly="1" />
+									<field name="TotPesoNetto" readonly="1" />
+									<field name="IdTipoTrasporto" readonly="1" />
+									<field name="IdSpedizione1" readonly="1" />
+								</group>
+							</page>
+							<page string="Sale orders">
+								<field name="sale_order_ids" readonly="1" />
+							</page>
+							<page string="CRMA">
+								<field name="crma_ids" readonly="1" />
+							</page>
+							<!-- <page string="Stock picking old"> -->
+							<!-- <field name="stock_picking_ids" readonly="1" /> -->
+							<!-- </page> -->
+							<page string="Stock picking">
+								<field name="stock_picking_many2many_ids" readonly="1" />
+							</page>
+							<page string="Stock picking Pack">
+								<field name="stock_picking_internal_ids" readonly="1" />
+							</page>
+							<page string="Replace tracking">
+								<group>
+									<group>
+										<field name="carrier_tracking_ref_to_modify" />
+									</group>
+									<group>
+										<button name="set_to_picking_carrier_tracking_ref"
+											type="object" string="Sostituisci" class="oe_highlight" />
+									</group>
+								</group>
+							</page>
+							<page string="Invoice"
+								attrs="{'invisible': [('state','in',['draft','validate'])]}">
+								<field name="invoice_done_ids" readonly="1">
+									<tree>
+										<field name="name" />
+										<field name="document_number" />
+										<field name="invoice_id" />
+									</tree>
+									<form>
+										<group>
+											<field name="name" />
+											<field name="document_number" />
+											<field name="invoice_id" />
+										</group>
+									</form>
+								</field>
+							</page>
+							<page string="Other information"
+								attrs="{'invisible': [('message_creation','in',['',False])]}">
+								<field name="message_creation" readonly="1" />
+							</page>
+						</notebook>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_ids" widget="mail_thread" />
+					</div>
+				</form>
+			</field>
+		</record>
+
+
+		<!-- PCIKING LIST LINE -->
+
+		<record id="doc_os1_line_tree_view" model="ir.ui.view">
+			<field name="name">doc_os1_line_tree</field>
+			<field name="model">syd_os1.doc_os1.line</field>
+			<field name="arch" type="xml">
+				<tree string="Document OS1 line">
+					<field name="sequence" widget="handle" />
+					<field name="name" />
+					<field name="document_os1_id" />
+					<field name="product_id" />
+					<field name="quantity" />
+					<field name="price_unit" />
+					<field name="row_type" />
+					<field name="Annotazioni" />
+					<field name="sale_order_line_id" />
+					<field name="sale_order_id" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="doc_os1_line_form_view" model="ir.ui.view">
+			<field name="name">doc_os1_line_form</field>
+			<field name="model">syd_os1.doc_os1.line</field>
+			<field name="arch" type="xml">
+				<form string="Document OS1 line">
+					<sheet>
+						<group>
+							<field name="name" />
+							<field name="document_os1_id" />
+							<field name="product_id" />
+							<field name="quantity" />
+							<field name="price_unit" />
+							<field name="row_type" />
+							<field name="Annotazioni" />
+							<field name="sale_order_line_id" />
+							<field name="sale_order_id" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+		<record id="action_document_os1" model="ir.actions.act_window">
+			<field name="name">OS1 document</field>
+			<field name="res_model">syd_os1.doc_os1</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id"
+				ref="syd_os1.view_syd_os1_doc_os1_filter" />
+		</record>
+
+		<record id="action_document_os1_sales"
+			model="ir.actions.act_window">
+			<field name="name">OS1 document</field>
+			<field name="res_model">syd_os1.doc_os1</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id"
+				ref="syd_os1.view_syd_os1_doc_os1_filter" />
+			<field name="view_ids"
+				eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('doc_os1_tree_view_sales')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('doc_os1_form_view')})]" />
+		</record>
+
+		<record id="action_document_os1_after_create"
+			model="ir.actions.act_window">
+			<field name="name">OS1 document</field>
+			<field name="res_model">syd_os1.doc_os1</field>
+			<field name="view_mode">form</field>
+		</record>
+
+		<record id="syd_os1_reason_reference_os1_tree_view"
+			model="ir.ui.view">
+			<field name="name">syd_os1_reason_reference_os1_tree</field>
+			<field name="model">syd_os1.reason_reference_os1</field>
+			<field name="arch" type="xml">
+				<tree string="Document OS1 line">
+					<field name="name" />
+					<field name="code" />
+					<field name="description" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="syd_os1_reason_reference_os1_form_view"
+			model="ir.ui.view">
+			<field name="name">syd_os1_reason_reference_os1_form</field>
+			<field name="model">syd_os1.reason_reference_os1</field>
+			<field name="arch" type="xml">
+				<form string="Document OS1 line">
+					<sheet>
+						<group>
+							<field name="name" readonly="1" />
+							<field name="code" />
+							<field name="description" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_syd_os1_reason_reference_os1"
+			model="ir.actions.act_window">
+			<field name="name">Reason Reference document</field>
+			<field name="res_model">syd_os1.reason_reference_os1</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+	</data>
+</odoo>

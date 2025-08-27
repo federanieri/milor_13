@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="na_report_milor_product" inherit_id="syd_custom.report_milor_product">
+            <xpath expr="//table/tr[5]/td[4]" position="after">
+                <td style="padding:0px;" class="table-active text-left" colspan="1">
+                    <span>Venduto</span><br/>
+                    <span t-esc="sales_count"/>
+                </td>
+            </xpath>
+            <xpath expr="//table/tr[1]/td[2]" position="attributes">
+                <attribute name="colspan">2</attribute>
+            </xpath>
+            <xpath expr="//table/tr[3]/td" position="attributes">
+                <attribute name="colspan">5</attribute>
+            </xpath>
+            <xpath expr="//table/tr[4]/td" position="attributes">
+                <attribute name="colspan">5</attribute>
+            </xpath>
+            <xpath expr="//table/tr[6]/td[1]" position="attributes">
+                <attribute name="colspan">2</attribute>
+            </xpath>
+        </template>
+
+        <template id="na_report_producttemplateprint" inherit_id="syd_custom.report_producttemplateprint">
+            <xpath expr="//div/t/t/t[5]" position="after">
+                <t t-set="sales_count" t-value="template.sales_count"/>
+            </xpath>
+        </template>
+
+        <!-- <template id="na_syd_product_proposal_custom.report_sp_productmilorprint" inherit_id="syd_product_proposal_custom.syd_product_proposal_custom.report_sp_productmilorprint">
+            <xpath expr="//div/t/t/t/t[6]" position="after">
+                <t t-set="sales_count" t-value="line.product_id.sales_count"/>
+            </xpath>
+        </template> -->
+
+        <template id="na_report_productprint" inherit_id="syd_custom.report_productprint">
+            <xpath expr="//div/t/t/t[4]" position="after">
+                <t t-set="sales_count" t-value="product.sales_count"/>
+            </xpath>
+        </template>
+
+        <!-- <template id="na_syd_custom.report_so_productmilorprint" inherit_id="syd_custom.report_so_productmilorprint">
+            <xpath expr="//div/t/t/t/t/t[5]" position="after">
+                <t t-set="sales_count" t-value="line.product_id.sales_count"/>
+            </xpath>
+        </template>
+
+        <template id="na_syd_custom.report_po_productmilorprint" inherit_id="syd_custom.report_po_productmilorprint">
+            <xpath expr="//div/t/t/t/t/t[5]" position="after">
+                <t t-set="sales_count" t-value="line.product_id.sales_count"/>
+            </xpath>
+        </template> -->
+    </data>
+</odoo>

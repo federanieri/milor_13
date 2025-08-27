@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    	<record id="model_onpage_get_image" model="ir.actions.server">
+            <field name="name">Ottieni immagini OnPage</field>
+            <field name="model_id" ref="product.model_product_product"/>
+            <field name="binding_model_id" ref="product.model_product_product"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.get_onpage_image()</field>
+        </record>
+        <record id="model_onpage_clean_image" model="ir.actions.server">
+            <field name="name">Cancella e riottieni immagini OnPage</field>
+            <field name="model_id" ref="product.model_product_product"/>
+            <field name="binding_model_id" ref="product.model_product_product"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.clean_get_onpage_image()</field>
+        </record>
+    	<record id="model_onpage_get_metadata" model="ir.actions.server">
+            <field name="name">Ottieni Metadata da OnPage</field>
+            <field name="model_id" ref="product.model_product_product"/>
+            <field name="binding_model_id" ref="product.model_product_product"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.get_onpage_content()</field>
+        </record>
+        
+        <record id="model_onpage_create_products" model="ir.actions.server">
+            <field name="name">Invia Prodotto a Onpage</field>
+            <field name="model_id" ref="product.model_product_template"/>
+            <field name="binding_model_id" ref="product.model_product_template"/>
+            <field name="state">code</field>
+            <field name="code">
+for r in records:
+	if bool(r.product_variant_ids):
+		r.product_variant_ids.create_image_attachment()
+action = records.post_products_template()
+   			</field>
+        </record>
+        <record id="onpage_account" model="onpage.account">
+            <field name="name">OnPage Account </field>
+            <field name="onpage_api_url">https://milor.onpage.it/api/view</field>
+            <field name="onpage_images_api">https://milor.onpage.it/api/storage</field>
+        </record>
+
+        <record id="ir_cron_sync_post_onpage_product" model="ir.cron">
+            <field name="name">OnPage: Create Product On OnPage</field>
+            <field name="model_id" ref="product.model_product_product" />
+            <field name="state">code</field>
+            <field name="code">model.sync_post_products(True)</field>
+            <field name="active" eval="True" />
+            <field name="user_id" ref="base.user_admin" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+        </record>
+
+        <record id="ir_cron_sync_get_onpage_content" model="ir.cron">
+            <field name="name">OnPage: Get Content</field>
+            <field name="model_id" ref="product.model_product_product" />
+            <field name="state">code</field>
+            <field name="code">model.sync_get_content(True)</field>
+            <field name="active" eval="True" />
+            <field name="user_id" ref="base.user_admin" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+        </record>
+
+        <record id="ir_cron_generate_onpage_token" model="ir.cron">
+            <field name="name">OnPage: Generate Token</field>
+            <field name="model_id" ref="syd_onpage.model_onpage_account" />
+            <field name="active" eval="True" />
+            <field name="user_id" ref="base.user_admin" />
+            <field name="interval_number">5</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+        </record>
+
+        <record id="ir_cron_sync_get_onpage_product" model="ir.cron">
+            <field name="name">OnPage: Update Product on Odoo</field>
+            <field name="model_id" ref="product.model_product_product" />
+            <field name="state">code</field>
+            <field name="code">model.sync_get_products(True)</field>
+            <field name="active" eval="True" />
+            <field name="user_id" ref="base.user_admin" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+        </record>
+        <record id="model_onpage_create_just_images" model="ir.actions.server">
+            <field name="name">Invia immagini a Onpage</field>
+            <field name="model_id" ref="product.model_product_template"/>
+            <field name="binding_model_id" ref="product.model_product_template"/>
+            <field name="state">code</field>
+            <field name="code">
+for r in records:
+	if bool(r.product_variant_ids):
+		r.product_variant_ids.create_image_attachment()
+action = records.post_images()
+   			</field>
+        </record>
+        
+        <record id="model_onpage_update_info" model="ir.actions.server">
+            <field name="name">Onpage: Aggiorna su OnPage</field>
+            <field name="model_id" ref="product.model_product_template"/>
+            <field name="binding_model_id" ref="product.model_product_template"/>
+            <field name="state">code</field>
+            <field name="code">
+for r in records:
+	if bool(r.product_variant_ids):
+		r.product_variant_ids.create_image_attachment()
+action = records.update_data_info()
+   			</field>
+        </record>        
+    </data>
+</odoo>

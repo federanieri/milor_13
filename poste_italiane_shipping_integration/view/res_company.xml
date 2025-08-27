@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_company_poste_italiane_configuration" model="ir.ui.view">
+        <field name="name">Poste Italiane Configuration</field>
+        <field name="model">res.company</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[last()]" position="after">
+                <page string="Poste Italiane Configuration">
+                    <group>
+                        <field name="use_poste_italiane_shipping_provider"/>
+                    </group>
+                    <group attrs="{'invisible': [('use_poste_italiane_shipping_provider', '!=', True)]}">
+                        <field name="poste_italiane_api_url"
+                               attrs="{'required':[('use_poste_italiane_shipping_provider','=',True)]}"/>
+                        <field name="poste_italiane_client_id"
+                               attrs="{'required':[('use_poste_italiane_shipping_provider','=',True)]}"/>
+                        <field name="poste_italiane_client_secret"
+                               attrs="{'required':[('use_poste_italiane_shipping_provider','=',True)]}"/>
+                        <field name="poste_italiane_access_token"/>
+                        <button type="object" name="get_poste_italiane_token" string="Get Access Token"
+                                class="fa fa-arrow-right oe_link"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

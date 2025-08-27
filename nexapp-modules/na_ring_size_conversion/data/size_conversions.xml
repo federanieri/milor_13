@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright 2022 Mastini Alberto - Nexapp S.r.l.
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+ -->
+<data>
+    <record id="1_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">1</field>
+        <field name="french_size">41</field>
+    </record>
+    <record id="2_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">1.50</field>
+        <field name="french_size">41.50</field>
+    </record>
+    <record id="3_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">2</field>
+        <field name="french_size">42</field>
+    </record>
+    <record id="4_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">2.50</field>
+        <field name="french_size">42.75</field>
+    </record>
+    <record id="5_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">3</field>
+        <field name="french_size">43</field>
+    </record>
+    <record id="6_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">3</field>
+        <field name="french_size">43</field>
+    </record>
+    <record id="7_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">4</field>
+        <field name="french_size">44</field>
+    </record>
+    <record id="8_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">5</field>
+        <field name="french_size">45</field>
+    </record>
+    <record id="9_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">5.50</field>
+        <field name="french_size">45.50</field>
+    </record>
+    <record id="10_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">6</field>
+        <field name="french_size">46</field>
+    </record>
+    <record id="11_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">6.75</field>
+        <field name="french_size">46.75</field>
+    </record>
+    <record id="12_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">7</field>
+        <field name="french_size">47</field>
+    </record>
+    <record id="13_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">8</field>
+        <field name="french_size">48</field>
+    </record>
+    <record id="14_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">9</field>
+        <field name="french_size">49</field>
+    </record>
+    <record id="15_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">9.50</field>
+        <field name="french_size">49.25</field>
+    </record>
+    <record id="16_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">10</field>
+        <field name="french_size">50</field>
+    </record>
+    <record id="17_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">10.50</field>
+        <field name="french_size">50.50</field>
+    </record>
+    <record id="18_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">11</field>
+        <field name="french_size">51</field>
+    </record>
+    <record id="19_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">11.50</field>
+        <field name="french_size">51.50</field>
+    </record>
+    <record id="20_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">12</field>
+        <field name="french_size">52</field>
+    </record>
+    <record id="21_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">12.50</field>
+        <field name="french_size">52.50</field>
+    </record>
+    <record id="22_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">13</field>
+        <field name="french_size">53</field>
+    </record>
+    <record id="23_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">13.50</field>
+        <field name="french_size">53.50</field>
+    </record>
+    <record id="24_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">14</field>
+        <field name="french_size">54</field>
+    </record>
+    <record id="25_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">14.50</field>
+        <field name="french_size">54.50</field>
+    </record>
+    <record id="26_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">15</field>
+        <field name="french_size">55</field>
+    </record>
+    <record id="27_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">15.50</field>
+        <field name="french_size">55.50</field>
+    </record>
+    <record id="28_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">16</field>
+        <field name="french_size">56</field>
+    </record>
+    <record id="29_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">16.50</field>
+        <field name="french_size">56.50</field>
+    </record>
+    <record id="30_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">16.50</field>
+        <field name="french_size">56.50</field>
+    </record>
+    <record id="31_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">17</field>
+        <field name="french_size">57</field>
+    </record>
+    <record id="32_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">17.50</field>
+        <field name="french_size">57.50</field>
+    </record>
+    <record id="33_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">18</field>
+        <field name="french_size">58</field>
+    </record>
+    <record id="34_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">18.50</field>
+        <field name="french_size">58.50</field>
+    </record>
+    <record id="35_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">19</field>
+        <field name="french_size">59</field>
+    </record>
+    <record id="36_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">19.50</field>
+        <field name="french_size">59.75</field>
+    </record>
+    <record id="37_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">20</field>
+        <field name="french_size">60</field>
+    </record>
+    <record id="38_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">20.50</field>
+        <field name="french_size">60.50</field>
+    </record>
+    <record id="39_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">21</field>
+        <field name="french_size">61</field>
+    </record>
+    <record id="40_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">21.50</field>
+        <field name="french_size">61.50</field>
+    </record>
+    <record id="41_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">22</field>
+        <field name="french_size">62</field>
+    </record>
+    <record id="42_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">22.50</field>
+        <field name="french_size">62.50</field>
+    </record>
+    <record id="43_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">23</field>
+        <field name="french_size">63</field>
+    </record>
+    <record id="44_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">23.50</field>
+        <field name="french_size">63.50</field>
+    </record>
+    <record id="44_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">24</field>
+        <field name="french_size">64</field>
+    </record>
+    <record id="45_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">24.50</field>
+        <field name="french_size">64.50</field>
+    </record>
+    <record id="46_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">25</field>
+        <field name="french_size">65</field>
+    </record>
+    <record id="47_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">25.50</field>
+        <field name="french_size">65.50</field>
+    </record>
+    <record id="48_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">26</field>
+        <field name="french_size">66</field>
+    </record>
+    <record id="49_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">26.50</field>
+        <field name="french_size">66.25</field>
+    </record>
+    <record id="50_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">27</field>
+        <field name="french_size">67</field>
+    </record>
+    <record id="51_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">27.50</field>
+        <field name="french_size">67.50</field>
+    </record>
+    <record id="52_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">28</field>
+        <field name="french_size">68</field>
+    </record>
+    <record id="53_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">28.50</field>
+        <field name="french_size">68.75</field>
+    </record>
+    <record id="54_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">29</field>
+        <field name="french_size">69</field>
+    </record>
+    <record id="55_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">29.50</field>
+        <field name="french_size">69.50</field>
+    </record>
+    <record id="56_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">30</field>
+        <field name="french_size">70</field>
+    </record>
+    <record id="57_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">31</field>
+        <field name="french_size">71</field>
+    </record>
+    <record id="58_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">32</field>
+        <field name="french_size">72</field>
+    </record>
+    <record id="59_conversion" model="ring.size.conversion" forcecreate="0">
+        <field name="name">Size Conversion</field>
+        <field name="italian_size">33</field>
+        <field name="french_size">73</field>
+    </record>
+</data>

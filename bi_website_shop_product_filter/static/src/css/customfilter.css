@@ -1,0 +1,23 @@
+
+
+.customfilter {
+    background: teal;
+    color: white;
+    font-size: large;
+    font-weight: 600;
+    text-align: center;
+}
+
+.css_image_container {
+	float: left;
+    margin-left: 2px;
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    border-radius: 30px;
+}
+
+.css_image_container.active{
+	
+	border:2px solid red;
+}

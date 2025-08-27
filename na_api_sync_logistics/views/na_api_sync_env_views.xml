@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright 2022 Nexapp S.r.l.
+  License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+ -->
+<odoo>
+    <data>
+        <record id="na_api_sync_env_form_view_inherit" model="ir.ui.view">
+            <field name="name">na.api.sync.env.form.view.inherit</field>
+            <field name="model">na.api.sync.env</field>
+            <field name="inherit_id" ref="na_api_sync.na_api_sync_env_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='auth_group']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('api_type', 'in', ('exp', 'import_feed', 'export_feed', 'logistic'))]}</attribute>
+                </xpath>
+                <xpath expr="//page[@name='sync_list']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('api_type', '=', 'logistic')]}</attribute>
+                </xpath>
+                <!-- added this part because the notebook without pages leaves a line in the sheet -->
+                <xpath expr="//notebook" position="attributes">
+                    <attribute name="attrs">{'invisible': [('api_type', '=', 'logistic')]}</attribute>
+                </xpath>
+                <xpath expr="//group[@name='auth_group']" position="after">
+                    <group name="logistic">
+                        <group string="Goods input in logistics" name="input_logistic">
+                            <field name="forecast_goods"/>
+                            <field name="logistics_goods_validation"/>
+                            <field name="forecast_create_backorder"/>
+                        </group>
+                        <group string="Goods output in logistics" name="output_logistic">
+                            <field name="goods_delivery"/>
+                            <field name="logistics_goods_confirmation"/>
+                            <field name="delivery_create_backorder"/>
+                        </group>
+                        <group string="Synchronization between systems" name="synchro_logistic">
+                            <field name="goods_registry"/>
+                            <field name="logistics_goods_inventory"/>
+                            <field name="location_id" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

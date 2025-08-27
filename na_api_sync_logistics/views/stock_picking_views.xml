@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright 2022 Nexapp S.r.l.
+  License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+ -->
+<odoo>
+    <data>
+        <record id="na_view_picking_form_inherit" model="ir.ui.view">
+            <field name="name">na.stock.picking.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='move_type']" position="before">
+                    <field name="exported" readonly="1"/>
+                </xpath>
+
+                <xpath expr="//header" position="inside">
+                    <button name="manage_feed_data" type="object" string="Re-export"
+                            confirm="Do you confirm that you want to re-export the data?"
+                            attrs="{'invisible': [('exported', '=', False)]}" context="{'reexport': True}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

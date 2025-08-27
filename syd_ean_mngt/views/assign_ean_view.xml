@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="assign_ean_tree_view" model="ir.ui.view">
+       <field name="name">assign.ean.tree.view</field>
+       <field name="model">assign.ean</field>
+       <field name="arch" type="xml">
+         <tree string="Assign an Ean">
+	         	<field name="ean" string="EAN"/> 
+	            <field name="product_id" string="Product"  domain="[('barcode', '=', False)]"/>
+	            <field name="link_date" string="Link date"/>
+     	        <field name="unlink_date" string="Unlink date"/>
+         </tree>
+       </field>
+   </record>
+
+	
+
+   <record id="assign_ean_form_view" model="ir.ui.view">
+       <field name="name">assign.ean.form.view</field>
+       <field name="model">assign.ean</field>
+       <field name="arch" type="xml">
+         <form string="Assign an Ean" >
+         	<sheet>
+				<div class="oe_title">
+                    <h1>
+                    	<field name="ean" string="EAN" attrs="{'readonly':True}"/> 
+                    </h1>
+                </div>                
+                <group> 
+                    <field name="ean" string="EAN" /> 
+                    <field name="product_id" string="Product"  domain="[('barcode', '=', False)]" />
+                    <field name="link_date" string="Link date" attrs="{'readonly':True, 'invisible':[('product_id', '=', False)]}"/>
+                    <field name="unlink_date" string="Unlink date" attrs="{'readonly':True, 'invisible':['|','|',('product_id', '!=', False),('ean', '=', False),('unlink_date','=',False)]}"/>
+                </group>
+            </sheet>
+           	<div class="oe_chatter">
+            	<field name="message_follower_ids" widget="mail_followers"/>
+            	<field name="message_ids" widget="mail_thread"/>
+       		</div>
+         </form>
+       </field>
+   </record>
+ 
+ 	<record id="action_assign_ean_view" model="ir.actions.act_window">
+      <field name="name">Assign Ean</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">assign.ean</field>
+      <field name="view_mode">tree,form</field>
+	</record>
+
+  
+   
+   <menuitem name="EAN Management" action="action_assign_ean_view" id="assign_ean_menu" parent="stock.menu_stock_inventory_control" sequence="8"></menuitem>
+	
+</odoo>
