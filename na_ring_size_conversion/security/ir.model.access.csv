@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ring_size_conversion,access_ring_size_conversion,model_ring_size_conversion,na_bijou.group_bijou,1,1,1,1

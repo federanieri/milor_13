@@ -1,0 +1,43 @@
+<odoo>
+
+    <!-- VIEW -->
+    <record id="view_na_purchase" model="ir.ui.view">
+        <field name="name">Completa trasferimenti acquisti chiusi</field>
+        <field name="model">na.purchase</field>
+        <field name="arch" type="xml">
+            <form string="Completa trasferimenti">
+                <script>
+                    $(document).ready(function(){        <!-- link ref: https://www.odoo.com/it_IT/forum/assistenza-1/can-t-remove-save-and-discard-button-in-form-view-119445-->
+                    $(".modal-footer").hide();           <!-- hide save and cancel button-->
+                    });
+                </script>
+                <group>
+                    <field name="complete_transfers"></field>
+                </group>
+                <button name="complete_button" type="object" string="Avvia" class="btn-primary"/>
+            </form>
+        </field>
+    </record>
+
+
+    <!--ACTION-->
+    <record id="complete_closed_purchase_transfers_action" model="ir.actions.act_window">
+        <field name="name">Completa trasferimenti acquisti chiusi</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">na.purchase</field>
+        <field name="view_mode">form</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0), (0, 0, {'view_mode': 'form', 'view_id': ref('view_na_purchase')})]"/>
+        <field name="target">new</field>
+    </record>
+
+    <!--    <record id="complete_closed_purchase_transfers_action" model="ir.actions.act_window">-->
+    <!--        <field name="name">Completa trasferimenti acquisti chiusi</field>-->
+    <!--        <field name="res_model">na.purchase</field>-->
+    <!--        <field name="view_mode">form</field>-->
+    <!--    </record>-->
+
+    <menuitem id="complete_closed_purchase_transfers_menu" name="Completa trasferimenti acquisti chiusi"
+              parent="purchase.menu_purchase_config" groups="base.group_no_one"
+              action="complete_closed_purchase_transfers_action"/>
+</odoo>

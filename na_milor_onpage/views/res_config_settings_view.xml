@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="na_res_config_settings_attr_onpage" model="ir.ui.view">
+            <field name="name">res.config.settings.attr.onpage</field>
+            <field name="priority" eval="200"/>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="stock.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='integration']" position="after">
+                    <div>
+                        <h2>Parametri attributo per file onpage e path allegati</h2>
+                        <group>
+                            <div class="row mt16 o_settings_container">
+                                <div class="col-xs-12 col-md-6 o_setting_box">
+                                    <div class="o_setting_right_pane">
+                                        <div class="content-group">
+                                            <div class="mt16">
+                                                <label for="one_size_attribute" string="Attributo taglia unica"/>
+                                                <field name="one_size_attribute" options="{'no_create': True, 'no_edit': True}"/>
+                                            </div>
+                                            <div class="mt16">
+                                                <label for="one_size_value" string="Valore taglia unica"/>
+                                                <field name="one_size_value" options="{'no_create': True, 'no_edit': True}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </group>
+                        <group>
+                            <div class="row mt16 o_settings_container">
+                                <div class="col-xs-12 col-md-6 o_setting_box">
+                                    <div class="o_setting_right_pane">
+                                        <div class="content-group">
+                                            <div class="mt16">
+                                                <label for="size_attributes" string="Taglia"/>
+                                                <field name="size_attributes" options="{'no_create': True, 'no_edit': True}" widget="many2many_tags"/>
+                                            </div>
+                                            <div class="mt16">
+                                                <label for="stone_attributes" string="Pietra"/>
+                                                <field name="stone_attributes" options="{'no_create': True, 'no_edit': True}" widget="many2many_tags"/>
+                                            </div>
+                                            <div class="mt16">
+                                                <label for="plating_attributes" string="Placcatura"/>
+                                                <field name="plating_attributes" options="{'no_create': True, 'no_edit': True}" widget="many2many_tags"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </group>
+                        <group>
+                            <div class="row mt16 o_settings_container">
+                                <div class="col-xs-12 col-md-6 o_setting_box">
+                                    <div class="o_setting_right_pane">
+                                        <div class="content-group">
+                                            <div class="mt16">
+                                                <label for="path_onpage_attachments" string="Path allegati onpage"/>
+                                                <field name="path_onpage_attachments"/>
+                                                <label for="single_stock" string="Gestione Ubicazione multipla"/>
+                                                <field name="single_stock"/><br/>
+                                                <label for="onpage_token" string="Token Onpage Anagrafica"/>
+                                                <field name="onpage_token"/>
+                                                <label for="onpage_token_qty" string="Token Onpage Giacenze"/>
+                                                <field name="onpage_token_qty"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </group>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

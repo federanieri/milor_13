@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2022 Nadia Dotti - Nexapp S.r.l.
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+ -->
+<odoo>
+    <record id="na_inventory_barcode_zone_view_move_line_tree_inherit" model="ir.ui.view">
+        <field name="name">na_inventory_barcode_zone_stock.view.move.line.tree.inherit</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_move_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='location_dest_id']" position="after">
+                <field name="zone"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

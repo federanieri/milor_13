@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="na_fot_view_proposal_order_form" model="ir.ui.view">
+            <field name="name">na.fo.proposal.order.form</field>
+            <field name="model">proposal.sale.order</field>
+            <field name="inherit_id" ref="syd_product_proposal.view_proposal_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='metal_id']" position="before">
+					<field name="porder_id" invisible="1"/>
+					<field name="product_attributes" attrs="{'column_invisible':[('parent.type', '!=', 'na_mto')]}"/>
+                </xpath>
+				<xpath expr="//field[@name='product_id'][1]" position="attributes">
+					<attribute name="attrs">{'column_invisible':[('parent.type', '==', 'na_mto')]}</attribute>
+				</xpath>
+				<xpath expr="//field[@name='sequence']" position="after">
+					<field name="na_product_id" options="{'no_open': True}" force_save="1"
+						   context="{
+							   'partner_id': parent.partner_id,
+							   'quantity': qty_proposed,
+							   'pricelist': parent.pricelist_id,
+							   'company_id': parent.company_id,
+							   'default_lst_price': price_proposed,
+							   'default_description_sale': name
+							}"
+						   domain="[('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
+						   attrs="{'column_invisible':[('parent.type', '!=', 'na_mto')]}"/>
+				</xpath>
+			</field>
+	</record>
+
+    <record id="na_fo_action_proposal_orders" model="ir.actions.act_window">
+		<field name="name">Sale Proposal from order</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">proposal.sale.order</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{}</field>
+        <field name="domain">[('type', 'in', ['na_mto', 'mto'])]</field>
+        <!-- <field name="view_ids"
+			   eval="[(5, 0, 0),
+                      (0, 0, {'view_mode': 'tree', 'view_id': ref('syd_product_proposal.view_proposal_sale_order_tree')}),
+                      (0, 0, {'view_mode': 'form', 'view_id': ref('na_fo_view_proposal_order_form')})]"/> -->
+	</record>
+
+    <record id="na_fs_action_proposal_orders" model="ir.actions.act_window">
+		<field name="name">Sale Proposal from stock</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">proposal.sale.order</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{}</field>
+        <field name="domain">[('type', '=', 'mts')]</field>
+	</record>
+
+    <menuitem id="syd_product_proposal.proposal_sale_order_menu" name="Sale Proposal from stock" parent="syd_product_proposal.proposal_sale_order_menu_root"
+		action="na_fs_action_proposal_orders" sequence="2" />
+
+    <menuitem id="na_fo_proposal_sale_order_menu" name="Sale Proposal from order" parent="syd_product_proposal.proposal_sale_order_menu_root"
+		action="na_fo_action_proposal_orders" sequence="2" />
+</odoo>
