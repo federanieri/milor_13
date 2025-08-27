@@ -1,2 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_na_purchase_user,na_purchase base_group_no_one,model_na_purchase,base.group_no_one,1,1,1,0

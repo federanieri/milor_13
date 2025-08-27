@@ -1,1 +1,0 @@
-from . import na_promo

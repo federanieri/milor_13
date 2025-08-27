@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-manager_access_qapla_export,manager.access.qapla.export,model_qapla_export,base.group_user,1,1,1,1
-manager_access_qapla_logger,manager.access.qapla.logger,model_qapla_logger,base.group_system,1,1,1,1
